@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Book My Yagna</title>
+
+  <!-- ===== CSS ===== -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+   body {
+  background: url('https://www.shutterstock.com/image-photo/indian-family-gathered-perform-lakshmi-260nw-2532649729.jpg') center/cover no-repeat fixed;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+    .login-container {
+      width: 100%;
+      max-width: 420px;
+      padding: 15px;
+    }
+
+    .login-box {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+      animation: pop .5s ease;
+    }
+
+    @keyframes pop {
+      from {
+        transform: scale(.5);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+
+    .sub-text {
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .input-group label {
+      font-size: 14px;
+      color: #333;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-top: 5px;
+    }
+
+    .password-group {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 35px;
+      cursor: pointer;
+    }
+
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 12px;
+      background: #ff7a00;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-login:hover {
+      background: #ff5e00;
+    }
+
+    .social-login {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .social-icons a img {
+      width: 40px;
+      margin: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .social-icons a img:hover {
+      transform: scale(1.1);
+    }
+
+    .signup-text {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
+    .signup-text a {
+      color: #ff7a00;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    @media (max-width: 480px) {
+      .login-box {
+        padding: 20px;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+
+      .btn-login {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== HTML ===== -->
+  <div class="login-container">
+    <form class="login-box" onsubmit="return loginUser(event)">
+      <h2>Welcome Back </h2>
+      <p class="sub-text">Login to continue your journey</p>
+
+      <div class="input-group">
+        <label>Email Address</label>
+        <input type="email" id="email" required>
+      </div>
+
+      <div class="input-group password-group">
+        <label>Password</label>
+        <input type="password" id="password" required>
+        <span class="toggle-password" onclick="togglePassword()">👁</span>
+      </div>
+
+      <div class="remember-forgot">
+        <label><input type="checkbox" id="remember"> Remember me</label>
+        <a href="forgot-password.html">Forgot Password?</a>
+      </div>
+
+      <button class="btn-login">Login</button>
+
+      <!-- ===== SOCIAL LOGIN ===== -->
+      <div class="social-login">
+        <p>Or continue with</p>
+        <div class="social-icons">
+          <a onclick="socialLogin('google')"><img src="https://img.icons8.com/color/48/google-logo.png"></a>
+          <a onclick="socialLogin('facebook')"><img src="https://img.icons8.com/color/48/facebook-new.png"></a>
+          <a onclick="socialLogin('twitter')"><img src="https://img.icons8.com/color/48/twitter.png"></a>
+        </div>
+      </div>
+
+      <p class="signup-text">Don't have an account? <a href="register.html">Create Account</a></p>
+    </form>
+  </div>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    function togglePassword() {
+      const pass = document.getElementById("password");
+      pass.type = pass.type === "password" ? "text" : "password";
+    }
+
+    function loginUser(e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if (email === "" || password === "") {
+        alert("Please fill all fields!");
+        return;
+      }
+
+      localStorage.setItem("loggedUser", email);  // Save user
+      alert("Login Successful! Welcome " + email);
+      window.location.href = "dashboard.html";
+    }
+
+    // SOCIAL LOGIN SYSTEM
+    function socialLogin(platform) {
+      let email = "";
+
+      if (platform === "google") {
+        email = "google_user@gmail.com";
+      } else if (platform === "facebook") {
+        email = "facebook_user@gmail.com";
+      } else {
+        email = "twitter_user@gmail.com";
+      }
+
+      localStorage.setItem("loggedUser", email);
+      alert(platform + " Login Successful!");
+      window.location.href = "dashboard.html";
+    }
+    function loginUser(e) {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    if (email === "" || password === "") {
+        alert("Please fill all fields!");
+        return;
+    }
+
+    // Example: Create a user object
+    const user = {
+        name: email.split("@")[0],  // just using email prefix as name
+        email: email,
+        role: "Member",
+        memberSince: "2025-01-01",
+        avatar: "https://img.icons8.com/fluency/96/user-male-circle.png"
+    };
+
+    localStorage.setItem("loggedUser", JSON.stringify(user));  
+    alert("Login Successful! Welcome " + user.name);
+    // window.location.href = "profile.html";  // Redirect to profile page
+     window.location.href = "dashboard.html";
+}
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,2110 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pandit Dashboard - BookmyYagna</title>
+    </head>
+<body>
+<style>
+/* =========================
+    GENERAL RESET & BODY
+========================= */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #f0f2f5;
+    display: flex;
+    transition: background 0.4s, color 0.4s;
+}
+
+/* =========================
+    APP CONTAINER
+========================= */
+.app-container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* =========================
+    SIDEBAR
+========================= */
+.sidebar {
+    width: 250px;
+    background-color: #f7931e;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar-logo {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.nav-menu {
+    flex-grow: 1;
+}
+
+.nav-item {
+    display: block;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-item:hover:not(.active):not(.logout) {
+    background-color: #ff8c00;
+}
+
+.nav-item.active {
+    background-color: white;
+    color: #f7931e;
+    border-right: 5px solid #ff6600;
+    font-weight: bold;
+}
+
+.logout {
+    margin-top: auto;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    color: #ffd0a0;
+}
+
+/* =========================
+    MAIN CONTENT & HEADER
+========================= */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background-color: white;
+    padding: 15px 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.user-info {
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.notification-icon {
+    font-size: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.notification-icon:hover {
+    color: #f7931e;
+}
+
+.notif-list {
+    max-height: 150px; /* Set height of card content */
+    overflow-y: auto;
+    margin-top: 10px;
+    padding: 5px;
+    text-align: left;
+}
+
+.notif-list li {
+    list-style: none;
+    padding: 8px 5px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    color: #555;
+    cursor: default;
+}
+
+.notif-list li:hover {
+    background-color: #f9f9f9;
+    color: #f7931e;
+}
+
+
+/* =========================
+    PAGE SECTIONS
+========================= */
+.page-section {
+    padding: 30px;
+    display: none;
+}
+
+.page-section.active {
+    display: block;
+}
+
+.dashboard-area h1 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.page-section h2 {
+    color: #f7931e;
+    font-size: 26px;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ffaa4c;
+}
+
+.all-poojas-header {
+    text-align: left;
+    color: #333;
+    font-size: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-top: 40px;
+}
+
+/* =========================
+    STATUS CARDS
+========================= */
+.status-cards {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    flex: 1;
+    text-align: center;
+    border-left: 5px solid #ffaa4c;
+}
+
+.card h3 {
+    margin: 10px 0 5px 0;
+    color: #555;
+    font-size: 16px;
+}
+
+.card .icon {
+    font-size: 24px;
+    color: #f7931e;
+}
+
+.card .count {
+    font-size: 36px;
+    font-weight: bold;
+    color: #f7931e;
+}
+
+/* =========================
+    TABLE STYLING
+========================= */
+.table-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table thead tr {
+    background-color: #ffaa4c;
+    color: white;
+}
+
+table th, table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+table th {
+    font-weight: 600;
+}
+
+/* =========================
+    FORMS (Profile & Bank)
+========================= */
+.profile-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.profile-form label,
+.bank-form label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.profile-form input,
+.bank-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s, background-color 0.3s, color 0.3s; /* Added transitions for dark mode */
+}
+
+.profile-form input:focus,
+.bank-form input:focus {
+    border-color: #f7931e;
+    outline: none;
+}
+
+.rating-display {
+    margin: 20px 0;
+    font-size: 18px;
+    color: #f7931e;
+    font-weight: bold;
+}
+
+.btn-save {
+    width: 100%;
+    padding: 12px;
+    background-color: #f7931e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.btn-save:hover {
+    background-color: #ff8c00;
+}
+
+/* Success Message Styling */
+.success-message {
+    color: green; 
+    font-weight: bold; 
+    margin-top: 10px; 
+    text-align: center;
+    padding: 10px;
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: #e6ffe6;
+}
+.dark-mode .success-message {
+    background-color: #1a4d1a;
+    color: #90ee90;
+    border-color: #90ee90;
+}
+
+/* =========================
+    DARK MODE BUTTON
+========================= */
+#darkBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #f1f1f1;
+    color: #000;
+    border: none;
+    padding: 10px 12px;
+    font-size: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: 0.3s ease-in-out;
+    z-index: 999;
+}
+
+#darkBtn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+/* =========================
+    DARK MODE STYLING
+========================= */
+body.dark-mode {
+    background-color: #121212;
+    color: #f5f5f5;
+}
+
+body.dark-mode a {
+    color: #4da3ff;
+}
+
+.dark-mode .card,
+.dark-mode .header,
+.dark-mode .profile-box,
+.dark-mode .table-container {
+    background: #1f1f1f !important;
+    color: #fff !important;
+}
+
+.dark-mode .nav-item.active {
+    background-color: #333 !important;
+}
+
+.dark-mode .dashboard-area h1 {
+    color: #f5f5f5;
+}
+
+.dark-mode .all-poojas-header {
+    color: #f5f5f5;
+    border-bottom: 2px solid #333;
+}
+
+.dark-mode .user-info {
+    color: #f5f5f5;
+}
+
+.dark-mode .notif-list li {
+    border-bottom: 1px solid #333;
+    color: #ccc;
+}
+.dark-mode .notif-list li:hover {
+    background-color: #333;
+}
+
+.dark-mode .profile-form label,
+.dark-mode .bank-form label {
+    color: #ccc;
+}
+
+.dark-mode .profile-form input,
+.dark-mode .bank-form input {
+    background-color: #333;
+    border: 1px solid #444;
+    color: #f5f5f5;
+}
+
+.dark-mode table th, .dark-mode table td {
+    border-bottom: 1px solid #333;
+}
+
+body.dark-mode #darkBtn {
+    background: #222;
+    color: #fff;
+}
+</style>
+
+<div class="app-container">
+    <div class="sidebar">
+        <div class="sidebar-logo">BookmyYagna</div>
+        <nav class="nav-menu">
+            <a href="#" class="nav-item active" data-page="dashboard">🏠 Dashboard</a>
+            <a href="#" class="nav-item" data-page="pooja-timing">📅 Pooja Timing</a>
+            <a href="#" class="nav-item" data-page="completed-pooja">✅ Completed Pooja</a>
+            <a href="#" class="nav-item" data-page="pandit-profile">👤 Pandit Profile</a>
+            <a href="#" class="nav-item" data-page="bank-details">🏦 Bank Details</a>
+            <a href="#" class="nav-item" data-page="payment-received">💰 Payment Recived</a>
+        </nav>
+        <a href="panditlogin.html" class="nav-item logout">➡️ Logout</a>
+    </div>
+
+    <div class="main-content">
+        <header class="header">
+            <div class="user-info" id="userHeader">
+                <span id="userName">Pandit</span> <span class="notification-icon">🔔</span>
+            </div>
+            <button id="darkBtn" onclick="toggleDarkMode()">🌙</button>
+        </header>
+
+        <div class="page-section active" id="dashboard">
+            <div class="dashboard-area">
+                <h1>नमस्ते , <span id="dashboardName">Pandit</span>!</h1>
+                <p>Welcome back to your spiritual journey</p>
+
+                <div class="status-cards">
+                    <div class="card">
+                        <span class="icon">🗓️</span>
+                        <h3>Upcoming Poojas</h3>
+                        <p class="count">0</p>
+                    </div>
+                    <div class="card">
+                        <span class="icon">✅</span>
+                        <h3>Completed Poojas</h3>
+                        <p class="count">0</p>
+                    </div>
+                    <div class="card" id="notifCard">
+                        <span class="icon">🔔</span>
+                        <h3>Notifications</h3>
+                        <div class="notif-list">
+                            </div>
+                    </div>
+
+                </div>
+
+                <h2 class="section-title all-poojas-header">All Poojas</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Account Name</th>
+                                <th>Plan Name</th>
+                                <th>Amount</th>
+                                <th>Phone Number</th>
+                                <th>Address</th>
+                                <th>Status</th>
+                                <th>Pooja Mode</th>
+                                <th>Date of Pooja</th>
+                                <th>Pooja Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="9" style="text-align: center; color: #888; padding: 20px;">No poojas scheduled yet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-section" id="pooja-timing">
+            <h2>📅 Pooja Timing (Upcoming & Confirmed)</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date Of Pooja</th>
+                            <th>Pooja Name</th>
+                            <th>Pooja Time</th>
+                            <th>Pooja Link</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #888; padding: 20px;">No upcoming confirmed poojas.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="page-section" id="completed-pooja">
+            <h2>✅ Completed Pooja</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Account Name</th>
+                            <th>Plan Name</th>
+                            <th>Amount</th>
+                            <th>Date of Pooja</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #888; padding: 20px;">No poojas completed yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="page-section" id="pandit-profile">
+            <h2>👤 Pandit Profile</h2>
+            <div class="profile-box">
+                <div id="profileMsg" class="success-message" style="display: none;"></div> 
+                <form class="profile-form">
+                    <label for="pName">Full Name:</label>
+                    <input type="text" id="pName" value="">
+
+                    <label for="pEmail">Email Address:</label>
+                    <input type="email" id="pEmail" value="brajesh@yagna.com">
+                    
+                    <label for="pExpertise">Expertise (Comma Separated):</label>
+                    <input type="text" id="pExpertise" value="Laxmi Puja, Griha Pravesh, Vivah Sanskar">
+                    
+                    <label for="pLanguages">Languages Known (Comma Separated):</label>
+                    <input type="text" id="pLanguages" value="Sanskrit, Hindi, English">
+                    
+                    <label for="pExperience">Experience (Years):</label>
+                    <input type="number" id="pExperience" value="10">
+                    
+                    <div class="rating-display">Current Rating: ★★★★★ (5.0/5)</div>
+                    
+                    <button type="submit" class="btn-save">Save Profile Details</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="page-section" id="bank-details">
+            <h2>🏦 Bank Details</h2>
+            <div class="profile-box">
+                <div id="bankMsg" class="success-message" style="display: none;"></div>
+                <form class="bank-form">
+                    <label for="accName">Account Name:</label>
+                    <input type="text" id="accName" placeholder="Enter Account Holder Name">
+
+                    <label for="accNumber">Account Number:</label>
+                    <input type="text" id="accNumber" placeholder="Enter Account Number">
+                    
+                    <label for="ifsc">IFSC Code:</label>
+                    <input type="text" id="ifsc" placeholder="Enter IFSC Code">
+                    
+                    <label for="upiId">UPI ID (Optional):</label>
+                    <input type="text" id="upiId" placeholder="Enter UPI ID (e.g., pandit@upi)">
+                    
+                    <button type="submit" class="btn-save">Save Bank Details</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="page-section" id="payment-received">
+            <h2>💰 Payment Received</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #888; padding: 20px;">No payment records found.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+// ---------- Navigation ----------
+document.addEventListener('DOMContentLoaded', function() {
+    const navItems = document.querySelectorAll('.nav-item');
+    const pageSections = document.querySelectorAll('.page-section');
+
+    function setActiveNavItem(clickedItem) {
+        const targetPageId = clickedItem.getAttribute('data-page');
+
+        navItems.forEach(item => item.classList.remove('active'));
+        clickedItem.classList.add('active');
+
+        pageSections.forEach(section => {
+            section.classList.remove('active');
+            section.style.display = 'none';
+        });
+
+        const targetSection = document.getElementById(targetPageId);
+        if (targetSection) {
+            targetSection.classList.add('active');
+            targetSection.style.display = 'block';
+        }
+    }
+
+    navItems.forEach(item => {
+        if (!item.classList.contains('logout')) {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                setActiveNavItem(this);
+            });
+        }
+    });
+
+    // Set active item on load
+    const defaultNavItem = document.querySelector('.nav-item.active');
+    if (defaultNavItem) setActiveNavItem(defaultNavItem);
+});
+
+
+// ---------- User Data & Dark Mode Init ----------
+document.addEventListener("DOMContentLoaded", () => {
+    const loggedInUser = localStorage.getItem("loggedUser") || "Pandit Ji"; // Default name if not set
+    const userNameHeader = document.getElementById("userName");
+    const dashboardNameDisplay = document.getElementById("dashboardName");
+
+    // Redirect logic (Kept from original)
+    // if (!localStorage.getItem("loggedUser")) {
+    //     window.location.href = "panditlogin.html";
+    //     return;
+    // }
+    
+    // Default name for display (will be overwritten if profile is saved)
+    let displayUserName = loggedInUser; 
+
+    // Dark mode
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark-mode");
+        document.getElementById("darkBtn").textContent = "☀️";
+    }
+
+    // --- Core logic to display the name on load ---
+    const savedProfile = JSON.parse(localStorage.getItem("panditProfile"));
+    
+    // If a profile exists and has a fullName, use that name for display
+    if (savedProfile && savedProfile.fullName) {
+        displayUserName = savedProfile.fullName;
+    }
+    
+    // Update the display elements
+    if (userNameHeader) userNameHeader.textContent = displayUserName;
+    if (dashboardNameDisplay) dashboardNameDisplay.textContent = displayUserName;
+
+    // Load form inputs with profile data
+    const profileNameInput = document.getElementById("pName");
+    if (profileNameInput) {
+           // Use saved fullName if available, otherwise use the loggedInUser name
+           profileNameInput.value = (savedProfile && savedProfile.fullName) ? savedProfile.fullName : loggedInUser;
+    }
+
+    const profileEmailInput = document.getElementById("pEmail");
+    if (profileEmailInput && savedProfile && savedProfile.email) {
+        profileEmailInput.value = savedProfile.email;
+    }
+    const profileExpertiseInput = document.getElementById("pExpertise");
+    if (profileExpertiseInput && savedProfile && savedProfile.expertise) {
+        profileExpertiseInput.value = savedProfile.expertise;
+    }
+    const profileLanguagesInput = document.getElementById("pLanguages");
+    if (profileLanguagesInput && savedProfile && savedProfile.languages) {
+        profileLanguagesInput.value = savedProfile.languages;
+    }
+    const profileExperienceInput = document.getElementById("pExperience");
+    if (profileExperienceInput && savedProfile && savedProfile.experience) {
+        profileExperienceInput.value = savedProfile.experience;
+    }
+
+    // Load Bank Data
+    const savedBank = JSON.parse(localStorage.getItem("panditBank"));
+    if (savedBank) {
+        document.getElementById("accName").value = savedBank.accountName || '';
+        document.getElementById("accNumber").value = savedBank.accountNumber || '';
+        document.getElementById("ifsc").value = savedBank.ifsc || '';
+        document.getElementById("upiId").value = savedBank.upiId || '';
+    }
+});
+
+// ---------- Dark Mode Toggle (Unchanged) ----------
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+    const btn = document.getElementById("darkBtn");
+    if (document.body.classList.contains("dark-mode")) {
+        btn.textContent = "☀️";
+        localStorage.setItem("darkMode", "enabled");
+    } else {
+        btn.textContent = "🌙";
+        localStorage.setItem("darkMode", "disabled");
+    }
+}
+
+// ---------- Notification List (Unchanged - Mock Data) ----------
+document.addEventListener("DOMContentLoaded", () => {
+    const notifListContainer = document.querySelector("#notifCard .notif-list");
+    const notifications = [
+        "New Pooja scheduled for 01 Dec 2025",
+        "Payment of ₹500 received",
+        "Profile details updated successfully",
+        "Upcoming Griha Pravesh puja confirmed",
+        "New message from customer",
+        "Laxmi Puja scheduled for 05 Dec 2025",
+        "Vivah Sanskar request received",
+        "Reminder: Update your bank details",
+        "Feedback received for last pooja"
+    ];
+
+    notifListContainer.innerHTML = `<ul>${notifications.map(n => `<li>${n}</li>`).join('')}</ul>`;
+});
+
+
+// =================================================================
+// 🚀 PROFILE & BANK DETAILS LOGIC (Updated to use new HTML message tags)
+// =================================================================
+document.addEventListener("DOMContentLoaded", () => {
+    // --- 1. DOM Elements for Forms and Messages ---
+    const profileForm = document.querySelector("#pandit-profile .profile-form");
+    const bankForm = document.querySelector("#bank-details .bank-form");
+    
+    // Elements to display name in header/dashboard
+    const userNameHeader = document.getElementById("userName");
+    const dashboardNameDisplay = document.getElementById("dashboardName");
+
+    // Message elements (Now getting from HTML)
+    const profileMsg = document.getElementById('profileMsg');
+    const bankMsg = document.getElementById('bankMsg');
+    
+    // ----------------------------------------------
+    // --------- A. Profile Form Save (localStorage: panditProfile) ----------
+    if (profileForm) {
+        profileForm.addEventListener("submit", function(e) {
+            e.preventDefault(); // Prevent page reload
+
+            const profileData = {
+                fullName: document.getElementById("pName").value,
+                email: document.getElementById("pEmail").value,
+                expertise: document.getElementById("pExpertise").value,
+                languages: document.getElementById("pLanguages").value,
+                experience: document.getElementById("pExperience").value
+            };
+
+            localStorage.setItem("panditProfile", JSON.stringify(profileData));
+
+            // Update Name in Header and Dashboard Greeting immediately after save
+            if (userNameHeader) userNameHeader.textContent = profileData.fullName;
+            if (dashboardNameDisplay) dashboardNameDisplay.textContent = profileData.fullName;
+
+
+            // Show success message
+            profileMsg.textContent = "✅ Profile details saved successfully! Name updated.";
+            profileMsg.style.display = "block";
+
+            // Hide message after 3 seconds
+            setTimeout(() => {
+                profileMsg.style.display = "none";
+            }, 3000);
+        });
+    }
+
+    // ----------------------------------------------
+    // --------- B. Bank Form Save (localStorage: panditBank) ----------
+    if (bankForm) {
+        bankForm.addEventListener("submit", function(e) {
+            e.preventDefault(); // Prevent page reload
+
+            const bankData = {
+                accountName: document.getElementById("accName").value,
+                accountNumber: document.getElementById("accNumber").value,
+                ifsc: document.getElementById("ifsc").value,
+                upiId: document.getElementById("upiId").value
+            };
+
+            localStorage.setItem("panditBank", JSON.stringify(bankData));
+
+            // Show success message
+            bankMsg.textContent = "✅ Bank details saved successfully!";
+            bankMsg.style.display = "block";
+
+            // Hide message after 3 seconds
+            setTimeout(() => {
+                bankMsg.style.display = "none";
+            }, 3000);
+        });
+    }
+});
+
+</script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pandit Dashboard - BookmyYagna</title>
+</head>
+<body>
+<style>
+/* =========================
+   GENERAL & BODY STYLING
+========================= */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #f0f2f5;
+    transition: background 0.4s, color 0.4s;
+    min-height: 100vh; /* Ensure body takes at least full viewport height */
+}
+
+/* =========================
+   APP CONTAINER
+========================= */
+.app-container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh; /* Fixed height: 1400%; to min-height: 100vh */
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+.sidebar {
+    width: 250px;
+    background-color: #f7931e;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    position: sticky; /* Sticky for desktop */
+    top: 0;
+    height: 100vh; /* Full height for desktop */
+    z-index: 1000;
+}
+
+.sidebar-logo {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.nav-menu {
+    flex-grow: 1;
+}
+
+/* Sidebar Links */
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    font-size: 17px;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 8px;
+    margin: 5px 12px;
+    transition: 0.3s ease-in-out;
+    font-weight: 500;
+}
+
+.nav-item:hover:not(.active):not(.logout) {
+    background-color: #ff8c00;
+}
+
+/* Hover Effect */
+.sidebar a:hover {
+    background: rgba(255, 255, 255, 0.20);
+    transform: translateX(6px);
+}
+
+/* Active Link Styling */
+.sidebar a.active {
+    background: #ffffff;
+    color: #f7931e;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateX(6px);
+    border-right: 5px solid #ff6600; /* Added back original active indicator */
+}
+
+.logout {
+    margin-top: auto;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    color: #ffd0a0;
+}
+
+/* Emoji Size Adjust */
+.sidebar a span.icon {
+    font-size: 20px;
+}
+
+/* =========================
+   MAIN CONTENT & HEADER
+========================= */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* Prevents overflow */
+}
+
+.header {
+    background-color: white;
+    padding: 15px 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.user-info {
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.notification-icon {
+    font-size: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.notification-icon:hover {
+    color: #f7931e;
+}
+
+/* =========================
+   PAGE SECTIONS
+========================= */
+.page-section {
+    padding: 30px;
+    display: none;
+    flex-grow: 1;
+}
+
+.page-section.active {
+    display: block;
+}
+
+.dashboard-area h1 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.page-section h2 {
+    color: #f7931e;
+    font-size: 26px;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ffaa4c;
+}
+
+.all-poojas-header {
+    text-align: left;
+    color: #333;
+    font-size: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-top: 40px;
+}
+
+/* =========================
+   STATUS CARDS
+========================= */
+.status-cards {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    flex: 1;
+    text-align: center;
+    border-left: 5px solid #ffaa4c;
+}
+
+.card h3 {
+    margin: 10px 0 5px 0;
+    color: #c6961f;
+    font-size: 16px;
+}
+
+.card .icon {
+    font-size: 24px;
+    color: #f7931e;
+}
+
+.card .count {
+    font-size: 36px;
+    font-weight: bold;
+    color: #f7931e;
+}
+
+/* =========================
+   TABLE STYLING (Responsive Fix)
+========================= */
+.table-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    overflow-x: auto; /* IMPORTANT: Allows table to scroll horizontally on small screens */
+}
+
+table {
+    width: 100%;
+    min-width: 700px; /* Ensures the table is wide enough to prevent squishing content on mobile */
+    border-collapse: collapse;
+}
+
+table thead tr {
+    background-color: #ffaa4c;
+    color: white;
+}
+
+table th, table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e39a12;
+    color: #888;
+    font-size: 14px;
+}
+
+table th {
+    font-weight: 600;
+}
+
+/* =========================
+   FORMS (Profile & Bank)
+========================= */
+.profile-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.profile-form label,
+.bank-form label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.profile-form input,
+.bank-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.profile-form input:focus,
+.bank-form input:focus {
+    border-color: #f7931e;
+    outline: none;
+}
+
+.rating-display {
+    margin: 20px 0;
+    font-size: 18px;
+    color: #f7931e;
+    font-weight: bold;
+}
+
+.btn-save {
+    width: 100%;
+    padding: 12px;
+    background-color: #f7931e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.btn-save:hover {
+    background-color: #ff8c00;
+}
+
+/* Success Message Styling */
+.success-message {
+    color: green;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: #e6ffe6;
+}
+.dark-mode .success-message {
+    background-color: #1a4d1a;
+    color: #90ee90;
+    border-color: #90ee90;
+}
+
+/* =========================
+   FLOATING BUTTONS (Dark Mode & Notifications)
+========================= */
+#darkBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #f1f1f1;
+    color: #000;
+    border: none;
+    padding: 10px 12px;
+    font-size: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: 0.3s ease-in-out;
+    z-index: 999;
+}
+
+#darkBtn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+.notify-btn {
+    position: fixed;
+    right: 25px;
+    bottom: 90px;
+    width: 55px;
+    height: 55px;
+    background: #ff8c00;
+    color: white;
+    font-size: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    transition: 0.3s;
+    z-index: 9999;
+}
+
+.notify-btn:hover {
+    transform: scale(1.12);
+}
+
+/* ---------------- NOTIFICATION PANEL ---------------- */
+.notify-panel {
+    position: fixed;
+    right: -350px;
+    top: 0;
+    width: 320px;
+    height: 100vh;
+    background: white;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.15);
+    transition: 0.4s ease;
+    z-index: 9998;
+    padding: 0;
+}
+
+.notify-panel.active {
+    right: 0px;
+}
+
+.notify-header {
+    background: #ff8c00;
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-btn {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.notify-list {
+    padding: 15px;
+    max-height: 90vh;
+    overflow-y: auto;
+    color: #4da3ff;
+}
+
+.notify-item {
+    background: #f7f7f7;
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    box-shadow: 0 3px 6px rgba(230, 222, 222, 0.08);
+    border-left: 4px solid #bb8038;
+}
+
+.notify-item p {
+    margin: 0;
+    font-size: 15px;
+    color: #d15353;
+}
+/* Existing notification styles for header pop-up */
+.notif-list {
+    max-height: 150px;
+    overflow-y: auto;
+    margin-top: 10px;
+    padding: 5px;
+    text-align: left;
+}
+.notif-list li {
+    list-style: none;
+    padding: 8px 5px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    color: #555;
+    cursor: default;
+}
+.notif-list li:hover {
+    background-color: #f9f9f9;
+    color: #f7931e;
+}
+
+
+/* =========================
+   DARK MODE STYLING
+========================= */
+body.dark-mode {
+    background-color: #121212;
+    color: #f5f5f5;
+}
+
+body.dark-mode a {
+    color: #4da3ff;
+}
+
+.dark-mode .card,
+.dark-mode .header,
+.dark-mode .profile-box,
+.dark-mode .table-container,
+body.dark-mode .notify-panel {
+    background: #090909 !important;
+    color: #fff !important;
+}
+
+.dark-mode .nav-item.active {
+    background-color: #333 !important;
+}
+
+.dark-mode .dashboard-area h1 {
+    color: #f5f5f5;
+}
+
+.dark-mode .all-poojas-header {
+    color: #f5f5f5;
+    border-bottom: 2px solid #333;
+}
+
+.dark-mode .user-info {
+    color: #f5f5f5;
+}
+
+.dark-mode .notif-list li {
+    border-bottom: 1px solid #333;
+    color: #ccc;
+}
+.dark-mode .notif-list li:hover {
+    background-color: #333;
+}
+
+.dark-mode .profile-form label,
+.dark-mode .bank-form label {
+    color: #ccc;
+}
+
+.dark-mode .profile-form input,
+.dark-mode .bank-form input {
+    background-color: #333;
+    border: 1px solid #444;
+    color: #f5f5f5;
+}
+
+.dark-mode table th, .dark-mode table td {
+    border-bottom: 1px solid #333;
+}
+
+body.dark-mode #darkBtn {
+    background: #222;
+    color: #fff;
+}
+
+body.dark-mode .notify-item {
+    background: #2a2a2a;
+    color: white;
+}
+
+body.dark-mode .notify-header {
+    background: #ff9c3a;
+}
+
+/* =========================
+   RESPONSIVE STYLING (Mobile - Max 768px) 📱
+========================= */
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column; /* Stack sidebar and main content vertically */
+    }
+
+    .sidebar {
+        width: 100%; /* Sidebar takes full width */
+        height: auto; /* Height adapts to content */
+        position: relative; /* Remove sticky on mobile for better flow */
+        padding-bottom: 10px;
+    }
+
+    .sidebar-logo {
+        text-align: center;
+        padding: 15px 20px;
+        border-bottom: none;
+    }
+
+    .nav-menu {
+        display: flex; /* Make navigation links horizontal */
+        flex-wrap: wrap; /* Allow links to wrap to next line */
+        gap: 5px;
+        padding: 0 10px;
+    }
+
+    /* Adjust link padding and style for horizontal layout */
+    .sidebar a {
+        padding: 10px 15px;
+        margin: 5px;
+        font-size: 14px;
+        text-align: center;
+        flex-grow: 1; /* Allow links to share space */
+        justify-content: center;
+        transform: none; /* Reset desktop transform */
+        border-radius: 5px; /* Adjust border radius */
+    }
+    
+    .sidebar a:hover {
+        transform: none;
+    }
+
+    /* Active link adjustment for mobile horizontal menu */
+    .sidebar a.active {
+        transform: none;
+        border-right: none;
+        border-bottom: 3px solid #ff6600; /* Use bottom border for active state */
+        border-radius: 5px 5px 0 0;
+    }
+
+    .sidebar a span.icon {
+        display: none; /* Hide icons to save space on mobile */
+    }
+    
+    /* Ensure logout button is still readable */
+    .logout {
+        border-top: none;
+        margin-top: 10px;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .status-cards {
+        flex-direction: column; /* Stack cards vertically on mobile */
+        gap: 15px;
+    }
+
+    .page-section {
+        padding: 15px; /* Reduce padding on content for more space */
+    }
+    
+    .dashboard-area h1 {
+        font-size: 24px;
+    }
+
+    /* Reposition Floating Buttons */
+    #darkBtn, .notify-btn {
+        right: 15px;
+        bottom: 15px;
+        width: 45px;
+        height: 45px;
+        font-size: 24px;
+    }
+    
+    .notify-btn {
+        bottom: 70px; /* Adjust position relative to dark button */
+    }
+
+    /* Adjust notification panel for smaller screens */
+    .notify-panel {
+        width: 100%; /* Take full width on very small screens */
+        right: -100%;
+    }
+    .notify-panel.active {
+        right: 0;
+    }
+    
+    /* Remove padding/margin from forms on small screens */
+    .profile-box {
+        padding: 20px;
+    }
+}
+
+/* Responsive Sidebar (Original Code kept for wider desktop views, but adjusted above) */
+@media (max-width: 768px) {
+    .sidebar a {
+        font-size: 15px;
+        padding: 12px 16px;
+        margin: 5px;
+    }
+}
+button{ padding:5px; margin:2px; }
+        .meeting{ border:1px solid #ccc; padding:10px; margin:5px; }
+</style>
+
+<div class="app-container">
+    <div class="sidebar">
+        <div class="sidebar-logo">BookmyYagna</div>
+        <nav class="nav-menu">
+            <a href="#" class="nav-item active" data-page="dashboard">🏠 Dashboard</a>
+<a href="analytics.html" class="active">📊 Analytics</a>
+            <a href="#" class="nav-item" data-page="pooja-timing">📅 Pooja Timing</a>
+            <a href="#" class="nav-item" data-page="completed-pooja">✅ Completed Pooja</a>
+            <a href="#" class="nav-item" data-page="pandit-profile">👤 Pandit Profile</a>
+            <a href="#" class="nav-item" data-page="bank-details">🏦 Bank Details</a>
+            <a href="#" class="nav-item" data-page="payment-received">💰 Payment Recived</a>
+        </nav>
+        <a href="panditlogin.html" class="nav-item logout">➡️ Logout</a>
+    </div>
+
+    <div class="main-content">
+        <header class="header">
+            <div class="user-info" id="userHeader">
+                <span id="userName">Pandit</span> <span class="notification-icon">🔔</span>
+            </div>
+            <button id="darkBtn" onclick="toggleDarkMode()">🌙</button>
+        </header>
+
+        <div class="page-section active" id="dashboard">
+            <div class="dashboard-area">
+                <h1>Namaste 🙏, <span id="dashboardName">Pandit</span>!</h1>
+                <p>Welcome back to your spiritual journey</p>
+
+                <div class="status-cards">
+                    <div class="card">
+                        <span class="icon">🗓️</span>
+                        <h3>Upcoming Poojas</h3>
+                        <p class="count" id="upcomingCount">0</p>
+                    </div>
+                    <div class="card">
+                        <span class="icon">✅</span>
+                        <h3>Completed Poojas</h3>
+                        <p class="count" id="completedCount">0</p>
+                    </div>
+                    <!-- 🔔 Notification Panel -->
+<div id="notifyPanel" class="notify-panel">
+    <div class="notify-header">
+        <h3>Notifications</h3>
+        <span onclick="closeNotify()" class="close-btn">✖</span>
+    </div>
+
+    <div id="notifyList" class="notify-list">
+        <!-- Notifications will appear here -->
+    </div>
+</div>
+<h2>Pending Meetings</h2>
+<div id="pending"></div>
+<!-- Floating Notification Button -->
+<div id="notifyBtn" class="notify-btn" onclick="toggleNotify()">
+    🔔
+</div>
+
+
+                </div>
+
+                <h2 class="section-title all-poojas-header">All Poojas</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Account Name</th>
+                                <th>Plan Name</th>
+                                <th>Amount</th>
+                                <th>Phone Number</th>
+                                <th>Address</th>
+                                <th>Status</th>
+                                <th>Pooja Mode</th>
+                                <th>Date of Pooja</th>
+                                <th>Pooja Link</th>
+                            </tr>
+                        </thead>
+                        <tbody id="allPoojasBody">
+                            <tr>
+                                <td colspan="9" style="text-align: center; color: #888; padding: 20px;">No poojas scheduled yet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-section" id="pooja-timing">
+            <h2>📅 Pooja Timing (Upcoming & Confirmed)</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date Of Pooja</th>
+                            <th>Pooja Name</th>
+                            <th>Pooja Time</th>
+                            <th>Pooja Link</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="poojaTimingBody">
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #888; padding: 20px;">No upcoming confirmed poojas.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="page-section" id="completed-pooja">
+            <h2>✅ Completed Pooja</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Account Name</th>
+                            <th>Plan Name</th>
+                            <th>Amount</th>
+                            <th>Date of Pooja</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody id="completedPoojaBody">
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #888; padding: 20px;">No poojas completed yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="page-section" id="pandit-profile">
+            <h2>👤 Pandit Profile</h2>
+            <div class="profile-box">
+                <div id="profileMsg" class="success-message" style="display: none;"></div> 
+                <form class="profile-form">
+                    <label for="pName">Full Name:</label>
+                    <input type="text" id="pName" value="">
+
+                    <label for="pEmail">Email Address:</label>
+                    <input type="email" id="pEmail" value="brajesh@yagna.com">
+                    
+                    <label for="pExpertise">Expertise (Comma Separated):</label>
+                    <input type="text" id="pExpertise" value="Laxmi Puja, Griha Pravesh, Vivah Sanskar">
+                    
+                    <label for="pLanguages">Languages Known (Comma Separated):</label>
+                    <input type="text" id="pLanguages" value="Sanskrit, Hindi, English">
+                    
+                    <label for="pExperience">Experience (Years):</label>
+                    <input type="number" id="pExperience" value="10">
+                    
+                    <div class="rating-display">Current Rating: ★★★★★ (5.0/5)</div>
+                    
+                    <button type="submit" class="btn-save">Save Profile Details</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="page-section" id="bank-details">
+            <h2>🏦 Bank Details</h2>
+            <div class="profile-box">
+                <div id="bankMsg" class="success-message" style="display: none;"></div>
+                <form class="bank-form">
+                    <label for="accName">Account Name:</label>
+                    <input type="text" id="accName" placeholder="Enter Account Holder Name">
+
+                    <label for="accNumber">Account Number:</label>
+                    <input type="text" id="accNumber" placeholder="Enter Account Number">
+                    
+                    <label for="ifsc">IFSC Code:</label>
+                    <input type="text" id="ifsc" placeholder="Enter IFSC Code">
+                    
+                    <label for="upiId">UPI ID (Optional):</label>
+                    <input type="text" id="upiId" placeholder="Enter UPI ID (e.g., pandit@upi)">
+                    
+                    <button type="submit" class="btn-save">Save Bank Details</button>
+                </form>
+            </div>
+        </div>
+        
+        <h2>Pandit Dashboard</h2>
+<input id="pid" placeholder="Pandit ID"><br><br>
+<button onclick="load()">Load Meetings</button>
+
+<div id="list"></div>
+
+        
+
+        <div class="page-section" id="payment-received">
+            <h2>💰 Payment Received</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Method</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paymentReceivedBody">
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #888; padding: 20px;">No payment records found.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+// ---------- Navigation ----------
+document.addEventListener('DOMContentLoaded', function() {
+    const navItems = document.querySelectorAll('.nav-item');
+    const pageSections = document.querySelectorAll('.page-section');
+
+    function setActiveNavItem(clickedItem) {
+        // Handle logout link separately
+        if (clickedItem.classList.contains('logout')) return;
+        
+        const targetPageId = clickedItem.getAttribute('data-page');
+
+        navItems.forEach(item => item.classList.remove('active'));
+        clickedItem.classList.add('active');
+
+        pageSections.forEach(section => {
+            section.classList.remove('active');
+            section.style.display = 'none';
+        });
+
+        const targetSection = document.getElementById(targetPageId);
+        if (targetSection) {
+            targetSection.classList.add('active');
+            targetSection.style.display = 'block';
+        }
+    }
+
+    navItems.forEach(item => {
+        if (!item.classList.contains('logout')) {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                setActiveNavItem(this);
+            });
+        }
+    });
+
+    // Set active item on load
+    const defaultNavItem = document.querySelector('.nav-item.active');
+    if (defaultNavItem) setActiveNavItem(defaultNavItem);
+});
+
+
+// ---------- Dark Mode Toggle ----------
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+    const btn = document.getElementById("darkBtn");
+    if (document.body.classList.contains("dark-mode")) {
+        btn.textContent = "☀️";
+        localStorage.setItem("darkMode", "enabled");
+    } else {
+        btn.textContent = "🌙";
+        localStorage.setItem("darkMode", "disabled");
+    }
+}
+
+
+// =================================================================
+// 🚀 MOCK DATA AND CORE LOGIC INJECTION
+// =================================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // --- Initial Setup (Name Display & Dark Mode) ---
+    const loggedInUser = localStorage.getItem("loggedUser") || "Pandit Ji"; 
+    const userNameHeader = document.getElementById("userName");
+    const dashboardNameDisplay = document.getElementById("dashboardName");
+    const savedProfile = JSON.parse(localStorage.getItem("panditProfile"));
+    let displayUserName = loggedInUser; 
+    
+    // Update display name from LocalStorage profile if available
+    if (savedProfile && savedProfile.fullName) {
+        displayUserName = savedProfile.fullName;
+    }
+    if (userNameHeader) userNameHeader.textContent = displayUserName;
+    if (dashboardNameDisplay) dashboardNameDisplay.textContent = displayUserName;
+    
+    // Dark mode load
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark-mode");
+        document.getElementById("darkBtn").textContent = "☀️";
+    }
+
+    // Load form inputs with profile data
+    const profileNameInput = document.getElementById("pName");
+    if (profileNameInput) {
+        profileNameInput.value = (savedProfile && savedProfile.fullName) ? savedProfile.fullName : loggedInUser;
+    }
+
+    const profileEmailInput = document.getElementById("pEmail");
+    if (profileEmailInput && savedProfile && savedProfile.email) {
+        profileEmailInput.value = savedProfile.email;
+    }
+    const profileExpertiseInput = document.getElementById("pExpertise");
+    if (profileExpertiseInput && savedProfile && savedProfile.expertise) {
+        profileExpertiseInput.value = savedProfile.expertise;
+    }
+    const profileLanguagesInput = document.getElementById("pLanguages");
+    if (profileLanguagesInput && savedProfile && savedProfile.languages) {
+        profileLanguagesInput.value = savedProfile.languages;
+    }
+    const profileExperienceInput = document.getElementById("pExperience");
+    if (profileExperienceInput && savedProfile && savedProfile.experience) {
+        profileExperienceInput.value = savedProfile.experience;
+    }
+
+    // Load Bank Data
+    const savedBank = JSON.parse(localStorage.getItem("panditBank"));
+    if (savedBank) {
+        document.getElementById("accName").value = savedBank.accountName || '';
+        document.getElementById("accNumber").value = savedBank.accountNumber || '';
+        document.getElementById("ifsc").value = savedBank.ifsc || '';
+        document.getElementById("upiId").value = savedBank.upiId || '';
+    }
+
+    
+    // --- Mock Data Definitions ---
+    const allPoojasData = [
+        {
+            accountName: "Ramesh Sharma",
+            planName: "Satyanarayan Katha",
+            amount: "₹2,100",
+            phone: "9876543210",
+            address: "45, Phase 2, DLF, Gurugram",
+            status: "Confirmed",
+            mode: "In-Person",
+            date: "15/Dec/2025",
+            link: "N/A"
+        },
+        {
+            accountName: "Priya Singh",
+            planName: "Laxmi Ganesha Puja",
+            amount: "₹1,100",
+            phone: "9988776655",
+            address: "N/A",
+            status: "Pending",
+            mode: "Online (Zoom)",
+            date: "20/Dec/2025",
+            link: "Pending"
+        },
+        {
+            accountName: "Sunita Verma",
+            planName: "Maha Mrityunjaya Jaap",
+            amount: "₹5,500",
+            phone: "9123456789",
+            address: "N/A",
+            status: "Confirmed",
+            mode: "Online (Google Meet)",
+            date: "22/Dec/2025",
+            link: "Link Sent"
+        }
+    ];
+
+    const completedPoojaData = [
+        {
+            accountName: "Aarti Mehra",
+            planName: "Small Hawan",
+            amount: "₹1,500",
+            date: "10/Nov/2025",
+            rating: "★★★★★ (5.0)"
+        },
+        {
+            accountName: "Vikram Saxena",
+            planName: "Birthday Puja",
+            amount: "₹800",
+            date: "25/Oct/2025",
+            rating: "★★★★☆ (4.5)"
+        }
+    ];
+
+    const paymentData = [
+        { id: "TXN12345", date: "26/Nov/2025", amount: "₹1,500", status: "Success", method: "UPI" },
+        { id: "TXN12344", date: "11/Nov/2025", amount: "₹800", status: "Success", method: "NetBanking" },
+        { id: "TXN12346", date: "28/Nov/2025", amount: "₹2,100", status: "Processing", method: "UPI" }
+    ];
+
+    const notifications = [
+        "New Pooja scheduled for 22 Dec 2025",
+        "Payment of ₹2,100 processing",
+        "Profile details updated successfully",
+        "Upcoming Satyanarayan Katha confirmed",
+        "New message from customer",
+        "Laxmi Puja scheduled for 20 Dec 2025",
+        "Feedback received for Aarti Mehra"
+    ];
+
+
+    // --- 1. Populate Dashboard Tables (All Poojas) ---
+    const allPoojasBody = document.getElementById("allPoojasBody");
+    const poojaTimingBody = document.getElementById("poojaTimingBody");
+    const completedPoojaBody = document.getElementById("completedPoojaBody");
+    const paymentReceivedBody = document.getElementById("paymentReceivedBody");
+    const notifListContainer = document.querySelector("#notifCard .notif-list");
+
+    
+    // a. All Poojas Table
+    if (allPoojasBody) {
+        allPoojasBody.innerHTML = allPoojasData.map(pooja => `
+            <tr>
+                <td>${pooja.accountName}</td>
+                <td>${pooja.planName}</td>
+                <td>${pooja.amount}</td>
+                <td>${pooja.phone}</td>
+                <td>${pooja.address}</td>
+                <td><span style="color: ${pooja.status === 'Confirmed' ? 'green' : pooja.status === 'Pending' ? 'orange' : 'blue'}; font-weight: bold;">${pooja.status}</span></td>
+                <td>${pooja.mode}</td>
+                <td>${pooja.date}</td>
+                <td>${pooja.link === 'N/A' ? 'N/A' : `<a href="#" target="_blank">${pooja.link}</a>`}</td>
+            </tr>
+        `).join('');
+    }
+
+    // b. Pooja Timing Table (Only Confirmed Poojas)
+    const upcomingConfirmed = allPoojasData.filter(p => p.status === 'Confirmed');
+    if (poojaTimingBody) {
+        if (upcomingConfirmed.length > 0) {
+            poojaTimingBody.innerHTML = upcomingConfirmed.map(pooja => `
+                <tr>
+                    <td>${pooja.date}</td>
+                    <td>${pooja.planName}</td>
+                    <td>${pooja.mode.includes('Online') ? '05:00 PM' : '10:00 AM'}</td>
+                    <td>${pooja.link === 'N/A' ? 'N/A (In-Person)' : `<a href="#" target="_blank">${pooja.link}</a>`}</td>
+                    <td><button style="background-color: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;" onclick="alert('Marked ${pooja.planName} complete!')">Mark Complete</button></td>
+                </tr>
+            `).join('');
+        } else {
+             poojaTimingBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #888; padding: 20px;">No upcoming confirmed poojas.</td></tr>`;
+        }
+    }
+
+    // c. Completed Pooja Table
+    if (completedPoojaBody) {
+        completedPoojaBody.innerHTML = completedPoojaData.map(pooja => `
+            <tr>
+                <td>${pooja.accountName}</td>
+                <td>${pooja.planName}</td>
+                <td>${pooja.amount}</td>
+                <td>${pooja.date}</td>
+                <td>${pooja.rating}</td>
+            </tr>
+        `).join('');
+    }
+
+    // d. Payment Received Table
+     if (paymentReceivedBody) {
+        paymentReceivedBody.innerHTML = paymentData.map(payment => `
+            <tr>
+                <td>${payment.id}</td>
+                <td>${payment.date}</td>
+                <td>${payment.amount}</td>
+                <td><span style="color: ${payment.status === 'Success' ? 'green' : 'orange'}; font-weight: bold;">${payment.status}</span></td>
+                <td>${payment.method}</td>
+            </tr>
+        `).join('');
+    }
+
+    // e. Notifications List
+    if (notifListContainer) {
+        notifListContainer.innerHTML = `<ul>${notifications.map(n => `<li>${n}</li>`).join('')}</ul>`;
+    }
+
+    // --- 2. Update Dashboard Cards ---
+    const upcomingCount = document.getElementById("upcomingCount");
+    const completedCount = document.getElementById("completedCount");
+
+    if (upcomingCount) {
+        upcomingCount.textContent = upcomingConfirmed.length;
+    }
+
+    if (completedCount) {
+        completedCount.textContent = completedPoojaData.length;
+    }
+
+
+    // ----------------------------------------------
+    // --------- 3. Profile Form Save (LocalStorage) ----------
+    const profileForm = document.querySelector("#pandit-profile .profile-form");
+    const profileMsg = document.getElementById('profileMsg');
+
+    if (profileForm) {
+        profileForm.addEventListener("submit", function(e) {
+            e.preventDefault(); 
+
+            const profileData = {
+                fullName: document.getElementById("pName").value,
+                email: document.getElementById("pEmail").value,
+                expertise: document.getElementById("pExpertise").value,
+                languages: document.getElementById("pLanguages").value,
+                experience: document.getElementById("pExperience").value
+            };
+
+            localStorage.setItem("panditProfile", JSON.stringify(profileData));
+
+            if (userNameHeader) userNameHeader.textContent = profileData.fullName;
+            if (dashboardNameDisplay) dashboardNameDisplay.textContent = profileData.fullName;
+
+            profileMsg.textContent = "✅ Profile details saved successfully! Name updated.";
+            profileMsg.style.display = "block";
+
+            setTimeout(() => {
+                profileMsg.style.display = "none";
+            }, 3000);
+        });
+    }
+
+    // ----------------------------------------------
+    // --------- 4. Bank Form Save (LocalStorage) ----------
+    const bankForm = document.querySelector("#bank-details .bank-form");
+    const bankMsg = document.getElementById('bankMsg');
+
+    if (bankForm) {
+        bankForm.addEventListener("submit", function(e) {
+            e.preventDefault(); 
+
+            const bankData = {
+                accountName: document.getElementById("accName").value,
+                accountNumber: document.getElementById("accNumber").value,
+                ifsc: document.getElementById("ifsc").value,
+                upiId: document.getElementById("upiId").value
+            };
+
+            localStorage.setItem("panditBank", JSON.stringify(bankData));
+
+            bankMsg.textContent = "✅ Bank details saved successfully!";
+            bankMsg.style.display = "block";
+
+            setTimeout(() => {
+                bankMsg.style.display = "none";
+            }, 3000);
+        });
+    }
+});
+// Toggle panel open
+function toggleNotify() {
+    document.getElementById("notifyPanel").classList.toggle("active");
+}
+
+// Close panel
+function closeNotify() {
+    document.getElementById("notifyPanel").classList.remove("active");
+}
+
+// Add notifications dynamically
+function addNotification(message) {
+    const list = document.getElementById("notifyList");
+
+    const item = document.createElement("div");
+    item.classList.add("notify-item");
+    item.innerHTML = `<p>${message}</p>`;
+
+    list.prepend(item); // New on top
+
+    // Auto close after 8 seconds
+    setTimeout(() => {
+        item.style.opacity = "0";
+        setTimeout(() => item.remove(), 500);
+    }, 8000);
+}
+
+// DEMO NOTIFICATIONS
+setTimeout(() => addNotification("📌 New Booking Received!"), 2000);
+setTimeout(() => addNotification("✅ One Pooja Completed Successfully."), 5000);
+setTimeout(() => addNotification("💰 Payment Received: ₹2100"), 8000);
+const panditId = "pandit123"; // demo pandit
+
+async function loadPending(){
+    const res = await fetch(`http://localhost:3000/api/meetings/pandit/${panditId}`);
+    const meetings = await res.json();
+    const box = document.getElementById("pending");
+    box.innerHTML = "";
+    meetings.forEach(m=>{
+        box.innerHTML += `
+            <div class="meeting">
+                <b>${m.title}</b> by ${m.createdBy} <br/>
+                Status: ${m.status} <br/>
+                <button onclick="approve('${m.meetingId}')">Approve</button>
+                <button onclick="reject('${m.meetingId}')">Reject</button>
+                <a href="meeting.html?meetingId=${m.meetingId}" target="_blank">Join</a>
+            </div>
+        `;
+    });
+}
+
+async function approve(meetingId){
+    await fetch("http://localhost:3000/api/meeting/pandit-approve",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({meetingId, approve:true, panditId})
+    });
+    loadPending();
+}
+async function reject(meetingId){
+    await fetch("http://localhost:3000/api/meeting/pandit-approve",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({meetingId, approve:false, panditId})
+    });
+    loadPending();
+}
+
+loadPending();
+async function load() {
+    const pid = document.getElementById("pid").value;
+
+    const res = await fetch("http://localhost:3000/api/meetings/pandit/" + pid);
+    const data = await res.json();
+
+    document.getElementById("list").innerHTML =
+        data.map(m => `
+            <p>
+                ${m.title}<br>
+                User: ${m.createdBy}<br>
+                <button onclick="approve('${m.meetingId}', true)">Approve</button>
+                <button onclick="approve('${m.meetingId}', false)">Reject</button>
+            </p>
+        `).join("");
+}
+
+async function approve(meetingId, approve) {
+    const panditId = document.getElementById("pid").value;
+
+    const res = await fetch("http://localhost:3000/api/meeting/pandit-approve", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ meetingId, approve, panditId })
+    });
+
+    const data = await res.json();
+    alert("Status: " + data.meeting.status);
+}
+
+</script>
+</body>
+</html>

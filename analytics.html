@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pandit Analytics - BookmyYagna</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</head>
+
+<body>
+<style>
+
+/* ---------------------- GLOBAL ---------------------- */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background: #eef1f5;
+    display: flex;
+    transition: 0.4s;
+}
+
+/* layout */
+.app-container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* ------------------- SIDEBAR ------------------- */
+.sidebar {
+    width: 260px;
+    background: linear-gradient(180deg, #f7a436, #f06b00);
+    padding-top: 25px;
+    color: white;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.15);
+    border-radius: 0 25px 25px 0;
+}
+
+.sidebar-logo {
+    font-size: 26px;
+    font-weight: 700;
+    padding: 20px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    margin: 8px 15px;
+    font-size: 17px;
+    background: rgba(255,255,255,0.09);
+    border-radius: 10px;
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.sidebar a:hover {
+    background: rgba(255,255,255,0.24);
+    transform: translateX(8px);
+}
+
+.sidebar a.active {
+    background: white;
+    color: #f7931e;
+    font-weight: 700;
+    box-shadow: 0 5px 14px rgba(0,0,0,0.25);
+    transform: translateX(8px);
+}
+
+/* ------------------- MAIN CONTENT ------------------- */
+.main-content {
+    flex-grow: 1;
+    padding: 35px 40px;
+}
+
+h1 {
+    margin-top: 0;
+    color: #222;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+/* ------------------- STAT CARDS ------------------- */
+.analytics-cards {
+    display: flex;
+    gap: 25px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.analytic-card {
+    flex: 1;
+    min-width: 260px;
+    padding: 25px;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+    position: relative;
+    overflow: hidden;
+    transition: 0.3s;
+    border-left: 6px solid #ff9c3a;
+}
+
+/* gradient overlay */
+.analytic-card::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 120px;
+    height: 120px;
+    background: rgba(255, 153, 51, 0.2);
+    border-radius: 50%;
+}
+
+.analytic-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.analytic-card h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #444;
+    font-weight: 500;
+}
+
+.analytic-card p {
+    font-size: 38px;
+    margin-top: 8px;
+    color: #f7931e;
+    font-weight: 700;
+}
+
+/* ------------------- CHART BOX ------------------- */
+.chart-box {
+    background: white;
+    padding: 25px;
+    margin-top: 35px;
+    border-radius: 18px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.chart-box:hover {
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    transform: translateY(-5px);
+}
+
+.chart-box h2 {
+    margin: 0 0 20px 0;
+    font-size: 22px;
+    color: #444;
+}
+
+/* ------------------- DARK MODE ------------------- */
+body.dark-mode {
+    background: #121212;
+    color: #fff;
+}
+
+body.dark-mode .sidebar {
+    box-shadow: 4px 0 15px rgba(255,255,255,0.1);
+}
+
+body.dark-mode .main-content h1,
+body.dark-mode h2 {
+    color: #fff;
+}
+
+body.dark-mode .analytic-card,
+body.dark-mode .chart-box {
+    background: #1e1e1e;
+    color: white;
+    box-shadow: 0 6px 15px rgba(255,255,255,0.06);
+}
+
+body.dark-mode .analytic-card:hover,
+body.dark-mode .chart-box:hover {
+    box-shadow: 0 12px 25px rgba(255,255,255,0.12);
+}
+
+body.dark-mode .analytic-card p {
+    color: #ffb75d;
+}
+
+body.dark-mode .sidebar a.active {
+    background: white;
+    color: #f7931e;
+}
+
+/* ------------------- DARK BUTTON ------------------- */
+#darkBtn {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: linear-gradient(135deg, #ff9e3b, #ff6a00);
+    color: white;
+    border: none;
+    padding: 12px 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 22px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+    transition: 0.3s;
+}
+
+#darkBtn:hover {
+    transform: scale(1.12);
+}
+/* ----------------- DOWNLOAD BUTTONS ----------------- */
+.download-btns {
+    display: flex;
+    gap: 12px;
+    margin: 15px 0;
+}
+
+.download-btns button {
+    padding: 10px 15px;
+    background: #f7931e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.download-btns button:hover {
+    background: #ff8c00;
+    transform: translateY(-2px);
+}
+/* LIVE dot */
+.live-dot {
+    width: 10px;
+    height: 10px;
+    background: #ff4d4d;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 8px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.2; }
+    100% { opacity: 1; }
+}
+/* ---------------- NOTIFICATION PANEL ---------------- */
+.notify-btn {
+    position: fixed;
+    right: 25px;
+    bottom: 90px;
+    width: 55px;
+    height: 55px;
+    background: #ff8c00;
+    color: white;
+    font-size: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    transition: 0.3s;
+    z-index: 9999;
+}
+
+.notify-btn:hover {
+    transform: scale(1.12);
+}
+
+/* PANEL */
+.notify-panel {
+    position: fixed;
+    right: -350px;
+    top: 0;
+    width: 320px;
+    height: 100vh;
+    background: white;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.15);
+    transition: 0.4s ease;
+    z-index: 9998;
+    padding: 0;
+}
+
+.notify-panel.active {
+    right: 0px;
+}
+
+.notify-header {
+    background: #ff8c00;
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-btn {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.notify-list {
+    padding: 15px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.notify-item {
+    background: #f7f7f7;
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+    border-left: 4px solid #ff8c00;
+}
+
+.notify-item p {
+    margin: 0;
+    font-size: 15px;
+    color: #444;
+}
+
+/* DARK MODE SUPPORT */
+body.dark-mode .notify-panel {
+    background: #1e1e1e;
+    color: white;
+}
+
+body.dark-mode .notify-item {
+    background: #2a2a2a;
+    color: white;
+}
+
+body.dark-mode .notify-header {
+    background: #ff9c3a;
+}
+
+
+</style>
+
+<div class="app-container">
+
+    <!-- sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-logo">BookmyYagna</div>
+
+        <a href="panditdashboard.html">🏠 Dashboard</a>
+
+        <a href="analytics.html" class="active">📊 Analytics</a>
+        
+
+        <a href="panditlogin.html">➡️ Logout</a>
+        <!-- Download Buttons -->
+<div class="download-btns">
+    <button onclick="downloadPDF()">📄 Download PDF</button>
+    <button onclick="downloadCSV()">📊 Download CSV</button>
+</div>
+
+    </div>
+
+    <!-- main -->
+    <div class="main-content">
+        <h1>📊 Analytics Overview 
+    <span style="font-size:15px; color:green;">(LIVE)</span>
+    <span class="live-dot"></span>
+</h1>
+        <!-- Stats -->
+        <div class="analytics-cards">
+            <div class="analytic-card">
+                <h2>Total Poojas</h2>
+                <p id="totalPoojas">0</p>
+            </div>
+            <div class="analytic-card">
+                <h2>Completed</h2>
+                <p id="completedPoojas">0</p>
+            </div>
+            <div class="analytic-card">
+                <h2>Upcoming</h2>
+                <p id="upcomingPoojas">0</p>
+            </div>
+            <div class="analytic-card">
+                <h2>Total Earnings</h2>
+                <p id="totalEarnings">₹0</p>
+            </div>
+            <!-- 🔔 Notification Panel -->
+<div id="notifyPanel" class="notify-panel">
+    <div class="notify-header">
+        <h3>Notifications</h3>
+        <span onclick="closeNotify()" class="close-btn">✖</span>
+    </div>
+
+    <div id="notifyList" class="notify-list">
+        <!-- Notifications will appear here -->
+    </div>
+</div>
+
+<!-- Floating Notification Button -->
+<div id="notifyBtn" class="notify-btn" onclick="toggleNotify()">
+    🔔
+</div>
+
+        </div>
+
+        <!-- charts -->
+        <div class="chart-box">
+            <h2>📈 Monthly Pooja Report</h2>
+            <canvas id="poojaChart"></canvas>
+        </div>
+
+        <div class="chart-box">
+            <h2>💰 Earnings Growth</h2>
+            <canvas id="earningChart"></canvas>
+        </div>
+
+        <button id="darkBtn" onclick="toggleDark()">🌙</button>
+    </div>
+</div>
+
+
+<script>
+// Dummy Data
+const monthlyPoojas = [5, 8, 4, 10, 12, 15, 9];
+const earningData = [2000, 3500, 2200, 5000, 6500, 8000, 7600];
+
+// Totals
+document.getElementById("totalPoojas").innerText = 63;
+document.getElementById("completedPoojas").innerText = 48;
+document.getElementById("upcomingPoojas").innerText = 15;
+document.getElementById("totalEarnings").innerText = "₹32,800";
+
+// Chart 1
+new Chart(document.getElementById("poojaChart"), {
+    type: "line",
+    data: {
+        labels: ["Jan","Feb","Mar","Apr","May","Jun","Jul"],
+        datasets: [{
+            label: "Poojas Done",
+            data: monthlyPoojas,
+            borderWidth: 3,
+            borderColor: "#ff8b2c",
+            backgroundColor: "rgba(255,140,50,0.2)",
+            tension: 0.4
+        }]
+    }
+});
+
+// Chart 2
+new Chart(document.getElementById("earningChart"), {
+    type: "bar",
+    data: {
+        labels: ["Jan","Feb","Mar","Apr","May","Jun","Jul"],
+        datasets: [{
+            label: "Earnings (₹)",
+            data: earningData,
+            backgroundColor: "#ff9e3b"
+        }]
+    }
+});
+
+// Dark Mode Toggle
+function toggleDark(){
+    document.body.classList.toggle("dark-mode");
+    localStorage.setItem("analyticsDarkMode", document.body.classList.contains("dark-mode"));
+}
+
+if(localStorage.getItem("analyticsDarkMode") === "true"){
+    document.body.classList.add("dark-mode");
+}
+function downloadCSV() {
+    const totalPoojas = document.getElementById("totalPoojas").innerText;
+    const completed = document.getElementById("completedPoojas").innerText;
+    const upcoming = document.getElementById("upcomingPoojas").innerText;
+    const earnings = document.getElementById("totalEarnings").innerText;
+
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "Metric,Value\n";
+    csvContent += `Total Poojas,${totalPoojas}\n`;
+    csvContent += `Completed Poojas,${completed}\n`;
+    csvContent += `Upcoming Poojas,${upcoming}\n`;
+    csvContent += `Total Earnings,${earnings}\n`;
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "analytics_report.csv");
+    document.body.appendChild(link);
+
+    link.click();
+    link.remove();
+}
+
+
+// ----------------------- PDF DOWNLOAD -----------------------
+function downloadPDF() {
+    const element = document.body;  // Full Page PDF
+
+    html2canvas(element).then(canvas => {
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jspdf.jsPDF("p", "mm", "a4");
+
+        const imgWidth = 210;
+        const pageHeight = 295;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        let heightLeft = imgHeight;
+        let position = 0;
+
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        // MULTI-PAGE SUPPORT
+        while (heightLeft > 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+        }
+
+        pdf.save("Analytics_Report.pdf");
+    });
+}
+// ---------------- LIVE AUTO UPDATE + SMOOTH COUNTER ----------------
+
+function animateValue(id, start, end, duration = 800) {
+    let obj = document.getElementById(id);
+    let range = end - start;
+    let startTime = null;
+
+    function animate(timestamp) {
+        if (!startTime) startTime = timestamp;
+        let progress = timestamp - startTime;
+        let value = Math.floor(start + (range * (progress / duration)));
+
+        if (range > 0 && value > end) value = end;
+        if (range < 0 && value < end) value = end;
+
+        obj.innerText = value;
+        if (progress < duration) {
+            requestAnimationFrame(animate);
+        }
+    }
+    requestAnimationFrame(animate);
+}
+
+function updateLiveStats() {
+    let total = Math.floor(Math.random() * 30) + 50;  
+    let completed = Math.floor(total * 0.75);
+    let upcoming = total - completed;
+    let earnings = completed * 450;
+
+    animateValue("totalPoojas", parseInt(totalPoojas.innerText), total);
+    animateValue("completedPoojas", parseInt(completedPoojas.innerText), completed);
+    animateValue("upcomingPoojas", parseInt(upcomingPoojas.innerText), upcoming);
+
+    document.getElementById("totalEarnings").innerText = "₹" + earnings.toLocaleString();
+}
+
+// Auto update her 5 seconds me
+setInterval(updateLiveStats, 5000);
+// Toggle panel open
+function toggleNotify() {
+    document.getElementById("notifyPanel").classList.toggle("active");
+}
+
+// Close panel
+function closeNotify() {
+    document.getElementById("notifyPanel").classList.remove("active");
+}
+
+// Add notifications dynamically
+function addNotification(message) {
+    const list = document.getElementById("notifyList");
+
+    const item = document.createElement("div");
+    item.classList.add("notify-item");
+    item.innerHTML = `<p>${message}</p>`;
+
+    list.prepend(item); // New on top
+
+    // Auto close after 8 seconds
+    setTimeout(() => {
+        item.style.opacity = "0";
+        setTimeout(() => item.remove(), 500);
+    }, 8000);
+}
+
+// DEMO NOTIFICATIONS
+setTimeout(() => addNotification("📌 New Booking Received!"), 2000);
+setTimeout(() => addNotification("✅ One Pooja Completed Successfully."), 5000);
+setTimeout(() => addNotification("💰 Payment Received: ₹2100"), 8000);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "nikhil2007sm09@gmail.com": {
+    "name": "nikhil",
+    "email": "nikhil2007sm09@gmail.com",
+    "password": "nikhil1234",
+    "loginType": "google"
+  },
+  "nikhl2123gmail.com": {
+    "name": "krish",
+    "email": "nikhl2123gmail.com",
+    "password": "google",
+    "loginType": "google"
+  },
+  "kanika@123gmail.com": {
+    "name": "kanika",
+    "email": "kanika@123gmail.com",
+    "password": "google",
+    "loginType": "google"
+  }
+}

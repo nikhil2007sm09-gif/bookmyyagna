@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login – BookMyYagna</title>
+<style>
+body {
+    font-family: "Poppins", sans-serif;
+    background: url('https://images.unsplash.com/photo-1557682224-5b8590cd9ec5') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-box {
+    background: rgba(255,255,255,0.95);
+    padding: 40px;
+    border-radius: 10px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+.login-box h2 {
+    margin-bottom: 25px;
+    color: #ff9800;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: #ff9800;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-box button:hover {
+    background: #e68a00;
+}
+
+#errorMsg {
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
+}
+</style>
+</head>
+<body>
+
+<div class="login-box">
+    <h2>Admin Login</h2>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button id="loginBtn">Login</button>
+    <div id="errorMsg"></div>
+</div>
+
+<script>
+const loginBtn = document.getElementById("loginBtn");
+const errorMsg = document.getElementById("errorMsg");
+
+loginBtn.addEventListener("click", async () => {
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    errorMsg.innerText = "";
+
+    if(!username || !password){
+        errorMsg.innerText = "Please enter both username and password";
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:3000/api/admin/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+
+        if(response.status === 200){
+           
+            alert("Login successful! Last login: " + new Date(data.lastLogin).toLocaleString());
+            window.location.href = "admin.html"; 
+        } else {
+            errorMsg.innerText = data.message;
+        }
+    } catch (err) {
+        errorMsg.innerText = "Error: " + err.message;
+    }
+});
+</script>
+
+</body>
+</html>

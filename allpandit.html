@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Experienced Pandits - BMY</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Kalam:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* --- 1. Global Styles & Variables --- */
+        :root {
+            --color-primary: #ff8c00;
+            --color-secondary: #ff7f50;
+            --color-text-dark: #333;
+            --color-text-light: #6a6a6a;
+            --color-bg-light: #fffaf6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--color-text-dark);
+            background-color: var(--color-bg-light);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .highlight-bmy {
+            color: var(--color-primary);
+        }
+
+        .underline-orange {
+            width: 120px;
+            height: 3px;
+            background-color: var(--color-secondary);
+            margin: 10px auto 25px auto;
+        }
+
+        /* --- 2. Page Header Styles --- */
+        .page-header {
+            background-color: white;
+            padding: 80px 50px 40px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            color: var(--color-primary);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--color-text-light);
+            margin-top: 10px;
+        }
+
+        /* --- 3. Pandits Grid & Card Styles (Responsive) --- */
+        .all-pandits-section {
+            padding: 50px 50px;
+        }
+
+        .pandits-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            /* Desktop: 4 columns */
+            gap: 30px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .pandit-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: left;
+            cursor: pointer;
+            /* To indicate image is clickable for modal */
+        }
+
+        .pandit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .pandit-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .pandit-info {
+            padding: 15px;
+        }
+
+        .pandit-info h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--color-text-dark);
+        }
+
+        .specialization {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            margin-bottom: 10px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .rating .stars {
+            color: gold;
+            letter-spacing: 1px;
+        }
+
+        .rating span {
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        .details {
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+        }
+
+        .detail-item {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .detail-item i {
+            margin-right: 8px;
+            color: var(--color-primary);
+        }
+
+        /* --- 4. Read More Button Styling --- */
+        .btn-read-more {
+            display: block;
+            width: 100%;
+            padding: 8px 15px;
+            margin-top: 15px;
+            background-color: var(--color-bg-light);
+            color: var(--color-primary);
+            border: 1px solid var(--color-primary);
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn-read-more:hover {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        /* --- 5. Modal (Lightbox) Styling --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 90%;
+            max-width: 700px;
+            border-radius: 10px;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: var(--color-primary);
+        }
+
+        /* --- 6. Responsive Design --- */
+        @media (max-width: 1200px) {
+            .pandits-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 25px;
+            }
+
+            /* Medium desktop/Large tablet: 3 columns */
+        }
+
+        @media (max-width: 900px) {
+            .pandits-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            /* Tablet: 2 columns */
+            .all-pandits-section {
+                padding: 40px 30px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .pandits-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                max-width: 400px;
+            }
+
+            /* Mobile: 1 column */
+            .all-pandits-section {
+                padding: 30px 15px;
+            }
+
+            .page-header {
+                padding: 50px 15px 20px;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .pandit-card img {
+                height: 180px;
+            }
+
+            .modal-content {
+                width: 95%;
+            }
+
+            .close-btn {
+                right: 20px;
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    
+
+    <header class="page-header">
+        <h1>All <span class="highlight-bmy">Verified Pandits</span></h1>
+        <div class="underline-orange"></div>
+        <p>Choose from our extensive network of highly-rated and experienced priests for your ceremony.</p>
+    </header>
+
+    <section class="all-pandits-section">
+        <div class="pandits-grid">
+
+            <div class="pandit-card">
+                <img src="https://res.cloudinary.com/dnvtb0kal/image/upload/v1760674228/bookMyYagna/nbxvzvcck8vdcsgbgdwv.webp"
+                    alt="Pandit Atul Gautam">
+                <div class="pandit-info">
+                    <h3>Pandit Atul gautam</h3>
+                    <p class="specialization">Griha Pravesh, Satyanarayan Puja...</p>
+                    <div class="rating">
+                        <span class="stars">★★★★★</span>
+                        <span>4.3 Stars</span>
+                    </div>
+                    <div class="details">
+                        <div class="detail-item"><i class="fas fa-certificate"></i> Exp: 14+ years</div>
+                        <div class="detail-item"><i class="fas fa-language"></i> Speaks: Sanskrit, Hindi...</div>
+                    </div>
+                    <a href="panditatul.html" class="btn-read-more">Read More</a>
+                </div>
+            </div>
+
+            <div class="pandit-card">
+                <img src="https://res.cloudinary.com/dnvtb0kal/image/upload/v1760346600/bookMyYagna/h7llj11ydldweufqw7mb.webp"
+                    alt="Pandit Ramesh Joshi">
+                <div class="pandit-info">
+                    <h3>Pandit Ramesh Joshi</h3>
+                    <p class="specialization">Rudrabhishek, Vivah Sanskar...</p>
+                    <div class="rating">
+                        <span class="stars">★★★★★</span>
+                        <span>4.8 Stars</span>
+                    </div>
+                    <div class="details">
+                        <div class="detail-item"><i class="fas fa-certificate"></i> Exp: 18+ years</div>
+                        <div class="detail-item"><i class="fas fa-language"></i> Speaks: Sanskrit, Marathi...</div>
+                    </div>
+                    <a href="pandit-ramesh.html" class="btn-read-more">Read More</a>
+                </div>
+            </div>
+
+            <div class="pandit-card">
+                <img src="https://res.cloudinary.com/dnvtb0kal/image/upload/v1760673760/bookMyYagna/hioa6rfbwg06lz3j8mv8.webp"
+                    alt="Pandit Sarvesh Sharma">
+                <div class="pandit-info">
+                    <h3>Pandit Sarvesh sharma</h3>
+                    <p class="specialization">Griha Pravesh, Satyanarayan Puja...</p>
+                    <div class="rating">
+                        <span class="stars">★★★★★</span>
+                        <span>4.8 Stars</span>
+                    </div>
+                    <div class="details">
+                        <div class="detail-item"><i class="fas fa-certificate"></i> Exp: 18+ years</div>
+                        <div class="detail-item"><i class="fas fa-language"></i> Speaks: Sanskrit, Marathi...</div>
+                    </div>
+                    <a href="pandit-sarvesh.html" class="btn-read-more">Read More</a>
+                </div>
+            </div>
+
+            <!-- <div class="pandit-card">
+                <img src="https://via.placeholder.com/300x200/F08080/FFFFFF?text=Pandit+Madhav" alt="Pandit Madhav Sharma">
+                <div class="pandit-info">
+                    <h3>Pandit Madhav Sharma</h3>
+                    <p class="specialization">Marriage, Havan, Namkaran...</p>
+                    <div class="rating">
+                        <span class="stars">★★★★★</span>
+                        <span>4.0 Stars</span>
+                    </div>
+                    <div class="details">
+                        <div class="detail-item"><i class="fas fa-certificate"></i> Exp: 5+ years</div>
+                        <div class="detail-item"><i class="fas fa-language"></i> Speaks: Hindi, English...</div>
+                    </div>
+                    <a href="pandit-madhav.html" class="btn-read-more">Read More</a>
+                </div>
+            </div>
+            
+        </div>
+    </section> -->
+
+            <div id="imageModal" class="modal">
+                <span class="close-btn">&times;</span>
+                <img class="modal-content" id="modalImage">
+                <div id="caption"></div>
+            </div>
+
+            <script>
+                // --- Image Modal/Lightbox Logic ---
+                const modal = document.getElementById("imageModal");
+                const modalImg = document.getElementById("modalImage");
+                const captionText = document.getElementById("caption");
+                const closeBtn = document.getElementsByClassName("close-btn")[0];
+                // Select images in pandit cards, excluding the Read More button
+                const panditImages = document.querySelectorAll('.pandit-card img');
+
+                panditImages.forEach(img => {
+                    img.addEventListener('click', function () {
+                        modal.style.display = "block";
+                        modalImg.src = this.src;
+                        // Get the name from the sibling H3 tag
+                        const panditName = this.parentNode.querySelector('h3').textContent;
+                        captionText.innerHTML = panditName;
+                    });
+                });
+
+                // Close button functionality
+                closeBtn.onclick = function () {
+                    modal.style.display = "none";
+                }
+
+                // Close when clicking outside the modal content
+                window.onclick = function (event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+            </script>
+</body>
+
+</html>

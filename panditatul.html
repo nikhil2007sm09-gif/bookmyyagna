@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pandit Profile - BMY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Kalam:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        :root {
+            --color-primary: #ff8c00; 
+            --color-secondary: #ff7f50; 
+            --color-text-dark: #333;
+            --color-text-light: #6a6a6a;
+            --color-bg-light: #fffaf6; 
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Poppins', sans-serif; color: var(--color-text-dark); background-color: white; line-height: 1.6; }
+
+        .profile-container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: var(--color-bg-light);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .pandit-header-profile {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--color-primary);
+            margin-bottom: 30px;
+        }
+
+        .pandit-header-profile img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .pandit-bio h1 {
+            font-size: 2.5rem;
+            color: var(--color-primary);
+            margin-bottom: 5px;
+        }
+
+        .pandit-bio .rating-large {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text-dark);
+            margin-bottom: 15px;
+        }
+        .rating-large .stars {
+            color: gold; 
+            font-size: 1.3rem;
+        }
+
+        .profile-section h2 {
+            font-size: 1.5rem;
+            color: var(--color-text-dark);
+            border-left: 4px solid var(--color-secondary);
+            padding-left: 15px;
+            margin-bottom: 15px;
+            margin-top: 30px;
+        }
+
+        .skill-list, .detail-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .skill-list li, .detail-list li {
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .skill-list li {
+            background-color: #ffe5cc;
+            color: var(--color-primary);
+        }
+        .skill-list i { color: var(--color-primary); }
+        .detail-list i { color: var(--color-secondary); }
+
+
+        .btn-book-now-profile {
+            display: block;
+            width: 100%;
+            padding: 15px 0;
+            margin-top: 40px;
+            background-color: var(--color-primary);
+            color: white;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.6);
+            transition: background-color 0.3s;
+        }
+        .btn-book-now-profile:hover {
+            background-color: var(--color-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-container { margin: 20px; padding: 20px; }
+            .pandit-header-profile { flex-direction: column; text-align: center; }
+            .pandit-header-profile img { margin-bottom: 15px; }
+            .pandit-bio h1 { font-size: 2rem; }
+            .skill-list { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-container">
+    <div class="pandit-header-profile">
+        <img src="https://res.cloudinary.com/dnvtb0kal/image/upload/v1760674228/bookMyYagna/nbxvzvcck8vdcsgbgdwv.webp" alt="Pandit Atul Gautam Profile">
+        <div class="pandit-bio">
+            <h1>Pandit Atul Gautam</h1>
+            <div class="rating-large">
+                <span class="stars">★★★★★</span>
+                4.3 Stars (145 Reviews)
+            </div>
+            <p>पंडित अतुल गौतम 14 वर्षों से अधिक के अनुभव के साथ एक उच्च सम्मानित वैदिक विद्वान हैं। उन्हें विशेष रूप से **गृह प्रवेश** और **सत्यनारायण पूजा** में विशेषज्ञता हासिल है, और वह शुद्ध संस्कृत और हिंदी में अनुष्ठान संपन्न कराते हैं।</p>
+        </div>
+    </div>
+
+    <div class="profile-section">
+        <h2>About Pandit</h2>
+        <p>पंडित अतुल गौतम ने वाराणसी के प्रतिष्ठित वेद विद्यालय से अपनी शिक्षा प्राप्त की है। उनका समर्पण, शुद्ध उच्चारण (उच्चारण), और प्रत्येक अनुष्ठान को विस्तार से समझाने की उनकी क्षमता उन्हें हमारे समुदाय में एक मूल्यवान सदस्य बनाती है। उनका उद्देश्य प्रत्येक भक्त के लिए एक शांत और सार्थक अनुभव बनाना है।</p>
+    </div>
+
+    <div class="profile-section">
+        <h2>Key Details</h2>
+        <ul class="detail-list">
+            <li><i class="fas fa-certificate"></i> Experience: 14+ years</li>
+            <li><i class="fas fa-language"></i> Languages: Sanskrit, Hindi, English</li>
+            <li><i class="fas fa-map-marker-alt"></i> Based in: Delhi/NCR (Available Online Globally)</li>
+            <li><i class="fas fa-phone-alt"></i> Available for: Online & Offline Puja</li>
+        </ul>
+    </div>
+
+    <div class="profile-section">
+        <h2>Expertise & Skills</h2>
+        <ul class="skill-list">
+            <li><i class="fas fa-om"></i> Griha Pravesh</li>
+            <li><i class="fas fa-om"></i> Satyanarayan Puja</li>
+            <li><i class="fas fa-om"></i> Rudrabhishek</li>
+            <li><i class="fas fa-om"></i> Annaprashan Sanskar</li>
+            <li><i class="fas fa-om"></i> Engagement Ceremony</li>
+            <li><i class="fas fa-om"></i> Birthday Puja</li>
+        </ul>
+    </div>
+
+    <a href="booknowlogin.html" class="btn-book-now-profile">Book Pandit Atul Gautam Now</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book My Yagna - Responsive Pooja Services</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===================================================
+           1. GLOBAL & BASE STYLES
+           =================================================== */
+        :root {
+            --primary-orange: #ff8c00; /* Book Now Button/Header */
+            --light-bg: #f7f3ed;
+            --dark-text: #333;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        /* Utility Classes */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+  .navbar {
+        width: 100%;
+        padding: 12px 0;
+        background: #fff;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 999;
+    }
+
+    .nav-container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo-link {
+        display: flex;
+        align-items: center;
+        margin-right: 12px;
+    }
+
+    .site-logo {
+        height: 60px;
+        width: auto;
+    }
+
+    .second-logo {
+        height: 38px;
+        margin-left: 10px;
+    }
+
+    /* Menu */
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 25px;
+        align-items: center;
+    }
+
+    .nav-menu li a, .dropdown-btn {
+        text-decoration: none;
+        font-size: 16px;
+        color: #333;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    /* DROPDOWN */
+    .dropdown {
+        position: relative;
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        top: 40px;
+        background: #fff;
+        padding: 12px 0;
+        list-style: none;
+        width: 200px;
+        box-shadow: 0px 6px 16px rgba(0,0,0,0.2);
+        border-radius: 10px;
+        display: none;
+    }
+
+    .dropdown-menu li a {
+        display: block;
+        padding: 10px 20px;
+        color: #444;
+        font-size: 15px;
+    }
+
+    .dropdown-menu li a:hover {
+        background: #f0f0f0;
+    }
+
+    /* Desktop hover */
+    @media (min-width: 769px) {
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+    }
+
+    /* Mobile Menu */
+    .menu-btn {
+        display: none;
+        font-size: 26px;
+        cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+        .menu-btn {
+            display: block;
+        }
+
+        .nav-menu {
+            position: absolute;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            flex-direction: column;
+            background: #fff;
+            padding: 20px 0;
+            display: none;
+        }
+
+        .nav-menu.active {
+            display: block;
+        }
+
+        .dropdown-menu {
+            position: relative;
+            box-shadow: none;
+            width: 100%;
+        }
+    }
+
+        /* ===================================================
+           3. PANCHANG CALENDAR SECTION
+           =================================================== */
+        .panchang-section {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .panchang-section .om-icon {
+            font-size: 3em;
+            color: var(--primary-orange);
+            margin-bottom: 20px;
+        }
+
+        .panchang-section h2 {
+            font-size: 2.2em;
+            font-weight: 400;
+        }
+
+        .panchang-section h2 span {
+            color: var(--primary-orange);
+            font-weight: 700;
+        }
+
+        .panchang-section p {
+            max-width: 800px;
+            margin: 15px auto;
+            color: #666;
+        }
+        .calendar{max-width:700px;margin:0 auto;}
+  .cal-head{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:18px;}
+  .btn{border:2px solid var(--border);background:white;padding:6px 10px;border-radius:6px;cursor:pointer;}
+  .month-title{font-weight:700;padding:6px 14px;border:2px solid var(--border);border-radius:6px;background:#fff;}
+  .weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;text-align:center;color:var(--muted);font-weight:700;margin-bottom:6px}
+  .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;}
+  .day{padding:18px;border-radius:12px;border:2px solid var(--border);background:#fff;min-height:56px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .day.empty{background:transparent;border:none;cursor:default}
+  .day.active{background:var(--accent);font-weight:700}
+  .date-preview{max-width:700px;margin:20px auto;text-align:center;font-weight:700;color:var(--border)}
+  /* responsive */
+  @media (max-width:600px){
+    .day{padding:12px;min-height:48px;border-radius:10px}
+  }
+        .panchang-details-box {
+            background-color: var(--white);
+            border: 1px solid #f00; /* Red Border for emphasis */
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        .panchang-details-box span {
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        /* ===================================================
+           4. FLIP CARD STYLES (FROM PREVIOUS ANSWERS)
+           =================================================== */
+        .pooja-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 40px 10px;
+            gap: 30px; /* Reduced gap for better mobile viewing */
+        }
+        
+        .pooja-card-wrapper {
+            width: 100%; /* Mobile: Full width */
+            max-width: 300px; /* Desktop: Max width */
+            height: 400px;
+            perspective: 1000px;
+            display: inline-block;
+        }
+
+        .pooja-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .pooja-card.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .pooja-card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .pooja-card-front {
+            background: #fff;
+        }
+
+        .pooja-card-front .pooja-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .pooja-name-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 15px 10px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+            color: white;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        
+        /* BACK FACE STYLES & COLORS */
+        .pooja-card-back {
+            color: white;
+            transform: rotateY(180deg);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* Set 1 Colors */
+        .back-shanti { background-color: #ff8c00; }
+        .back-narayan { background-color: #008080; } /* Teal */
+        .back-kuber { background-color: #FFD700; color: #333; } /* Gold */
+        .back-chamunda { background-color: #8B0000; } /* Dark Red */
+        
+        /* Set 2 Colors */
+        .back-baglamukhi { background-color: #4b0082; }
+        .back-ganesh { background-color: #cc5500; }
+        .back-shradh { background-color: #6a5acd; }
+        .back-lakshmi { background-color: #006400; }
+        
+        /* Set 3 Colors */
+        .back-mrityunjaya { background-color: #FF4500; }
+        .back-rudrabhishek { background-color: #4682B4; }
+        .back-navagraha { background-color: #800080; }
+        .back-janeu { background-color: #B8860B; }
+        
+        .pooja-card-back h3 { margin-top: 0; font-size: 1.4em; }
+        .pooja-card-back p { font-size: 0.9em; margin-bottom: 20px; }
+
+        .pooja-card-back button {
+            margin-top: auto;
+            padding: 10px 20px;
+            border: none;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        /* Set Button Text Colors */
+        .back-shanti button { color: #ff8c00; }
+        .back-narayan button { color: #008080; }
+        .back-kuber button { color: #FFD700; }
+        .back-chamunda button { color: #8B0000; }
+        .back-baglamukhi button { color: #4b0082; }
+        .back-ganesh button { color: #cc5500; }
+        .back-shradh button { color: #6a5acd; }
+        .back-lakshmi button { color: #006400; }
+        .back-mrityunjaya button { color: #FF4500; }
+        .back-rudrabhishek button { color: #4682B4; }
+        .back-navagraha button { color: #800080; }
+        .back-janeu button { color: #B8860B; }
+        
+        /* ===================================================
+           5. FOOTER STYLES
+           =================================================== */
+        .footer {
+            background-color: var(--white);
+            padding: 40px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .footer-col h3 {
+            color: var(--primary-orange);
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .footer-col p, .footer-col a {
+            font-size: 0.9em;
+            color: #666;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .footer-col a:hover {
+            color: var(--primary-orange);
+        }
+
+        .footer-col .social-icons button {
+            background: var(--primary-orange);
+            border: none;
+            color: var(--white);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+        
+        .footer-col .contact-info a {
+            display: inline-flex;
+            align-items: center;
+        }
+        .footer-col .contact-info span {
+            margin-right: 5px;
+        }
+
+        .newsletter input[type="email"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+            width: 60%;
+        }
+
+        .newsletter button {
+            padding: 10px 15px;
+            background-color: var(--primary-orange);
+            color: var(--white);
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        /* ===================================================
+           6. RESPONSIVE MEDIA QUERIES (Mobile View)
+           =================================================== */
+        @media (max-width: 992px) {
+            /* Navbar adjustments */
+            .nav-links a, .nav-links button {
+                margin-left: 10px;
+                padding: 5px 10px;
+            }
+            
+            /* Footer adjustments */
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* Card adjustments for smaller screens */
+            .pooja-container {
+                gap: 20px;
+            }
+            .pooja-card-wrapper {
+                max-width: 45%; /* Show 2 cards per row on tablet */
+            }
+            
+            /* Footer adjustments */
+            .footer-grid {
+                grid-template-columns: 1fr; /* Stack columns on mobile */
+            }
+        }
+
+        @media (max-width: 576px) {
+            /* Header Mobile adjustments */
+            .nav-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .nav-links {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-top: 10px;
+            }
+            .nav-links a, .nav-links button {
+                margin: 5px;
+            }
+
+            /* Card adjustments for phones */
+            .pooja-card-wrapper {
+                max-width: 90%; /* Show 1 card per row on phone */
+                height: 350px;
+            }
+            .pooja-card-back p {
+                font-size: 0.85em;
+            }
+            
+            .panchang-section h2 {
+                font-size: 1.8em;
+            }
+        }
+ /* 🌿 GENERAL PAGE STYLING */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff9f3;
+    margin: 0;
+    padding: 0;
+    color: #3e2b23;
+}
+
+.panchang-section {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.panchang-section .container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+.om-icon {
+    font-size: 40px;
+    font-weight: bold;
+    color: #d97706;
+}
+
+.panchang-section h2 {
+    font-size: 32px;
+    font-weight: 700;
+}
+.panchang-section h2 span {
+    color: #ec7200;
+}
+
+.panchang-section p {
+    color: #5e4b45;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+
+/* 📅 CALENDAR BOX */
+.calendar {
+    background: #fff;
+    border: 2px solid #c8b6a6;
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 30px;
+    box-shadow: 0px 5px 12px rgba(0,0,0,0.08);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 🔼 MONTH HEADER */
+.cal-head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.month-title {
+    font-weight: 700;
+    font-size: 18px;
+    padding: 6px 14px;
+    border: 2px solid #764c28;
+    border-radius: 8px;
+}
+.btn {
+    background: #fff;
+    border: 2px solid #764c28;
+    padding: 6px 11px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.btn:hover {
+    background: #f4e6d5;
+}
+
+/* 📆 WEEK DAYS */
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    font-weight: 700;
+    color: #777;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+/* 📌 DATE GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+.day {
+    padding: 18px;
+    border: 2px solid #9c846e;
+    background: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.day:hover {
+    background: #f7e9db;
+}
+.day.active {
+    background: #f9d19b !important;
+    border-color: #764c28;
+    font-weight: 700;
+}
+.day.empty {
+    background: transparent;
+    border: none !important;
+    cursor: default;
+}
+
+/* 📜 PREVIEW TEXT */
+.date-preview {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #764c28;
+}
+
+
+/* 📦 PANCHANG DETAILS BOX */
+.panchang-details-box {
+    background: #fff;
+    border: 2px solid #d6baa2;
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 20px;
+    font-size: 17px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    text-align: left;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.panchang-details-box span {
+    font-weight: 700;
+    color: #b55318;
+}
+@media (max-width: 600px) {
+    .day {
+        padding: 10px;
+        font-size: 14px;
+    }
+    .month-title {
+        font-size: 14px;
+    }
+    .btn {
+        padding: 5px 9px;
+    }
+    .panchang-section h2 {
+        font-size: 22px;
+    }
+}
+ 
+
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+
+     
+        <a href="" class="logo-link">
+            <img src="favicon-BUZVQplk.png" 
+                 alt="Book My Yagna" class="site-logo">
+        </a>
+
+        
+
+        <div class="menu-btn" id="menu-btn">☰</div>
+
+       
+        <ul class="nav-menu" id="nav-menu">
+
+            <li><a href="index.html">Home</a></li>
+
+        
+            <li class="dropdown">
+                <a class="dropdown-btn">Services ▾</a>
+
+                <ul class="dropdown-menu">
+                    <li><a href="listofpooja.html">List of Pooja</a></li>
+                    <li><a href="panchang.html">Panchang</a></li>
+                    <li><a href="blog.html">Blogs</a></li>
+                    
+                </ul>
+            </li>
+            <!-- Dropdown END -->
+
+            <li><a href="About.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            
+ <li><a href="booknowlogin.html">Book Now</a></li>
+        </ul>
+
+    </div>
+</nav>
+
+
+    <section class="panchang-section">
+        <div class="container">
+            <div class="om-icon">ॐ</div>
+            <h2>Panchang <span>Calendar</span> 2025 – Check Today's Tithi, Nakshatra & Muhurat</h2>
+            <p>Your daily spiritual guide based on Vedic astrology</p>
+            <p>Explore the **Hindu Panchang** for any date. Know the **Tithi (तिथि)**, **Nakshatra (नक्षत्र)**, and **Shubh Muhurat** (auspicious timings) for your important occasions like Griha Pravesh, Satyanarayan Puja, Vivah Sanskar, Havan, and other rituals.</p>
+            <p>📅 Select a date to instantly view the complete daily Panchang details – trusted by Pandits and astrologers.</p>
+            
+<div class="calendar" id="myCalendarRoot">
+  <div class="cal-head">
+    <button class="btn" id="prevBtn">&laquo;</button>
+    <button class="btn" id="prevMonthBtn">&lsaquo;</button>
+    <div class="month-title" id="monthTitle">Month Year</div>
+    <button class="btn" id="nextMonthBtn">&rsaquo;</button>
+    <button class="btn" id="nextBtn">&raquo;</button>
+  </div>
+
+  <div class="weekdays" aria-hidden="true">
+    <div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div><div>SUN</div>
+  </div>
+
+  <div class="grid" id="daysGrid"></div>
+</div>
+
+<div class="date-preview" id="datePreview">Panchang Details for —</div>
+
+<!-- optional: show the uploaded image (local path provided)
+<div style="text-align:center;margin-top:18px;">
+  <img src="/mnt/data/0856bdf9-4981-448d-8964-22833d5ec02f.png" alt="calendar-sample" style="max-width:400px;border-radius:8px;border:3px solid var(--border)">
+</div> -->
+
+          
+                
+                <p style="margin-top: 20px;">**Panchang Details for November 21st 2025**</p>
+                <div class="panchang-details-box">
+                    <span>• **Tithi**</span> Error fetching data
+                    <br>
+                    <span>• **Nakshatra**</span> Error fetching data
+                    <br>
+                    <span>• **Muhurat**</span> Error fetching data
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section class="pooja-section">
+        <div class="pooja-container">
+        
+            <div class="pooja-card-wrapper">
+                <div class="pooja-card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="pooja-card-face pooja-card-front">
+                        <img src="shanti_puja_image_url.jpg" alt="Shanti Puja" class="pooja-image">
+                        <div class="pooja-name-overlay"><p>Shanti Puja – Restore Peace & Prosperity</p></div>
+                    </div>
+                    <div class="pooja-card-face pooja-card-back back-shanti">
+                        <h3>शांति पूजा</h3>
+                        <p>यह नकारात्मक ऊर्जा को दूर करने, घर, कार्यालय या परिवार में सकारात्मकता और शांति लाने के लिए की जाती है।</p>
+                        <button>Book Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pooja-card-wrapper">
+                <div class="pooja-card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="pooja-card-face pooja-card-front">
+                        <img src="narayanopchar_puja_image_url.jpg" alt="Narayanopchar Puja" class="pooja-image">
+                        <div class="pooja-name-overlay"><p>Narayanopchar Puja</p></div>
+                    </div>
+                    <div class="pooja-card-face pooja-card-back back-narayan">
+                        <h3>नारायणोपचार पूजा</h3>
+                        <p>यह मुख्य रूप से **पितृ दोष** को दूर करने और दिवंगत आत्माओं, खासकर जिनकी अकाल मृत्यु हुई हो, को **मोक्ष** प्रदान करने के लिए की जाती है।</p>
+                        <button>Book Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pooja-card-wrapper">
+                <div class="pooja-card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="pooja-card-face pooja-card-front">
+                        <img src="kuber_puja_image_url.jpg" alt="Kuber Puja" class="pooja-image">
+                        <div class="pooja-name-overlay"><p>Kuber Puja – Wealth & Prosperity</p></div>
+                    </div>
+                    <div class="pooja-card-face pooja-card-back back-kuber">
+                        <h3>कुबेर पूजा</h3>
+                        <p>यह **धन, समृद्धि, वित्तीय स्थिरता** और आय के स्रोतों में वृद्धि के लिए धन के देवता भगवान कुबेर की पूजा है।</p>
+                        <button>Book Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pooja-card-wrapper">
+                <div class="pooja-card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="pooja-card-face pooja-card-front">
+                        <img src="chamunda_mata_puja_image_url.jpg" alt="Chamunda Mata Puja" class="pooja-image">
+                        <div class="pooja-name-overlay"><p>Chamunda Mata Puja</p></div>
+                    </div>
+                    <div class="pooja-card-face pooja-card-back back-chamunda">
+                        <h3>चामुंडा माता पूजा</h3>
+                        <p>यह **शत्रुओं पर विजय**, **नकारात्मक शक्तियों से सुरक्षा**, और जीवन के संघर्षों में **साहस और शक्ति** प्राप्त करने के लिए की जाती है।</p>
+                        <button>Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pooja-card-wrapper">
+                <div class="pooja-card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="pooja-card-face pooja-card-front">
+                        <img src="baglamukhi_puja_image_url.jpg" alt="Baglamukhi Puja" class="pooja-image">
+                        <div class="pooja-name-overlay"><p>Baglamukhi Puja</p></div>
+                    </div>
+                    <div class="pooja-card-face pooja-card-back back-baglamukhi">
+                        <h3>बगलामुखी पूजा</h3>
+                        <p>यह **शत्रुओं पर विजय**, **कानूनी विवादों में सफलता** और बुरी शक्तियों से **सुरक्षा** के लिए देवी बगलामुखी की पूजा है।</p>
+                        <button>Book Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pooja-card-wrapper">
+                <div class="pooja-card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="pooja-card-face pooja-card-front">
+                        <img src="ganesh_puja_image_url.jpg" alt="Ganesh Puja" class="pooja-image">
+                        <div class="pooja-name-overlay"><p>Ganesh Puja</p></div>
+                    </div>
+                    <div class="pooja-card-face pooja-card-back back-ganesh">
+                        <h3>गणेश पूजा</h3>
+                        <p>यह हर **शुभ कार्य की शुरुआत** में **बाधाओं को हटाने** और सफलता सुनिश्चित करने के लिए **बुद्धि के देवता** भगवान गणेश की पूजा है।</p>
+                        <button>Book Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pooja-card-wrapper">
+                <div class="pooja-card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="pooja-card-face pooja-card-front">
+                        <img src="shradh_puja_image_url.jpg" alt="Shradh Puja" class="pooja-image">
+                        <div class="pooja-name-overlay"><p>Shradh Puja</p></div>
+                    </div>
+                    <div class="pooja-card-face pooja-card-back back-shradh">
+                        <h3>श्राद्ध पूजा</h3>
+                        <p>यह **दिवंगत पूर्वजों** (**पितरों**) को **श्रद्धांजलि** देने और उनका **आशीर्वाद** प्राप्त करने के लिए की जाती है। यह **पितृ दोष** को दूर करने में सहायक है।</p>
+                        <button>Book Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pooja-card-wrapper">
+                <div class="pooja-card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="pooja-card-face pooja-card-front">
+                        <img src="lakshmi_puja_image_url.jpg" alt="Lakshmi Puja" class="pooja-image">
+                        <div class="pooja-name-overlay"><p>Lakshmi Puja</p></div>
+                    </div>
+                    <div class="pooja-card-face pooja-card-back back-lakshmi">
+                        <h3>लक्ष्मी पूजा</h3>
+                        <p>यह **धन और समृद्धि की देवी** मां लक्ष्मी की पूजा है। यह **आर्थिक विकास**, **खुशहाली** और जीवन में भौतिक सुख लाने के लिए की जाती है।</p>
+                        <button>Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pooja-card-wrapper">
+                <div class="pooja-card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="pooja-card-face pooja-card-front">
+                        <img src="mrityunjaya_jaap_image_url.jpg" alt="Maha Mrityunjaya Jaap" class="pooja-image">
+                        <div class="pooja-name-overlay"><p>Maha Mrityunjaya Jaap</p></div>
+                    </div>
+                    <div class="pooja-card-face pooja-card-back back-mrityunjaya">
+                        <h3>महा मृत्युंजय जाप</h3>
+                        <p>यह **भगवान शिव** का शक्तिशाली जाप है। यह **गंभीर बीमारी** से सुरक्षा, **लंबी उम्र** और **अकाल मृत्यु** के भय को दूर करने के लिए किया जाता है।</p>
+                        <button>Book Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pooja-card-wrapper">
+                <div class="pooja-card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="pooja-card-face pooja-card-front">
+                        <img src="rudrabhishek_puja_image_url.jpg" alt="Rudrabhishek Puja" class="pooja-image">
+                        <div class="pooja-name-overlay"><p>Rudrabhishek Puja</p></div>
+                    </div>
+                    <div class="pooja-card-face pooja-card-back back-rudrabhishek">
+                        <h3>रुद्राभिषेक पूजा</h3>
+                        <p>यह **भगवान शिव** का अभिषेक है। यह **सभी नकारात्मकताओं को दूर करने**, **इच्छाओं की पूर्ति**, और समृद्धि तथा **शांति** के लिए की जाती है।</p>
+                        <button>Book Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pooja-card-wrapper">
+                <div class="pooja-card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="pooja-card-face pooja-card-front">
+                        <img src="navagraha_puja_image_url.jpg" alt="Navagraha Pooja" class="pooja-image">
+                        <div class="pooja-name-overlay"><p>Navagraha Pooja</p></div>
+                    </div>
+                    <div class="pooja-card-face pooja-card-back back-navagraha">
+                        <h3>नवग्रह पूजा</h3>
+                        <p>यह **नौ ग्रहों** (सूर्य, चंद्रमा आदि) की पूजा है। यह कुंडली में **ग्रहों के दोषों को शांत करने** और जीवन में शुभ प्रभाव तथा संतुलन लाने के लिए की जाती है।</p>
+                        <button>Book Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pooja-card-wrapper">
+                <div class="pooja-card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="pooja-card-face pooja-card-front">
+                        <img src="janeu_sanskar_image_url.jpg" alt="Janeu Sanskar / Upanayan" class="pooja-image">
+                        <div class="pooja-name-overlay"><p>Janeu Sanskar / Upanayan</p></div>
+                    </div>
+                    <div class="pooja-card-face pooja-card-back back-janeu">
+                        <h3>जनेऊ संस्कार / उपनयन</h3>
+                        <p>यह एक **महत्वपूर्ण संस्कार** है जिसमें बालक को **पवित्र धागा** (जनेऊ) पहनाया जाता है। यह **शिक्षा की शुरुआत** और **द्वितीय जन्म** (द्विज) का प्रतीक है।</p>
+                        <button>Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section> -->
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                
+                <div class="footer-col">
+                    <div class="logo" style="margin-bottom: 10px;">
+                        <span class="om">ॐ</span> **Book my Yagna**
+                    </div>
+                    <p>**Book My Yagna** connects devotees with verified Vedic pandits for authentic Hindu rituals, pujas, and spiritual ceremonies. Book online and experience peace, prosperity, and divine blessings at your doorstep.</p>
+                    <div class="social-icons">
+                        <button>f</button>
+                        <button>insta</button>
+                        <button>yt</button>
+                        <button>pin</button>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="index.html">Services</a>
+                    <a href="panditlogin.html">Pandit Registration</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="index.html">FAQ</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Our Services</h3>
+                    <a href="booknowlogin.html">Ganesh Puja</a>
+                    <a href="booknowlogin.html">Navagraha Pooja</a>
+                    <a href="booknowlogin.html">Lakshmi Pooja</a>
+                    <a href="booknowlogin.html">RudraAbhishek Pooja</a>
+                    </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <div class="contact-info">
+                        <a href="tel:+918569977705"><span>📞</span> +91 8569977705</a>
+                        <a href="mailto:bookmyyagna@gmail.com"><span>✉️</span> bookmyyagna@gmail.com</a>
+                    </div>
+                    <h3 style="margin-top: 20px;">Subscribe to our Newsletter</h3>
+                    <p>Stay updated on auspicious muhurats, Vedic tips & festival discounts.</p>
+                    <div class="newsletter">
+                        <input type="email" placeholder="Enter your email">
+                        <button>Subscribe</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="copyright">
+                © 2025 Book My Yagna– A Product of Innovize Tech Solutions Pvt. Ltd.
+                <p style="margin-top: 5px;">
+                    <a href="PrivacyPolicy.html">Privacy Policy</a> |
+                    <a href="terms.html">Terms of Service</a> |
+                    <a href="shipping.html">Shipping and delivery</a> |
+                    <a href="refund.html">Cancellation and refund</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+   
+<script>  const menuBtn = document.getElementById("menu-btn");
+    const navMenu = document.getElementById("nav-menu");
+
+    menuBtn.addEventListener("click", () => {
+        navMenu.classList.toggle("active");
+    });
+
+    /* Mobile Dropdown */
+    const dropdownBtn = document.querySelector(".dropdown-btn");
+    const dropdownMenu = document.querySelector(".dropdown-menu");
+
+    dropdownBtn.addEventListener("click", () => {
+        dropdownMenu.style.display =
+            dropdownMenu.style.display === "block" ? "none" : "block";
+    });
+    class SimpleCalendar {
+  constructor(rootEl, options = {}) {
+    this.root = rootEl;
+    this.daysGrid = this.root.querySelector('#daysGrid');
+    this.monthTitle = this.root.querySelector('#monthTitle');
+    this.previewEl = document.getElementById('datePreview');
+    this.onSelect = options.onSelect || function(d){ console.log('selected', d) };
+    // state
+    const now = new Date();
+    this.viewYear = options.startYear ?? now.getFullYear();
+    this.viewMonth = options.startMonth ?? now.getMonth();
+    this.selectedDate = null;
+
+    // hooks for external controls
+    this._wireButtons();
+    this.render();
+  }
+
+  _wireButtons(){
+    const byId = id => document.getElementById(id);
+    byId('prevBtn').addEventListener('click', ()=> this.goToMonth(this.viewYear - 1, this.viewMonth));
+    byId('nextBtn').addEventListener('click', ()=> this.goToMonth(this.viewYear + 1, this.viewMonth));
+    byId('prevMonthBtn').addEventListener('click', ()=> this.goToMonth(this.viewYear, this.viewMonth - 1));
+    byId('nextMonthBtn').addEventListener('click', ()=> this.goToMonth(this.viewYear, this.viewMonth + 1));
+  }
+
+  // normalize month overflow and set view
+  goToMonth(year, monthIndex){
+    // adjust overflow
+    const date = new Date(year, monthIndex, 1);
+    this.viewYear = date.getFullYear();
+    this.viewMonth = date.getMonth();
+    this.render();
+  }
+
+  // go to a date and optionally select it
+  goToDate(year, monthIndex, day){
+    this.goToMonth(year, monthIndex);
+    // validate
+    const daysInMonth = new Date(this.viewYear, this.viewMonth + 1, 0).getDate();
+    if(day < 1 || day > daysInMonth) {
+      console.warn('invalid day for month', day);
+      return;
+    }
+    this.selectedDate = new Date(this.viewYear, this.viewMonth, day);
+    // ensure rendering shows active
+    this.render();
+    // call external callback
+    this.onSelect(new Date(this.selectedDate));
+  }
+
+  onDateSelect(cb){
+    if(typeof cb === 'function') this.onSelect = cb;
+  }
+
+  render(){
+    // header
+    const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    this.monthTitle.textContent = `${monthNames[this.viewMonth]} ${this.viewYear}`;
+
+    // build grid: find the weekday of first day
+    // NOTE: user UI uses MON..SUN ordering. JS getDay() returns 0(Sun)..6(Sat).
+    const firstDay = new Date(this.viewYear, this.viewMonth, 1);
+    // convert JS getDay to MON-first index:
+    // if getDay()==0 (Sun) -> place at index 6 (last column), if getDay()==1 (Mon) -> index 0
+    const jsWeekday = firstDay.getDay(); // 0..6
+    const startIndex = (jsWeekday === 0) ? 6 : jsWeekday - 1; // 0..6 where 0=Mon
+
+    const daysInMonth = new Date(this.viewYear, this.viewMonth + 1, 0).getDate();
+
+    // clear grid
+    this.daysGrid.innerHTML = '';
+    // add empty placeholders
+    for(let i=0;i<startIndex;i++){
+      const e = document.createElement('div'); e.className='day empty'; this.daysGrid.appendChild(e);
+    }
+
+    for(let d=1; d<=daysInMonth; d++){
+      const cell = document.createElement('div');
+      cell.className = 'day';
+      cell.textContent = d;
+      // mark active if selectedDate matches
+      if(this.selectedDate &&
+         this.selectedDate.getFullYear() === this.viewYear &&
+         this.selectedDate.getMonth() === this.viewMonth &&
+         this.selectedDate.getDate() === d) {
+        cell.classList.add('active');
+      }
+      // click handler
+      cell.addEventListener('click', ()=> {
+        this.selectedDate = new Date(this.viewYear, this.viewMonth, d);
+        // re-render to update active class
+        this.render();
+        // call callback
+        this.onSelect(new Date(this.selectedDate));
+      });
+      this.daysGrid.appendChild(cell);
+    }
+
+    // update preview text
+    if(this.selectedDate){
+      const dd = this.selectedDate.getDate();
+      const mm = monthNames[this.selectedDate.getMonth()];
+      const yy = this.selectedDate.getFullYear();
+      this.previewEl.textContent = `Panchang Details for ${mm} ${dd}, ${yy}`;
+    } else {
+      this.previewEl.textContent = `Panchang Details for ${monthNames[this.viewMonth]} ${this.viewYear}`;
+    }
+  }
+
+} // end class
+
+// ---------------------- Initialize calendar ----------------------
+const root = document.getElementById('myCalendarRoot');
+const calendar = new SimpleCalendar(root, {
+  // optional: set starting view month/year
+  startYear: 2025,
+  startMonth: 10, // November (0-indexed: 10 => November)
+  onSelect: (date) => {
+    // this will fire whenever a date is chosen (programmatically or via click)
+    console.log('Selected date callback:', date);
+    // Example: load details by AJAX here
+    // fetch(`/getPanchang?date=${date.toISOString()}`)...
+    document.getElementById('datePreview').textContent =
+      `Panchang Details for ${date.toLocaleDateString('en-GB')}`;
+  }
+});
+
+// Examples of using the API (call these from your other scripts):
+// goToMonth(year, monthIndex) where monthIndex is 0..11
+// goToDate(year, monthIndex, day)
+window.calendarAPI = {
+  goToMonth: (y,m) => calendar.goToMonth(y, m),
+  goToDate: (y,m,d) => calendar.goToDate(y, m, d),
+  onDateSelect: (cb) => calendar.onDateSelect(cb)
+};
+
+// Example calls:
+// Go to December 2025:
+ // window.calendarAPI.goToMonth(2025, 11);
+// Go to Nov 25, 2025:
+ // window.calendarAPI.goToDate(2025, 10, 25);
+    </script>
+</body>
+</html>
