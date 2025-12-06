@@ -70,10 +70,16 @@ body {
 </div>
 
 <script>
+
 const loginBtn = document.getElementById("loginBtn");
 const errorMsg = document.getElementById("errorMsg");
 
-loginBtn.addEventListener("click", async () => {
+// FIXED LOGIN USERNAME & PASSWORD
+const ADMIN_USER = "admin";
+const ADMIN_PASS = "12345";
+
+loginBtn.addEventListener("click", () => {
+
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value.trim();
 
@@ -84,24 +90,12 @@ loginBtn.addEventListener("click", async () => {
         return;
     }
 
-    try {
-        const response = await fetch("http://localhost:3000/api/admin/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, password })
-        });
-
-        const data = await response.json();
-
-        if(response.status === 200){
-           
-            alert("Login successful! Last login: " + new Date(data.lastLogin).toLocaleString());
-            window.location.href = "admin.html"; 
-        } else {
-            errorMsg.innerText = data.message;
-        }
-    } catch (err) {
-        errorMsg.innerText = "Error: " + err.message;
+    // FRONTEND VALIDATION
+    if(username === ADMIN_USER && password === ADMIN_PASS){
+        alert("Login successful!");
+        window.location.href = "admin.html";
+    } else {
+        errorMsg.innerText = "Invalid username or password!";
     }
 });
 </script>
