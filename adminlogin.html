@@ -74,7 +74,6 @@ body {
 const loginBtn = document.getElementById("loginBtn");
 const errorMsg = document.getElementById("errorMsg");
 
-// FIXED LOGIN USERNAME & PASSWORD
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "12345";
 
@@ -90,7 +89,7 @@ loginBtn.addEventListener("click", () => {
         return;
     }
 
-    // FRONTEND VALIDATION
+
     if(username === ADMIN_USER && password === ADMIN_PASS){
         alert("Login successful!");
         window.location.href = "admin.html";
@@ -102,3 +101,4 @@ loginBtn.addEventListener("click", () => {
 
 </body>
 </html>
+
