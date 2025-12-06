@@ -415,7 +415,29 @@ f<!DOCTYPE html>
     from { transform: scale(0.8); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
-        
+      button {
+    background: #4CAF50;       /* Green Color */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+button:hover {
+    background: #43a047;       /* Darker green */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+  
     </style>
 </head>
 
@@ -717,6 +739,7 @@ function goToMeeting() {
 
 
 </html>
+
 
 
 
