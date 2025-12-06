@@ -6,7 +6,7 @@
 <title>Book My Yagna</title>
 
 <style>
-/* सामान्य स्टाइल और रीसेट */
+
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -22,7 +22,6 @@ body {
     padding: 20px;
 }
 
-/* हेडर/नेविगेशन बार स्टाइल (Header/Navigation Bar Style) */
 .header {
     display: flex;
     justify-content: space-between;
@@ -33,7 +32,7 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-/* ---------------- NAVBAR BASE ---------------- */
+
 .navbar {
     background: #fff;
     padding: 10px 20px;
@@ -51,7 +50,6 @@ body {
     justify-content: space-between;
 }
 
-/* Logo */
 .nav-logo {
     display: flex;
     align-items: center;
@@ -64,7 +62,7 @@ body {
     width: 120px;
 }
 
-/* Menu Desktop */
+
 .nav-menu {
     display: flex;
     list-style: none;
@@ -87,7 +85,7 @@ body {
     font-weight: 600;
 }
 
-/* ---------------- DROPDOWN ---------------- */
+
 .dropdown {
     position: relative;
 }
@@ -110,10 +108,9 @@ body {
     display: block;
 }
 
-/* ---------------- MOBILE RESPONSIVE ---------------- */
+
 @media(max-width:768px) {
 
-    /* MENU BUTTON */
     .menu-btn {
         display: block;
         font-size: 30px;
@@ -121,7 +118,7 @@ body {
         z-index: 999;
     }
 
-    /* NAV MENU MOBILE */
+   
     .nav-menu {
         position: absolute;
         top: 70px;
@@ -140,7 +137,7 @@ body {
         display: flex;
     }
 
-    /* NAV LINKS */
+
     .nav-menu li {
         width: 100%;
     }
@@ -152,7 +149,7 @@ body {
         padding: 8px 0;
     }
 
-    /* DROPDOWN BTN (for mobile) */
+
     .dropdown-btn {
         width: 100%;
         display: flex;
@@ -160,7 +157,7 @@ body {
         align-items: center;
     }
 
-    /* Arrow */
+  
     .dropdown-btn::after {
         content: "▾";
         transition: 0.3s;
@@ -168,12 +165,12 @@ body {
         margin-left: 10px;
     }
 
-    /* Arrow rotation when open */
+   
     .dropdown-menu.show + .dropdown-btn::after {
         transform: rotate(180deg);
     }
 
-    /* DROPDOWN MENU MOBILE */
+
     .dropdown-menu {
         width: 100%;
         padding-left: 15px;
@@ -193,7 +190,7 @@ body {
         display: flex !important;
     }
 
-    /* Book Now Button */
+
     .book-btn {
         width: 100%;
         padding: 12px 0;
@@ -205,12 +202,12 @@ body {
 .book-now-btn:hover {
     background-color: #e07b00;
 }
-/* Default (Laptop/PC) — Hide Menu Button */
+
 .menu-btn {
     display: none;
 }
 
-/* Laptop View */
+
 @media (min-width: 769px) {
     .nav-menu {
         display: flex;
@@ -219,7 +216,7 @@ body {
     }
 }
 
-/* Mobile View (Show ☰ Button, Hide Menu) */
+
 @media (max-width: 768px) {
 
     .menu-btn {
@@ -229,7 +226,7 @@ body {
     }
 
     .nav-menu {
-        display: none;   /* hidden when closed */
+        display: none;   
         flex-direction: column;
         background: white;
         position: absolute;
@@ -245,7 +242,7 @@ body {
 }
 
 
-/* सेक्शन टाइटल */
+
 .section-title {
     text-align: center;
     font-size: 32px;
@@ -254,24 +251,24 @@ body {
     margin: 40px 0 30px;
 }
 
-/* ब्लॉग ग्रिड लेआउट (Blog Grid Layout) */
+
 .blog-grid {
     display: flex;
-    flex-wrap: wrap; /* यह सुनिश्चित करता है कि कार्ड अगली पंक्ति में चले जाएं */
-    gap: 30px; /* कार्ड के बीच की दूरी */
-    justify-content: center; /* कार्ड को केंद्र में रखने के लिए */
+    flex-wrap: wrap;
+    gap: 30px; 
+    justify-content: center; 
     padding: 20px 0;
 }
 
-/* ब्लॉग कार्ड स्टाइल (Blog Card Style) */
+
 .blog-card {
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
-    width: 100%; /* मोबाइल के लिए डिफ़ॉल्ट चौड़ाई */
-    max-width: 350px; /* अधिकतम चौड़ाई */
+    width: 100%;
+    max-width: 350px;
 }
 
 .blog-card:hover {
@@ -281,14 +278,14 @@ body {
 
 .card-image-section {
     position: relative;
-    height: 200px; /* इमेज सेक्शन की निश्चित ऊंचाई */
-    background-color: #ffeadb; /* इमेज न होने पर पृष्ठभूमि */
+    height: 200px; 
+    background-color: #ffeadb; 
 }
 
 .card-main-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* इमेज को कवर करने के लिए */
+    object-fit: cover; 
 }
 
 .category-tag {
@@ -341,7 +338,7 @@ body {
     font-size: 14px;
     color: #666;
     margin: 0 0 15px;
-    min-height: 40px; /* पढ़ने में आसानी के लिए न्यूनतम ऊँचाई */
+    min-height: 40px;
 }
 
 .card-footer {
@@ -366,7 +363,7 @@ body {
     color: #e07b00;
 }
 
-/* फ्लोटिंग फ़ोन बटन (Floating Phone Button) */
+
 .floating-call-btn {
     position: fixed;
     bottom: 20px;
@@ -386,24 +383,24 @@ body {
 }
 
 
-/* उत्तरदायी डिज़ाइन - लैपटॉप/डेस्कटॉप के लिए (Responsive Design - For Laptop/Desktop) */
+
 @media (min-width: 768px) {
-    /* नेविगेशन के लिए मोबाइल मेनू छिपाना */
+
     .nav {
         display: flex;
     }
     
-    /* ब्लॉग ग्रिड को तीन कॉलम में सेट करना */
+  
     .blog-grid {
-        justify-content: space-between; /* कार्ड को किनारों पर फैलाना */
+        justify-content: space-between; 
     }
     
     .blog-card {
-        width: calc(33.333% - 20px); /* 3 कॉलम, गैप को एडजस्ट करते हुए */
+        width: calc(33.333% - 20px);
     }
 }
 
-/* मोबाइल के लिए नेविगेशन (Optional: अगर आप मोबाइल में मेनू छिपाना चाहते हैं) */
+
 @media (max-width: 767px) {
     .header {
         flex-direction: column;
@@ -411,7 +408,7 @@ body {
     }
     
     .nav {
-        display: none; /* मोबाइल में मेनू छिपाना */
+        display: none;
         width: 100%;
         margin-top: 10px;
         flex-direction: column;
@@ -423,7 +420,7 @@ body {
         text-align: left;
     }
     
-    /* मोबाइल में कार्ड को पूरी चौड़ाई देना */
+
     .blog-card {
         max-width: none;
     }
@@ -438,10 +435,10 @@ a {
     color: inherit;
 }
 
-/* --- 1. प्लैनेटरी चैलेंज कार्ड सेक्शन स्टाइल --- */
+
 .guidance-card-section {
     padding: 40px 20px;
-    background-color: #f5f5f5; /* कार्ड के पीछे हल्की पृष्ठभूमि */
+    background-color: #f5f5f5;
 }
 
 .guidance-card-container {
@@ -450,12 +447,12 @@ a {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    display: flex; /* डेस्कटॉप के लिए: इमेज और टेक्स्ट साथ-साथ */
+    display: flex; 
     overflow: hidden;
 }
 
 .guidance-image-wrapper {
-    flex: 1; /* डेस्कटॉप पर इमेज आधी जगह लेगी */
+    flex: 1; 
 }
 
 .guidance-image {
@@ -466,7 +463,7 @@ a {
 }
 
 .guidance-content {
-    flex: 1; /* डेस्कटॉप पर कंटेंट आधी जगह लेगी */
+    flex: 1; 
     padding: 40px;
 }
 
@@ -502,13 +499,13 @@ a {
 }
 
 .guidance-features li i {
-    color: #f7931e; /* नारंगी आइकन */
+    color: #f7931e;
     margin-right: 10px;
     font-size: 18px;
 }
 
 
-/* --- 2. फूटर सेक्शन स्टाइल --- */
+
 .main-footer {
     background-color: white;
     padding-top: 50px;
@@ -520,20 +517,20 @@ a {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px 40px;
-    display: flex; /* डेस्कटॉप के लिए: चार कॉलम */
+    display: flex; 
     flex-wrap: wrap;
     justify-content: space-between;
 }
 
 .footer-column {
     padding: 10px;
-    width: 25%; /* डेस्कटॉप पर लगभग 4 कॉलम */
-    min-width: 250px; /* मोबाइल पर फुल-चौड़ाई के लिए */
+    width: 25%; 
+    min-width: 250px;
 }
 
-/* लोगो और विवरण कॉलम */
+
 .logo-column {
-    min-width: 300px; /* पहले कॉलम को थोड़ी ज्यादा जगह दें */
+    min-width: 300px; 
 }
 
 .footer-logo {
@@ -563,7 +560,7 @@ a {
     color: #f7931e;
 }
 
-/* हैडिंग और अंडरलाइन */
+
 .footer-heading {
     font-size: 18px;
     font-weight: 700;
@@ -601,7 +598,7 @@ a {
     margin-right: 8px;
 }
 
-/* सोशल मीडिया आइकन */
+
 .social-links {
     display: flex;
     gap: 15px;
@@ -624,7 +621,7 @@ a {
     opacity: 0.8;
 }
 
-/* संपर्क और न्यूज़लेटर कॉलम */
+
 .contact-info {
     font-size: 15px;
     color: #666;
@@ -659,7 +656,7 @@ a {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    flex: 2; /* इनपुट को ज़्यादा जगह */
+    flex: 2;
     font-size: 14px;
 }
 
@@ -679,7 +676,7 @@ a {
     background-color: #e07b00;
 }
 
-/* फूटर बॉटम (कॉपीराइट और प्राइवेसी लिंक) */
+
 .footer-bottom {
     border-top: 1px solid #eee;
     padding: 15px 20px;
@@ -688,7 +685,7 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; /* मोबाइल पर तत्वों को लपेटने के लिए */
+    flex-wrap: wrap; 
 }
 
 .copyright {
@@ -707,7 +704,7 @@ a {
     color: #f7931e;
 }
 
-/* फ्लोटिंग फ़ोन बटन */
+
 .floating-call-btn {
     position: fixed;
     bottom: 20px;
@@ -724,7 +721,7 @@ a {
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     cursor: pointer;
     z-index: 100;
-    animation: pulse 1.5s infinite; /* बटन को आकर्षक बनाने के लिए */
+    animation: pulse 1.5s infinite; 
 }
 
 @keyframes pulse {
@@ -733,41 +730,39 @@ a {
     100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(247, 147, 30, 0); }
 }
 
-/* --- उत्तरदायी डिज़ाइन (Responsive Design) --- */
 
-/* 768px से बड़ी स्क्रीन पर (डेस्कटॉप) */
+
 @media (min-width: 768px) {
     .footer-column {
         width: 23%;
     }
 }
 
-/* 768px से छोटी स्क्रीन पर (टैबलेट/मोबाइल) */
+
 @media (max-width: 992px) {
-    /* कार्ड: इमेज और टेक्स्ट को ऊपर-नीचे करें */
     .guidance-card-container {
         flex-direction: column;
     }
     
     .guidance-image-wrapper {
-        height: 300px; /* मोबाइल पर इमेज की ऊंचाई ठीक करें */
+        height: 300px; 
     }
 
-    /* फूटर: दो कॉलम में दिखाएं */
+ 
     .footer-container {
         justify-content: center;
     }
     .footer-column {
-        width: 45%; /* दो कॉलम प्रति पंक्ति */
+        width: 45%;
         margin-bottom: 20px;
     }
     
     .logo-column {
-        width: 95%; /* पहला कॉलम पूरी चौड़ाई लेगा */
+        width: 95%; 
     }
     
     .contact-column {
-        width: 95%; /* संपर्क कॉलम पूरी चौड़ाई लेगा */
+        width: 95%; 
     }
     
     .footer-bottom {
@@ -785,10 +780,10 @@ a {
     }
 }
 
-/* 480px से छोटी स्क्रीन पर (छोटा मोबाइल) */
+
 @media (max-width: 576px) {
     .footer-column {
-        width: 100%; /* सभी कॉलम फुल-चौड़ाई लें */
+        width: 100%; 
     }
     
     .guidance-content {
@@ -804,10 +799,10 @@ a {
     }
     
     .privacy-links span {
-        display: none; /* Separator छिपाएँ */
+        display: none;
     }
     .privacy-links a {
-        display: block; /* लिंक को एक के नीचे एक दिखाएँ */
+        display: block; 
         margin: 5px 0;
     }
 }
@@ -818,15 +813,15 @@ a {
 .dropdown-menu.show {
     display: block;
 }
-/* Hide Hamburger Icon on Desktop */
+
 .hamburger {
-    display: none;   /* Desktop par chhupana */
+    display: none;  
 }
 
-/* Show Hamburger Icon on Mobile Only */
+
 @media (max-width: 768px) {
     .hamburger {
-        display: block;   /* Mobile par dikhana */
+        display: block;  
     }
 }
   .social-links a {
@@ -859,7 +854,7 @@ a {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>उत्तरदायी ब्लॉग सेक्शन</title>
+    <title>All Blogs</title>
     <link rel="stylesheet" href="styles.css"> <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -1080,9 +1075,8 @@ a {
 </body>
 </html>
 
-<!-- ================= JS ================= -->
+
 <script>
-// ================= MOBILE MENU OPEN/CLOSE =================
 const menuBtn = document.getElementById("menu-btn");
 const navMenu = document.getElementById("nav-menu");
 
@@ -1090,10 +1084,6 @@ menuBtn.addEventListener("click", () => {
     navMenu.classList.toggle("active");
 });
 
-
-
-
-// ================= CLOSE DROPDOWN WHEN CLICK OUTSIDE =================
 document.addEventListener("click", (e) => {
 
     // Skip clicks inside the dropdown itself
@@ -1103,7 +1093,6 @@ document.addEventListener("click", (e) => {
 });
 
 
-// ================= CLOSE MENU WHEN ITEM CLICKED (Mobile) =================
 document.querySelectorAll(".nav-menu li a").forEach(link => {
     link.addEventListener("click", () => {
         if (window.innerWidth <= 768) {
@@ -1111,12 +1100,11 @@ document.querySelectorAll(".nav-menu li a").forEach(link => {
         }
     });
 });
-// ================= MOBILE DROPDOWN TOGGLE =================
+
 const dropdown = document.querySelector(".dropdown");
 const dropdownBtn = document.querySelector(".dropdown-btn");
 const dropdownMenu = document.querySelector(".dropdown-menu");
 
-// ONLY FOR MOBILE (max-width: 768px)
 dropdownBtn.addEventListener("click", (e) => {
     if (window.innerWidth <= 768) {
         e.preventDefault();
@@ -1130,3 +1118,4 @@ dropdownBtn.addEventListener("click", (e) => {
 
 </body>
 </html>
+
