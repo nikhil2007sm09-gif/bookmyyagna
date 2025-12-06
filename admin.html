@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+f<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -487,6 +487,16 @@
             </div>
         </div>
  <button onclick="openMeetingPopup()">Start Meeting</button>
+           <!-- Meeting Popup -->
+<div id="meetingPopup" class="popup">
+    <div class="popup-content">
+        <h2>Join Meeting</h2>
+        <p>Your meeting is ready. Click below to join.</p>
+
+        <button class="join-btn" onclick="goToMeeting()">Join Now</button>
+        <button class="close-btn" onclick="closePopup()">Close</button>
+    </div>
+</div>
         <div class="recent-activity">
             <h3>Recent Bookings 📝</h3>
             <table class="activity-table">
@@ -705,3 +715,4 @@ function goToMeeting() {
 
 
 </html>
+
