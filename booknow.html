@@ -465,7 +465,7 @@ footer {
     #recentBookingsTable tr td:nth-child(5):before { content: "Pandit:"; }
     #recentBookingsTable tr td:nth-child(6):before { content: "Actions:"; }
 }
-/* Popup Background */
+/* /* Popup Background */
 .popup {
     display: none;
     position: fixed;
@@ -519,7 +519,7 @@ footer {
 @keyframes popupShow {
     from { transform: scale(0.8); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
-}
+} */
 
 </style>
 </head>
@@ -624,7 +624,7 @@ footer {
                 <label>Details / Pandit</label>
                 <textarea id="pooja-details" placeholder="Pandit Name, Location or Notes"></textarea>
             </div>
-            <button onclick="openMeetingPopup()">Start Meeting</button>
+            <!-- <button onclick="openMeetingPopup()">Start Meeting</button> -->
 
             <button class="booking-button" onclick="bookPooja()">Book Pooja</button>
         </div>
@@ -1248,18 +1248,19 @@ loadBookings();
 
 </script>
 <script>
-function openMeetingPopup() {
-    document.getElementById('meetingPopup').style.display = 'flex';
-}
+// function openMeetingPopup() {
+//     document.getElementById('meetingPopup').style.display = 'flex';
+// }
 
-function closePopup() {
-    document.getElementById('meetingPopup').style.display = 'none';
-}
+// function closePopup() {
+//     document.getElementById('meetingPopup').style.display = 'none';
+// }
 
-function goToMeeting() {
-    window.location.href = "meeting.html";
-}
-</script>
+// function goToMeeting() {
+//     window.location.href = "meeting.html";
+// }
+// </script>
 
 </body>
+
 </html>
