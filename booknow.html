@@ -519,7 +519,25 @@ footer {
 @keyframes popupShow {
     from { transform: scale(0.8); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
-}</style>
+}
+button {
+    background: #007bff;
+    color: #fff;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+button:hover {
+    background: #0069d9;
+    transform: translateY(-2px);
+}
+
+</style>
 </head>
 
 <body>
@@ -1271,6 +1289,7 @@ function goToMeeting() {
 </body>
 
 </html>
+
 
 
 
