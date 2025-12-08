@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Upload & View</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 20px;
+        }
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #ccc;
+        }
+        h2 {
+            text-align: center;
+            color: #d35400;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            outline: none;
+            border: 1px solid #aaa;
+            border-radius: 6px;
+        }
+        button {
+            margin-top: 15px;
+            width: 100%;
+            background: #d35400;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #b94600;
+        }
+        .blog-card {
+            background: white;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px #ccc;
+        }
+        img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📝 Add New Blog</h2>
+
+    <form id="blogForm">
+        <input type="text" name="title" placeholder="Enter blog title" required>
+        <textarea name="content" rows="5" placeholder="Enter blog content" required></textarea>
+
+        <label>Upload Image:</label>
+        <input type="file" name="image" accept="image/*">
+
+        <button type="submit">Submit Blog</button>
+    </form>
+</div>
+
+<div class="container" style="margin-top: 30px;">
+    <h2>📚 Latest Blogs</h2>
+    <div id="blogs"></div>
+</div>
+<script>
+    const API_URL = "http://localhost:3000";   // apna port laga lena
+
+    document.getElementById("blogForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        let formData = new FormData(e.target);
+
+        try {
+            const response = await fetch(`${API_URL}/api/blogs`, {
+                method: "POST",
+                body: formData
+            });
+
+            const text = await response.text();
+            console.log("RAW RESPONSE:", text);
+
+            let result;
+            try { result = JSON.parse(text); }
+            catch { alert("Server invalid JSON bhej raha hai"); return; }
+
+            if (!response.ok) {
+                alert("Error: " + result.message);
+                return;
+            }
+
+            alert("Blog Added!");
+            e.target.reset();
+            loadBlogs();
+
+        } catch (err) {
+            console.error(err);
+            alert("⚠️ Cannot connect to server. Check API URL.");
+        }
+    });
+
+    async function loadBlogs() {
+        try {
+            const response = await fetch(`${API_URL}/api/blogs`);
+            const blogs = await response.json();
+
+            let c = document.getElementById("blogs");
+            c.innerHTML = "";
+
+            blogs.forEach(b => {
+                c.innerHTML += `
+                    <div class="blog-card">
+                        <h3>${b.title}</h3>
+                        <p>${b.content}</p>
+                        ${b.imageUrl ? `<img src="${API_URL}${b.imageUrl}">` : ""}
+                    </div>
+                `;
+            });
+
+        } catch (e) {
+            console.log("Load error", e);
+            alert("Blogs load nahi ho rahe");
+        }
+    }
+
+    loadBlogs();
+</script>
+
+
+
+</body>
+</html>

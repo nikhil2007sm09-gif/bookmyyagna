@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Settings – BookMyYagna</title>
+
+<style>
+body{
+    font-family: Poppins, sans-serif;
+    margin:0;
+    background:#f7f7f7;
+    transition:0.3s;
+}
+
+.dark-mode{
+    background:#222 !important;
+    color:white !important;
+}
+
+.settings-container{
+    width:90%;
+    max-width:650px;
+    margin:30px auto;
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 0 15px rgba(0,0,0,0.15);
+}
+
+.settings-container h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:#ff9800;
+}
+
+section{
+    margin-bottom:25px;
+}
+
+label{
+    font-weight:600;
+    margin:10px 0 5px;
+    display:block;
+}
+
+input, select{
+    width:100%;
+    padding:10px;
+    margin-bottom:15px;
+    border:1px solid #ddd;
+    border-radius:8px;
+}
+
+/* profile image */
+.profile-pic{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-bottom:10px;
+    border:3px solid #ff9800;
+}
+
+.toggle{
+    width:50px;
+    height:24px;
+    background:#ccc;
+    border-radius:50px;
+    position:relative;
+    cursor:pointer;
+    display:inline-block;
+    margin-bottom:15px;
+}
+
+.toggle::after{
+    content:"";
+    width:22px;
+    height:22px;
+    background:white;
+    border-radius:50%;
+    position:absolute;
+    top:1px; left:1px;
+    transition:0.3s;
+}
+
+.toggle.active{
+    background:#ff9800;
+}
+
+.toggle.active::after{
+    left:27px;
+}
+
+button{
+    background:#ff9800;
+    color:white;
+    padding:12px;
+    width:100%;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#e58a00;
+}
+
+#toast{
+    position:fixed;
+    top:20px;
+    right:20px;
+    background:#333;
+    color:white;
+    padding:12px 20px;
+    border-radius:8px;
+    display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div id="toast"></div>
+
+<div class="settings-container">
+    <h2>⚙️ Admin Settings</h2>
+<button id="logoutBtn" class="dark-mode-toggle" style="background:#f44336;">
+    <i class="fas fa-sign-out-alt"></i>
+    <span>Logout</span>
+</button>
+   
+    <section>
+        <h3>👤 Profile Information</h3>
+
+        <img src="https://via.placeholder.com/120" class="profile-pic" id="profilePreview">
+        <input type="file" id="profilePic" accept="image/*" onchange="previewPic(event)">
+
+        <label>Admin Name</label>
+        <input type="text" id="adminName" placeholder="Enter admin name">
+
+        <label>Email</label>
+        <input type="email" id="adminEmail" placeholder="Enter email">
+
+        <label>Role</label>
+        <select id="adminRole">
+            <option value="super-admin">Super Admin</option>
+            <option value="editor">Editor</option>
+        </select>
+    </section>
+
+    <hr>
+
+  
+    <section>
+        <h3>🌙 Dark Mode</h3>
+        <div class="toggle" id="darkToggle" onclick="toggleDarkMode()"></div>
+    </section>
+
+    <hr>
+
+    <!-- Notification Settings -->
+    <section>
+        <h3>🔔 Notification Settings</h3>
+
+        <label>Email Notifications</label>
+        <div class="toggle" id="emailNotif" onclick="toggleSwitch(this)"></div>
+
+        <label>SMS Notifications</label>
+        <div class="toggle" id="smsNotif" onclick="toggleSwitch(this)"></div>
+    </section>
+
+    <hr>
+
+    <!-- Security -->
+    <section>
+        <h3>🔐 Security Options</h3>
+
+        <label>Enable 2-Factor Authentication (2FA)</label>
+        <div class="toggle" id="twoFA" onclick="toggleSwitch(this)"></div>
+
+        <label>Auto Logout Timer (in minutes)</label>
+        <input type="number" id="logoutTimer" placeholder="10">
+    </section>
+
+    <hr>
+
+    <!-- Password -->
+    <section>
+        <h3>🔑 Change Password</h3>
+        <label>Old Password</label>
+        <input type="password" id="oldPassword">
+
+        <label>New Password</label>
+        <input type="password" id="newPassword">
+
+        <label>Confirm Password</label>
+        <input type="password" id="confirmPassword">
+    </section>
+
+    <button onclick="saveSettings()">Save Settings</button>
+</div>
+
+<script>
+// Profile Image Preview
+function previewPic(event){
+    const img = document.getElementById("profilePreview");
+    img.src = URL.createObjectURL(event.target.files[0]);
+}
+
+// Dark mode
+function toggleDarkMode(){
+    let btn = document.getElementById("darkToggle");
+    btn.classList.toggle("active");
+    document.body.classList.toggle("dark-mode");
+}
+
+// Other toggle switches
+function toggleSwitch(el){
+    el.classList.toggle("active");
+}
+
+// Toast
+function showToast(msg){
+    const t = document.getElementById("toast");
+    t.innerText = msg;
+    t.style.display = "block";
+    setTimeout(()=> t.style.display = "none", 3000);
+}
+
+// Save settings
+async function saveSettings(){
+    const data = {
+        name: adminName.value,
+        email: adminEmail.value,
+        role: adminRole.value,
+        darkMode: document.getElementById("darkToggle").classList.contains("active"),
+        emailNotif: emailNotif.classList.contains("active"),
+        smsNotif: smsNotif.classList.contains("active"),
+        enable2FA: twoFA.classList.contains("active"),
+        logoutTimer: document.getElementById("logoutTimer").value,
+        oldPassword: oldPassword.value,
+        newPassword: newPassword.value
+    };
+
+    if(newPassword.value && newPassword.value !== confirmPassword.value){
+        return showToast("❌ New password mismatch");
+    }
+
+    showToast("Saving...");
+
+    const res = await fetch("http://localhost:3000/api/admin/settings", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify(data)
+    });
+
+    const json = await res.json();
+    if(res.ok) showToast("✅ Settings Saved!");
+    else showToast("❌ " + json.error);
+}
+// --- Logout Logic ---
+const logoutBtn = document.getElementById('logoutBtn');
+logoutBtn.addEventListener('click', () => {
+    // Optional: clear any stored session/localStorage
+    localStorage.removeItem('darkMode'); // example if you want to reset dark mode
+    // Redirect to login page
+    window.location.href = 'adminlogin.html'; // your login page path
+});
+</script>
+
+</body>
+</html>

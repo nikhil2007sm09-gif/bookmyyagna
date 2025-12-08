@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel – BookMyYagna</title>
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* --------------------------- */
+/* BASIC RESET */
+/* --------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #f5f6fa;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* --------------------------- */
+/* SIDEBAR */
+/* --------------------------- */
+.sidebar {
+  width: 250px;
+  background: #111;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 22px;
+  color: #ff9800;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: white;
+  padding: 12px 15px;
+  margin: 8px 0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  background: #ff9800;
+  color: #111;
+}
+
+/* --------------------------- */
+/* MAIN CONTENT */
+/* --------------------------- */
+.main {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 24px;
+}
+
+.notification-bell {
+  position: relative;
+  cursor: pointer;
+}
+
+.notification-bell i {
+  font-size: 26px;
+}
+
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background: red;
+  color: white;
+  font-size: 11px;
+  padding: 4px 7px;
+  border-radius: 50%;
+}
+
+/* --------------------------- */
+/* TOAST BOX */
+/* --------------------------- */
+#toastBox {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.toast {
+  background: #222;
+  color: white;
+  padding: 15px;
+  margin-top: 10px;
+  border-left: 5px solid #ff9800;
+  border-radius: 5px;
+  animation: slideIn 0.4s, fadeOut 4s forwards;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; transform: translateX(100%); }
+}
+
+/* --------------------------- */
+/* BOOKING TABLE */
+/* --------------------------- */
+.table-box {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* allow scroll on small screens */
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  white-space: nowrap;
+}
+
+th {
+  background: #ff9800;
+  color: white;
+}
+
+tr:hover {
+  background: #f3f3f3;
+}
+
+/* --------------------------- */
+/* BUTTONS (Edit/Delete/Approve) */
+/* --------------------------- */
+button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button.edit {
+  background: #ff9800;
+  color: white;
+}
+
+button.delete {
+  background: red;
+  color: white;
+}
+
+button.approve {
+  background: green;
+  color: white;
+}
+
+/* --------------------------- */
+/* RESPONSIVE MEDIA QUERIES */
+/* --------------------------- */
+@media(max-width:1024px) {
+  body {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 10px;
+  }
+
+  .sidebar h2 {
+    display: none;
+  }
+
+  .sidebar a {
+    flex: 1;
+    justify-content: center;
+    margin: 0 5px;
+  }
+
+  .main {
+    padding: 10px;
+  }
+
+  .table-box {
+    padding: 10px;
+  }
+
+  table {
+    display: block;
+  }
+
+  th, td {
+    white-space: nowrap;
+  }
+}
+
+@media(max-width:768px) {
+  .sidebar a {
+    padding: 10px 5px;
+    font-size: 14px;
+  }
+
+  .header h1 {
+    font-size: 18px;
+  }
+
+  .notification-bell i {
+    font-size: 22px;
+  }
+
+  .toast {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  button {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>Admin Panel</h2>
+  <a href="admin.html"><i class="fas fa-home"></i><span>Dashboard</span></a>
+  <a href="Booking.html"><i class="fas fa-book"></i><span>Bookings</span></a>
+  <a href="#"><i class="fas fa-user"></i><span>Users</span></a>
+  <a href="setting.html"><i class="fas fa-cog"></i><span>Settings</span></a>
+</div>
+
+
+<!-- MAIN CONTENT -->
+<div class="main">
+  <div class="header">
+    <h1>Welcome, Admin</h1>
+    <div class="notification-bell" onclick="toggleNotifications()">
+      <i class="fas fa-bell"></i>
+      <div class="badge" id="notifCount">0</div>
+    </div>
+  </div>
+
+  <div id="toastBox"></div>
+
+  <div class="table-box">
+    <h2>All Bookings</h2>
+    <table id="bookingTable">
+      <thead>
+        <tr>
+          <th>Pooja</th>
+          <th>Date</th>
+          <th>Timing</th>
+          <th>Details</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+
+
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script>
+const socket = io("http://localhost:3000");
+
+// REGISTER AS ADMIN
+socket.emit("register", { role: "admin" });
+
+// SHOW TOAST
+function showToast(msg){
+  const box = document.getElementById("toastBox");
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.innerText = msg;
+  box.appendChild(toast);
+  setTimeout(()=>toast.remove(),4000);
+}
+
+// NOTIFICATION COUNTER
+let count = 0;
+
+// RECEIVE NOTIFICATION
+socket.on("notify",(data)=>{
+  count++;
+  document.getElementById("notifCount").textContent = count;
+  showToast(`${data.title}: ${data.message}`);
+});
+
+// LOAD BOOKINGS
+async function loadBookings(){
+  const res = await fetch("http://localhost:3000/api/poojas");
+  const data = await res.json();
+  const tbody = document.querySelector("#bookingTable tbody");
+  tbody.innerHTML = "";
+
+  data.forEach(item => {
+    tbody.innerHTML += `
+      <tr id="pooja-${item._id}">
+        <td>${item.name}</td>
+        <td>${item.date}</td>
+        <td>${item.timing}</td>
+        <td>${item.details}</td>
+        <td>
+          <button class="edit" onclick="editPooja('${item._id}')">Edit</button>
+          <button class="delete" onclick="deletePooja('${item._id}')">Delete</button>
+          ${item.approved ? 
+            `<span style="color:green; font-weight:bold;">Approved</span>` :
+            `<button class="approve" onclick="approvePooja('${item._id}')">Approve</button>`
+          }
+        </td>
+      </tr>`;
+  });
+}
+
+// DELETE BOOKING
+async function deletePooja(id){
+  if(!confirm("Are you sure you want to delete this booking?")) return;
+  try{
+    const res = await fetch(`http://localhost:3000/api/poojas/${id}`, { method: 'DELETE' });
+    const data = await res.json();
+    if(res.ok){
+      showToast(data.message);
+      document.getElementById(`pooja-${id}`).remove();
+    } else {
+      showToast("Error: "+data.error);
+    }
+  } catch(err){
+    showToast("Server error: "+err.message);
+  }
+}
+
+
+async function approvePooja(id){
+  try{
+    const res = await fetch(`http://localhost:3000/api/poojas/${id}/approve`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ approved: true })
+    });
+    const data = await res.json();
+    if(res.ok){
+      showToast("Booking approved successfully");
+      loadBookings();
+    } else {
+      showToast("Error: "+data.error);
+    }
+  } catch(err){
+    showToast("Server error: "+err.message);
+  }
+}
+
+
+async function editPooja(id){
+  const row = document.getElementById(`pooja-${id}`);
+  const cells = row.querySelectorAll("td");
+
+  const newName = prompt("Edit Pooja Name", cells[0].innerText);
+  const newDate = prompt("Edit Date", cells[1].innerText);
+  const newTiming = prompt("Edit Timing", cells[2].innerText);
+  const newDetails = prompt("Edit Details", cells[3].innerText);
+
+  if(!newName || !newDate || !newTiming) return showToast("Name, Date and Timing are required");
+
+  try{
+    const res = await fetch(`http://localhost:3000/api/poojas/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name:newName, date:newDate, timing:newTiming, details:newDetails })
+    });
+    const data = await res.json();
+    if(res.ok){
+      showToast("Booking updated successfully");
+      loadBookings();
+    } else {
+      showToast("Error: "+data.error);
+    }
+  } catch(err){
+    showToast("Server error: "+err.message);
+  }
+}
+
+loadBookings();
+
+const API_BASE_URL = "http://localhost:3000";
+
+async function rejectPooja(poojaId) {
+    if (!confirm("Are you sure you want to reject this booking?")) return;
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/poojas/${poojaId}/reject`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert(`Pooja Rejected: ${poojaId}`);
+          
+            loadPendingPoojas(); 
+        } else {
+            alert("Rejection Failed: " + (data.error || "Server error"));
+        }
+    } catch (error) {
+        console.error('Fetch Reject Error:', error);
+        alert('Failed to connect to server.');
+    }
+}
+async function loadApprovedPoojas() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/poojas/approved`);
+        const approvedPoojas = await response.json();
+
+        if (response.ok) {
+            console.log("Approved List:", approvedPoojas);
+           
+            displayBookings(approvedPoojas, 'approved'); 
+        } else {
+            console.error("Fetch Approved Error:", approvedPoojas.error);
+        }
+    } catch (error) {
+        console.error('Connection Error:', error);
+    }
+}
+async function loadPendingPoojas() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/poojas/pending`);
+        const pendingPoojas = await response.json();
+
+        if (response.ok) {
+            console.log("Pending List:", pendingPoojas);
+            
+            displayBookings(pendingPoojas, 'pending'); 
+        } else {
+            console.error("Fetch Pending Error:", pendingPoojas.error);
+        }
+    } catch (error) {
+        console.error('Connection Error:', error);
+    }
+}
+
+
+</script>
+</body>
+</html>

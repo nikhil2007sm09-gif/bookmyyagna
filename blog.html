@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Book My Yagna</title>
+
+<style>
+/* सामान्य स्टाइल और रीसेट */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* हेडर/नेविगेशन बार स्टाइल (Header/Navigation Bar Style) */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff; /* सफेद पृष्ठभूमि */
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* ---------------- NAVBAR BASE ---------------- */
+.navbar {
+    background: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Logo */
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.main-logo {
+    width: 60px;
+}
+.text-logo {
+    width: 120px;
+}
+
+/* Menu Desktop */
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+    align-items: center;
+}
+
+.nav-menu li a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.book-btn {
+    background: #f7931e;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+/* ---------------- DROPDOWN ---------------- */
+.dropdown {
+    position: relative;
+}
+.dropdown-menu {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    background: white;
+    list-style: none;
+    width: 180px;
+    display: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 10px 0;
+    border-radius: 6px;
+}
+.dropdown-menu li {
+    padding: 10px;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* ---------------- MOBILE RESPONSIVE ---------------- */
+@media(max-width:768px) {
+
+    /* MENU BUTTON */
+    .menu-btn {
+        display: block;
+        font-size: 30px;
+        cursor: pointer;
+        z-index: 999;
+    }
+
+    /* NAV MENU MOBILE */
+    .nav-menu {
+        position: absolute;
+        top: 70px;
+      
+        background: #fff;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        gap: 10px;
+        display: none;
+        border-top: 1px solid #eee;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    /* NAV LINKS */
+    .nav-menu li {
+        width: 100%;
+    }
+
+    .nav-menu a {
+        width: 100%;
+        display: block;
+        font-size: 16px;
+        padding: 8px 0;
+    }
+
+    /* DROPDOWN BTN (for mobile) */
+    .dropdown-btn {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Arrow */
+    .dropdown-btn::after {
+        content: "▾";
+        transition: 0.3s;
+        font-size: 16px;
+        margin-left: 10px;
+    }
+
+    /* Arrow rotation when open */
+    .dropdown-menu.show + .dropdown-btn::after {
+        transform: rotate(180deg);
+    }
+
+    /* DROPDOWN MENU MOBILE */
+    .dropdown-menu {
+        width: 100%;
+        padding-left: 15px;
+        display: none !important;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        gap: 8px;
+        background: #fafafa;
+        border-left: 3px solid #d7a32d;
+        margin-top: 5px;
+        padding: 20px px;
+        border-radius: 5px;
+    }
+
+    .dropdown-menu.show {
+        display: flex !important;
+    }
+
+    /* Book Now Button */
+    .book-btn {
+        width: 100%;
+        padding: 12px 0;
+        text-align: center;
+        border-radius: 5px;
+    }
+}
+
+.book-now-btn:hover {
+    background-color: #e07b00;
+}
+/* Default (Laptop/PC) — Hide Menu Button */
+.menu-btn {
+    display: none;
+}
+
+/* Laptop View */
+@media (min-width: 769px) {
+    .nav-menu {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+}
+
+/* Mobile View (Show ☰ Button, Hide Menu) */
+@media (max-width: 768px) {
+
+    .menu-btn {
+        display: block;
+        font-size: 28px;
+        cursor: pointer;
+    }
+
+    .nav-menu {
+        display: none;   /* hidden when closed */
+        flex-direction: column;
+        background: white;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        width: 60%;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .nav-menu.active {
+        display: flex;  /* Show when opened */
+    }
+}
+
+
+/* सेक्शन टाइटल */
+.section-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: #333;
+    margin: 40px 0 30px;
+}
+
+/* ब्लॉग ग्रिड लेआउट (Blog Grid Layout) */
+.blog-grid {
+    display: flex;
+    flex-wrap: wrap; /* यह सुनिश्चित करता है कि कार्ड अगली पंक्ति में चले जाएं */
+    gap: 30px; /* कार्ड के बीच की दूरी */
+    justify-content: center; /* कार्ड को केंद्र में रखने के लिए */
+    padding: 20px 0;
+}
+
+/* ब्लॉग कार्ड स्टाइल (Blog Card Style) */
+.blog-card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 100%; /* मोबाइल के लिए डिफ़ॉल्ट चौड़ाई */
+    max-width: 350px; /* अधिकतम चौड़ाई */
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-image-section {
+    position: relative;
+    height: 200px; /* इमेज सेक्शन की निश्चित ऊंचाई */
+    background-color: #ffeadb; /* इमेज न होने पर पृष्ठभूमि */
+}
+
+.card-main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* इमेज को कवर करने के लिए */
+}
+
+.category-tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #f7931e;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    z-index: 10;
+}
+
+.image-text-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+    padding: 10px;
+    color: white;
+}
+
+.overlay-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.overlay-subtitle {
+    font-size: 12px;
+    margin: 2px 0 0;
+    opacity: 0.8;
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    line-height: 1.3;
+}
+
+.card-excerpt {
+    font-size: 14px;
+    color: #666;
+    margin: 0 0 15px;
+    min-height: 40px; /* पढ़ने में आसानी के लिए न्यूनतम ऊँचाई */
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+.read-more-btn {
+    display: inline-block;
+    text-decoration: none;
+    color: #f7931e;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.read-more-btn:hover {
+    color: #e07b00;
+}
+
+/* फ्लोटिंग फ़ोन बटन (Floating Phone Button) */
+.floating-call-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #f7931e;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    cursor: pointer;
+    z-index: 100;
+}
+
+
+/* उत्तरदायी डिज़ाइन - लैपटॉप/डेस्कटॉप के लिए (Responsive Design - For Laptop/Desktop) */
+@media (min-width: 768px) {
+    /* नेविगेशन के लिए मोबाइल मेनू छिपाना */
+    .nav {
+        display: flex;
+    }
+    
+    /* ब्लॉग ग्रिड को तीन कॉलम में सेट करना */
+    .blog-grid {
+        justify-content: space-between; /* कार्ड को किनारों पर फैलाना */
+    }
+    
+    .blog-card {
+        width: calc(33.333% - 20px); /* 3 कॉलम, गैप को एडजस्ट करते हुए */
+    }
+}
+
+/* मोबाइल के लिए नेविगेशन (Optional: अगर आप मोबाइल में मेनू छिपाना चाहते हैं) */
+@media (max-width: 767px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .nav {
+        display: none; /* मोबाइल में मेनू छिपाना */
+        width: 100%;
+        margin-top: 10px;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .nav a, .book-now-btn {
+        width: 100%;
+        text-align: left;
+    }
+    
+    /* मोबाइल में कार्ड को पूरी चौड़ाई देना */
+    .blog-card {
+        max-width: none;
+    }
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- 1. प्लैनेटरी चैलेंज कार्ड सेक्शन स्टाइल --- */
+.guidance-card-section {
+    padding: 40px 20px;
+    background-color: #f5f5f5; /* कार्ड के पीछे हल्की पृष्ठभूमि */
+}
+
+.guidance-card-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    display: flex; /* डेस्कटॉप के लिए: इमेज और टेक्स्ट साथ-साथ */
+    overflow: hidden;
+}
+
+.guidance-image-wrapper {
+    flex: 1; /* डेस्कटॉप पर इमेज आधी जगह लेगी */
+}
+
+.guidance-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.guidance-content {
+    flex: 1; /* डेस्कटॉप पर कंटेंट आधी जगह लेगी */
+    padding: 40px;
+}
+
+.personalized-tag {
+    display: inline-block;
+    background-color: #f7931e;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.guidance-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 15px;
+}
+
+.guidance-text {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.guidance-features li {
+    font-size: 15px;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.guidance-features li i {
+    color: #f7931e; /* नारंगी आइकन */
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+
+/* --- 2. फूटर सेक्शन स्टाइल --- */
+.main-footer {
+    background-color: white;
+    padding-top: 50px;
+    position: relative;
+    border-top: 1px solid #eee;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+    display: flex; /* डेस्कटॉप के लिए: चार कॉलम */
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer-column {
+    padding: 10px;
+    width: 25%; /* डेस्कटॉप पर लगभग 4 कॉलम */
+    min-width: 250px; /* मोबाइल पर फुल-चौड़ाई के लिए */
+}
+
+/* लोगो और विवरण कॉलम */
+.logo-column {
+    min-width: 300px; /* पहले कॉलम को थोड़ी ज्यादा जगह दें */
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: #f7931e;
+    margin-bottom: 15px;
+}
+
+.om-icon {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+}
+
+.footer-description {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.highlight-text {
+    font-weight: 600;
+    color: #f7931e;
+}
+
+/* हैडिंग और अंडरलाइन */
+.footer-heading {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.underline {
+    height: 3px;
+    width: 50px;
+    background-color: #f7931e;
+    margin-bottom: 20px;
+}
+
+/* लिंक लिस्ट */
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+    font-size: 15px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s;
+}
+
+.footer-column ul li a:hover {
+    color: #f7931e;
+}
+
+.footer-column ul li img {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+/* सोशल मीडिया आइकन */
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #f7931e;
+    color: white;
+    transition: opacity 0.3s;
+    font-size: 16px;
+}
+
+.social-icon:hover {
+    opacity: 0.8;
+}
+
+/* संपर्क और न्यूज़लेटर कॉलम */
+.contact-info {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.contact-info i {
+    color: #f7931e;
+    margin-right: 8px;
+}
+
+.newsletter-heading {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 25px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.newsletter-text {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.subscribe-form {
+    display: flex;
+    gap: 10px;
+}
+
+.subscribe-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex: 2; /* इनपुट को ज़्यादा जगह */
+    font-size: 14px;
+}
+
+.subscribe-btn {
+    flex: 1;
+    background-color: #f7931e;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.subscribe-btn:hover {
+    background-color: #e07b00;
+}
+
+/* फूटर बॉटम (कॉपीराइट और प्राइवेसी लिंक) */
+.footer-bottom {
+    border-top: 1px solid #eee;
+    padding: 15px 20px;
+    background-color: #fafafa;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* मोबाइल पर तत्वों को लपेटने के लिए */
+}
+
+.copyright {
+    font-size: 13px;
+    color: #666;
+    margin: 5px 0;
+}
+
+.privacy-links a {
+    font-size: 13px;
+    color: #666;
+    margin: 0 5px;
+}
+
+.privacy-links a:hover {
+    color: #f7931e;
+}
+
+/* फ्लोटिंग फ़ोन बटन */
+.floating-call-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #f7931e;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    cursor: pointer;
+    z-index: 100;
+    animation: pulse 1.5s infinite; /* बटन को आकर्षक बनाने के लिए */
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(247, 147, 30, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(247, 147, 30, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(247, 147, 30, 0); }
+}
+
+/* --- उत्तरदायी डिज़ाइन (Responsive Design) --- */
+
+/* 768px से बड़ी स्क्रीन पर (डेस्कटॉप) */
+@media (min-width: 768px) {
+    .footer-column {
+        width: 23%;
+    }
+}
+
+/* 768px से छोटी स्क्रीन पर (टैबलेट/मोबाइल) */
+@media (max-width: 992px) {
+    /* कार्ड: इमेज और टेक्स्ट को ऊपर-नीचे करें */
+    .guidance-card-container {
+        flex-direction: column;
+    }
+    
+    .guidance-image-wrapper {
+        height: 300px; /* मोबाइल पर इमेज की ऊंचाई ठीक करें */
+    }
+
+    /* फूटर: दो कॉलम में दिखाएं */
+    .footer-container {
+        justify-content: center;
+    }
+    .footer-column {
+        width: 45%; /* दो कॉलम प्रति पंक्ति */
+        margin-bottom: 20px;
+    }
+    
+    .logo-column {
+        width: 95%; /* पहला कॉलम पूरी चौड़ाई लेगा */
+    }
+    
+    .contact-column {
+        width: 95%; /* संपर्क कॉलम पूरी चौड़ाई लेगा */
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .privacy-links {
+        margin-top: 10px;
+    }
+    
+    .subscribe-form {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+/* 480px से छोटी स्क्रीन पर (छोटा मोबाइल) */
+@media (max-width: 576px) {
+    .footer-column {
+        width: 100%; /* सभी कॉलम फुल-चौड़ाई लें */
+    }
+    
+    .guidance-content {
+        padding: 25px;
+    }
+    
+    .guidance-title {
+        font-size: 24px;
+    }
+    
+    .footer-bottom {
+        padding: 10px;
+    }
+    
+    .privacy-links span {
+        display: none; /* Separator छिपाएँ */
+    }
+    .privacy-links a {
+        display: block; /* लिंक को एक के नीचे एक दिखाएँ */
+        margin: 5px 0;
+    }
+}
+.dropdown-menu {
+    display: none;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+/* Hide Hamburger Icon on Desktop */
+.hamburger {
+    display: none;   /* Desktop par chhupana */
+}
+
+/* Show Hamburger Icon on Mobile Only */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;   /* Mobile par dikhana */
+    }
+}
+  .social-links a {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  background-color: #e07000df;
+  color: white;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  font-size: 18px;
+  transition: 0.3s ease;
+}
+
+.social-links a:hover {
+  background: #ffffff;
+  transform: translateY(-3px);
+}
+</style>
+</head>
+
+<body>
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>उत्तरदायी ब्लॉग सेक्शन</title>
+    <link rel="stylesheet" href="styles.css"> <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="nav-container">
+
+
+        <a href="#" class="nav-logo">
+            <img src="favicon-BUZVQplk.png" class="main-logo">
+        </a>
+
+        
+        <div class="menu-btn" id="menu-btn">
+            ☰
+        </div>
+
+    
+        <ul class="nav-menu" id="nav-menu">
+            <li><a href="index.html">Home</a></li>
+
+           
+            <li class="dropdown">
+                <a class="dropdown-btn">Services ▾</a>
+
+                <ul class="dropdown-menu">
+                    <li><a href="listofpooja.html">List of Pooja</a></li>
+                    <li><a href="panchang.html">Panchang</a></li>
+                    <li><a href="blog.html">Blogs</a></li>
+                    
+                </ul>
+            </li>
+
+            <li><a href="About.html">About Us</a></li>
+            <li><a href="Userlogin.html">Login</a></li>
+            <li><a href="#">Language</a></li>
+
+           <li><a href="booknowlogin.html">Book Now</a></li>
+        </ul>
+    </div>
+</header>
+
+<a href="contact.html" class="call-link" title="Contact Us">
+    <div class="call-button-container">
+        <div class="outer-ring-orange"></div>
+        <div class="middle-ring-green"></div>
+        <div class="call-button">
+            <i class="fas fa-phone-alt"></i> 
+        </div>
+    </div>
+</a>
+
+    <main class="container">
+        <h2 class="section-title">Latest Blogs</h2>
+        
+        <section class="blog-grid">
+            
+            <div class="blog-card">
+                <div class="card-image-section">
+                    <span class="category-tag">General</span>
+                    <img src="https://res.cloudinary.com/dnvtb0kal/image/upload/v1761390449/bookMyYagna/n3qoriusfcuymy4nmnea.webp" alt="Diwali Blessings Image" class="card-main-image">
+                    <div class="image-text-overlay">
+                        <p class="overlay-title">LIGHT UP YOUR DIWALI WITH DIVINE BLESSINGS</p>
+                        <p class="overlay-subtitle">Explore the sacred Pujas that attract prosperity...</p>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Light Up Your Diwali: Must-Do Pujas for 2025</h3>
+                    <p class="card-excerpt">Diwali, known as the festival of lights, is one of the most anticipated festivals in all over India...</p>
+                    <div class="card-footer">
+                        <span class="date">Oct 15, 2025</span>
+                        <span class="read-time">1 min read</span>
+                    </div>
+                    <a href="blog1.html" class="read-more-btn">Read More</a>
+                </div>
+            </div>
+
+            <div class="blog-card">
+                <div class="card-image-section">
+                    <span class="category-tag">General</span>
+                    <img src="https://res.cloudinary.com/dnvtb0kal/image/upload/v1760696378/bookMyYagna/bmxtx3gvtjmdsumkjmr7.webp" alt="Havan Puja Image" class="card-main-image">
+                    <div class="image-text-overlay">
+                        <p class="overlay-title">SACRED FIRE, ANYTIME - HAVAN PUJA ONLINE</p>
+                        <p class="overlay-subtitle">Receive pure energy from home, remove negativity...</p>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Sacred Fire, Pure Energy – Havan Puja Online</h3>
+                    <p class="card-excerpt">Stress and negativity weigh down on even the most sacred spaces. Havan Puja can create and maintain ...</p>
+                    <div class="card-footer">
+                        <span class="date">Oct 14, 2025</span>
+                        <span class="read-time">1 min read</span>
+                    </div>
+                    <a href="blog2.html" class="read-more-btn">Read More</a>
+                </div>
+            </div>
+
+            <div class="blog-card">
+                <div class="card-image-section">
+                    <span class="category-tag">General</span>
+                    <img src="https://res.cloudinary.com/dnvtb0kal/image/upload/v1760635867/bookMyYagna/jlnnhe2nlzmcictgwekq.webp" alt="Daily vs Special Puja Image" class="card-main-image">
+                    <div class="image-text-overlay">
+                        <p class="overlay-title">DAILY PUJA VS SPECIAL PUJA CHOOSING WHAT'S RIGHT FOR YOU</p>
+                        <p class="overlay-subtitle">Whether it's a quiet morning prayer or any big puja.</p>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Daily Puja vs Special Puja</h3>
+                    <p class="card-excerpt">Puja is not about lighting a diya or serving flowers. It's a way to bring peace, happiness, and divi...</p>
+                    <div class="card-footer">
+                        <span class="date">Oct 13, 2025</span>
+                        <span class="read-time">1 min read</span>
+                    </div>
+                    <a href="blog3.html" class="read-more-btn">Read More</a>
+                </div>
+            </div>
+            
+            </section>
+
+      <section class="guidance-card-section">
+        <div class="guidance-card-container">
+            <div class="guidance-image-wrapper">
+                <img src="https://bookmyyagna.com/assets/bg-3-new-B_Bsj1Cy.webp" alt="Ancient Temple" class="guidance-image">
+            </div>
+            <div class="guidance-content">
+                <span class="personalized-tag">Personalized Guidance</span>
+                <h2 class="guidance-title">Struggling with planetary challenges?</h2>
+                <p class="guidance-text">Our Vedic astrologers provide customized remedies and solutions based on your unique birth chart.</p>
+                
+                <ul class="guidance-features">
+                    <li><i class="far fa-calendar-alt"></i> 30+ years of astrological experience</li>
+                    <li><i class="fas fa-check-circle"></i> 100% authentic Vedic methods</li>
+                    <li><i class="fas fa-lightbulb"></i> Practical, actionable solutions</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="main-footer">
+        <div class="footer-container">
+            
+            <div class="footer-column logo-column">
+                <div class="footer-logo">
+                    <img src="https://bookmyyagna.com/assets/favicon-BUZVQplk.png" alt="Om Icon" class="om-icon">
+                    <span>Book my Yagna</span>
+                </div>
+                <p class="footer-description">
+                    <span class="highlight-text">Book My Yagna</span> connects devotees with verified Vedic pandits for authentic Hindu rituals, pujas, and spiritual ceremonies. Book online and experience peace, prosperity, and divine blessings at your doorstep.
+                </p>
+               
+       <div class="social-links">
+            <a href="" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+          </div>
+        </div>
+
+            <div class="footer-column">
+                <h3 class="footer-heading">Quick Links</h3>
+                <div class="underline"></div>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="index.html">Services</a></li>
+                    <li><a href="panditlogin.html">Pandit Registration</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="index.html">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3 class="footer-heading">Our Services</h3>
+                <div class="underline"></div>
+                <ul>
+                    <li><a href="booknowlogin.html"><img src="path/to/g गणेश-icon.png" alt="Icon"> Ganesh Puja</a></li>
+                    <li><a href="booknowlogin.html"><img src="path/to/navagraha-icon.png" alt="Icon"> Navagraha Pooja</a></li>
+                    <li><a href="booknowlogin.html"><img src="path/to/lakshmi-icon.png" alt="Icon"> Lakshmi Pooja</a></li>
+                    <li><a href="booknowlogin.html"><img src="path/to/rudra-icon.png" alt="Icon"> RudraAbhishek Pooja</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column contact-column">
+                <h3 class="footer-heading">Contact Us</h3>
+                <div class="underline"></div>
+                <p class="contact-info"><i class="fas fa-phone-alt"></i> +91 8569977705</p>
+                <p class="contact-info email-info"><i class="fas fa-envelope"></i> bookmyyagna@gmail.com</p>
+                
+                <h4 class="newsletter-heading">Subscribe to our Newsletter</h4>
+                <p class="newsletter-text">Stay updated on auspicious muhurats, Vedic tips & festival discounts.</p>
+                <form class="subscribe-form">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit" class="subscribe-btn">Subscribe</button>
+                </form>
+            </div>
+            
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="copyright">© 2025 Book My Yagna - A Product of Innovize Tech Solutions Pvt. Ltd.</p>
+            <div class="privacy-links">
+                <a href="PrivacyPolicy.html">Privacy Policy</a>
+                <span>|</span>
+                <a href="terms.html">Terms of Service</a>
+                <span>|</span>
+                <a href="shipping.html">Shipping and delivery</a>
+                <span>|</span>
+                <a href="refund.html">Cancellation and refund</a>
+            </div>
+        </div>
+
+        <!-- <div class="floating-call-btn">
+            <i class="fas fa-phone-alt"></i>
+        </div> -->
+
+    </footer>
+    </main>
+
+</body>
+</html>
+
+<!-- ================= JS ================= -->
+<script>
+// ================= MOBILE MENU OPEN/CLOSE =================
+const menuBtn = document.getElementById("menu-btn");
+const navMenu = document.getElementById("nav-menu");
+
+menuBtn.addEventListener("click", () => {
+    navMenu.classList.toggle("active");
+});
+
+
+
+
+// ================= CLOSE DROPDOWN WHEN CLICK OUTSIDE =================
+document.addEventListener("click", (e) => {
+
+    // Skip clicks inside the dropdown itself
+    if (dropdown.contains(e.target)) return;
+
+    dropdownMenu.classList.remove("show");
+});
+
+
+// ================= CLOSE MENU WHEN ITEM CLICKED (Mobile) =================
+document.querySelectorAll(".nav-menu li a").forEach(link => {
+    link.addEventListener("click", () => {
+        if (window.innerWidth <= 768) {
+            navMenu.classList.remove("active");
+        }
+    });
+});
+// ================= MOBILE DROPDOWN TOGGLE =================
+const dropdown = document.querySelector(".dropdown");
+const dropdownBtn = document.querySelector(".dropdown-btn");
+const dropdownMenu = document.querySelector(".dropdown-menu");
+
+// ONLY FOR MOBILE (max-width: 768px)
+dropdownBtn.addEventListener("click", (e) => {
+    if (window.innerWidth <= 768) {
+        e.preventDefault();
+        dropdownMenu.classList.toggle("show");
+    }
+});
+const loadBlogs = async () => {
+    let res = await fetch("/api/blogs");
+    let blogs = await res.json();
+
+    let html = "";
+
+    blogs.forEach(blog => {
+        html += `
+        <div class="blog-card">
+            <img src="${blog.imageUrl}" alt="">
+            <h2>${blog.title}</h2>
+            <p>${blog.content.substring(0, 150)}...</p>
+            <a href="/blog-details.html?id=${blog._id}">Read More</a>
+        </div>
+        `;
+    });
+
+    document.getElementById("blogContainer").innerHTML = html;
+};
+
+loadBlogs();
+
+
+
+</script>
+
+</body>
+</html>

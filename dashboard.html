@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - BookmyYagna</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --orange: #ff6a00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f5f0e6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+       /* ============================
+   SIDEBAR
+============================ */
+.sidebar {
+    width: 280px;
+    background: linear-gradient(180deg, #f98030, #e55a00);
+    color: white;
+    padding: 20px 0;
+    position: fixed;
+    height: 100%;
+    transition: 0.4s ease;
+    z-index: 20;
+    overflow-y: auto;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.2);
+    border-right: 1px solid rgba(255,255,255,0.1);
+    font-family: 'Poppins', sans-serif;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 10px;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: 800;
+    padding: 25px 20px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.nav-item {
+    padding: 15px 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: 0.3s ease;
+    border-radius: 12px;
+    margin: 5px 15px;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+}
+
+.nav-item i {
+    font-size: 20px;
+    transition: 0.3s ease;
+}
+
+.nav-item:hover i {
+    transform: scale(1.2);
+    color: #fff;
+}
+
+.logout {
+    margin-top: 50px;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    border-radius: 12px;
+    margin: 20px 15px;
+    transition: 0.3s ease;
+    background: rgba(255,255,255,0.1);
+}
+
+.logout:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* ============================
+   MAIN AREA
+============================ */
+.main {
+    margin-left: 280px;
+    width: calc(100% - 280px);
+    padding: 30px 25px;
+    transition: 0.4s ease;
+    background: #f4f4f4;
+    min-height: 100vh;
+    border-radius: 20px 0 0 20px;
+}
+
+/* ============================
+   MENU BUTTON (Mobile)
+============================ */
+.menu-btn {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+    padding: 12px 15px;
+    background: #f98030;
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: 0.3s ease;
+}
+
+.menu-btn:hover {
+    background: #e55a00;
+    transform: scale(1.1);
+}
+
+/* ============================
+   RESPONSIVE BREAKPOINTS
+============================ */
+
+/* Tablet & Mobile */
+@media (max-width: 992px) {
+    .sidebar {
+        width: 240px;
+        transform: translateX(-260px);
+        position: fixed;
+        z-index: 50;
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .main {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .menu-btn {
+        display: block;
+        margin-bottom: 15px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .nav-item {
+        padding: 12px 20px;
+    }
+
+    .nav-item i {
+        font-size: 18px;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+}
+
+
+        .main {
+            margin-left: 280px;
+            width: calc(100% - 280px);
+            padding: 20px;
+            transition: 0.4s;
+        }
+
+        .header {
+            background: rgb(251, 131, 51);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: calc(100% - 280px);
+            z-index: 10;
+        }
+
+        .profile-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .profile-card img {
+            width: 70px;
+            height: 70px;
+            color: #333;
+            border-radius: 50%;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-box i {
+            font-size: 40px;
+            color: rgb(251, 131, 51);
+            margin-bottom: 10px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-top: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: rgb(251, 131, 51);
+            color: rgb(9, 8, 8);
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 20px;
+            
+            font-size: 16px;
+        }
+
+        #pujaChartBox {
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        .notif-box {
+            background: #fff8e6;
+            padding: 15px;
+            border-left: 5px solid rgb(251, 131, 51);
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        ul#recentActivity {
+            background: white;
+            color: #333;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            list-style: none;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        ul#recentActivity li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        ul#recentActivity button {
+            padding: 4px 8px;
+            margin-left: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-complete {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-pending {
+            background: #FFC107;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-edit {
+            background: #2196F3;
+            color: white;
+        }
+
+        .sort-filter {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+
+        .sort-filter select,
+        .sort-filter input {
+            padding: 6px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        @media(max-width:1024px) {
+            .header {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .sidebar {
+                left: -300px;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+        }
+        /* Stylish Dark Mode Toggle Button */
+#themeToggle {
+    padding: 5px 12px;
+    background: linear-gradient(145deg, #ea9c64, #ff8c42);
+    color: white;
+    font-weight: 400;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 50;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.7s ease;
+    font-size: 14px;
+}
+
+#themeToggle:hover {
+    background: linear-gradient(145deg, #ff8c42, #ffa045);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+}
+
+#themeToggle:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.analytics-link a {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fffcfc;
+    text-decoration: none;
+}
+/* PROFILE LINK */
+.profile-link {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #ff7a00; /* primary color */
+    color: #fff;
+    font-weight: 6700;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 20px;
+    right: 30px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-link:hover {
+    background-color: #ff9500; /* slightly lighter on hover */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+}
+
+body.dark .profile-link {
+    background-color: #ffa500;
+    color: #1f1f1f;
+}
+
+body.dark .profile-link:hover {
+    background-color: #ffb733;
+    color: #1f1f1f;
+}
+
+
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar" id="sidebar">
+        <div class="logo">BookmyYagna</div>
+        <div class="nav-item active" onclick="showPage('home')"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
+        <div class="nav-item" onclick="showPage('booked')"><i class="fas fa-calendar-check"></i> Booked Puja</div>
+        <div class="nav-item" onclick="showPage('completed')"><i class="fas fa-check-circle"></i> Completed Puja</div>
+        <div class="analytics-link">
+    <a href="analytics-dashboard.html">📊 Analytics Dashboard</a>
+
+</div>
+
+        <!-- <div><a href="dashboard.html" style="color:#333;">Back Home</a></div> -->
+
+        <div class="nav-item" onclick="showPage('notifications')"><i class="fas fa-bell"></i> Notifications</div>
+        <!-- <button id="themeToggle" style="padding:5px 10px; background:#555;color:white;border:none;border-radius:8px;cursor:pointer;position:fixed;bottom:15px;right:15px;z-index:50;">
+    Toggle Dark Mode
+</button> -->
+<div><a href="profile.html" class="profile-link">🧘Profile</a></div>
+        <div class="logout" onclick="location.href='index.html'"><i class="fas fa-sign-out-alt"></i> Logout</div>
+                  <div class="nav-item active" onclick="showPage('home')"><i class="fas fa-tachometer-alt"></i>back to Dashboard</div>
+
+        
+    </div>
+
+    <div class="main">
+        <div class="header">
+            <div class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+            <div><a href="dashboard.html" style="color:#333;">Back Home</a></div>
+            <div class="user-name" id="userName">User</div>
+        </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<button id="themeToggle">🌙 Dark Mode</button>
+
+
+        <div class="content" id="home">
+            <div class="profile-card">
+                
+                <img src="https://img.icons8.com/fluency/96/user-male-circle.png">
+                <div>
+                    <h3 id="profileName">User Name</h3>
+                    <p id="profileEmail">user@gmail.com</p>
+                </div>
+            </div>
+<br>
+
+            <div class="stats">
+                <div class="stat-box"><i class="fas fa-calendar"></i>
+                    <div>Booked <strong id="bookedCount">0</strong></div>
+                </div>
+                <div class="stat-box"><i class="fas fa-check"></i>
+                    <div>Completed <strong id="completedCount">0</strong></div>
+                </div>
+                <div class="stat-box"><i class="fas fa-bell"></i>
+                    <div>Pending <strong id="pendingCount">0</strong></div>
+                </div>
+            </div>
+
+            <button onclick="bookPujaPrompt()"
+                style="padding:12px 20px; background:var(--orange); color:white; border:none; border-radius:10px; margin-bottom:15px;">
+                ➕ Book Puja
+            </button>
+
+            <h3>🧘‍♂️ Spiritual Tip</h3>
+            <br>
+            <p id="spiritualTip" style="background:rgb(74, 72, 72);padding:10px;border-radius:8px;color: white;"></p>
+
+            <h3 style="margin-top:20px;">📊 Puja Stats Chart</h3>
+            <div id="pujaChartBox"><canvas id="pujaChart"></canvas></div>
+
+            <h3 style="margin-top:20px;">📝 Recent Activity</h3>
+            <br>
+            <ul id="recentActivity">
+                <li>No activity yet...</li>
+            </ul>
+        </div>
+
+        <!-- BOOKED PUJA -->
+        <div class="content" id="booked" style="display:none;">
+            <h2>Booked Puja</h2>
+            <div class="sort-filter">
+                <input type="text" id="searchBooked" placeholder="Search by Puja Name" oninput="filterBooked()">
+                <select id="statusFilter" onchange="filterBooked()">
+                    <option value="">All Status</option>
+                    <option value="Booked">Booked</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Completed">Completed</option>
+                </select>
+                <select id="sortBooked" onchange="sortBooked()">
+                    <option value="">Sort by Date</option>
+                    <option value="asc">Oldest First</option>
+                    <option value="desc">Newest First</option>
+                </select>
+            </div>
+            <div class="table-wrapper">
+                <table id="bookedTable">
+                    <tr>
+                        <th>Plan</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </table>
+            </div>
+            <div class="empty" id="bookedEmpty">No booked puja yet.</div>
+        </div>
+
+<div id="list"></div>
+        <!-- COMPLETED PUJA -->
+        <div class="content" id="completed" style="display:none;">
+            <h2>Completed Puja</h2>
+            <div class="sort-filter">
+                <input type="text" id="searchCompleted" placeholder="Search by Puja Name" oninput="filterCompleted()">
+                <select id="sortCompleted" onchange="sortCompleted()">
+                    <option value="">Sort by Date</option>
+                    <option value="asc">Oldest First</option>
+                    <option value="desc">Newest First</option>
+                </select>
+            </div>
+            <div class="table-wrapper">
+                <table id="completedTable">
+                    <tr>
+                        <th>Plan</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </table>
+            </div>
+            <div class="empty" id="completedEmpty">No completed puja yet.</div>
+        </div>
+
+        <!-- NOTIFICATIONS -->
+        <div class="content" id="notifications" style="display:none;">
+            <h2>📩 Notifications</h2>
+            <div class="notif-box" id="notifBox">No new notifications...</div>
+        </div>
+    </div>
+    
+
+    <script>
+        const pujaList = ["Ganesh Puja", "Lakshmi Puja", "Saraswati Puja", "Shiva Puja", "Hanuman Puja", "Durga Puja", "Krishna Puja", "Vishnu Puja"];
+        const tips = ["Meditation brings peace to your mind.", "Do one good karma daily.", "Respect every living being.", "Spiritual growth is true success."];
+
+        const userName = localStorage.getItem("userName") || "User Name";
+        const userEmail = localStorage.getItem("userEmail") || "user@gmail.com";
+        document.getElementById("userName").innerText = userName;
+        document.getElementById("profileName").innerText = userName;
+        document.getElementById("profileEmail").innerText = userEmail;
+        document.getElementById("spiritualTip").innerText = tips[Math.floor(Math.random() * tips.length)];
+
+        function toggleMenu() { document.getElementById("sidebar").classList.toggle("active"); }
+        function showPage(id) {
+            document.querySelectorAll(".content").forEach(e => e.style.display = "none");
+            document.getElementById(id).style.display = "block";
+            document.querySelectorAll(".nav-item").forEach(e => e.classList.remove("active"));
+            event.target.closest(".nav-item").classList.add("active");
+            if (id === 'notifications') { localStorage.removeItem("notification"); document.getElementById("notifBox").innerText = "No new notifications..."; }
+        }
+
+        // Book Puja with selection
+        function bookPujaPrompt() {
+            let pujas = JSON.parse(localStorage.getItem("pujas")) || [];
+            let available = pujaList.filter(p => !pujas.some(x => x.plan === p));
+            if (available.length === 0) { alert("All pujas already booked!"); return; }
+            let choice = prompt("Select Puja:\n" + available.join("\n"), available[0]);
+            if (choice && available.includes(choice)) {
+                const date = new Date().toLocaleString();
+                pujas.push({ plan: choice, date, status: "Booked" });
+                localStorage.setItem("pujas", JSON.stringify(pujas));
+                localStorage.setItem("notification", `🎉 ${choice} Booked Successfully!`);
+                refreshAll();
+                alert(`${choice} booked successfully!`);
+            }
+        }
+
+        // Load Stats
+        function loadStats() {
+            const pujas = JSON.parse(localStorage.getItem("pujas")) || [];
+            document.getElementById("bookedCount").innerText = pujas.filter(p => p.status === "Booked").length;
+            document.getElementById("completedCount").innerText = pujas.filter(p => p.status === "Completed").length;
+            document.getElementById("pendingCount").innerText = pujas.filter(p => p.status === "Pending").length;
+        }
+
+        // Recent Activity
+        function loadActivity() {
+            const pujas = JSON.parse(localStorage.getItem("pujas")) || [];
+            const activity = document.getElementById("recentActivity");
+            if (pujas.length === 0) { activity.innerHTML = "<li>No activity yet...</li>"; return; }
+            activity.innerHTML = pujas.map((p, i) => `
+  <li>
+  <span>${p.plan} – ${p.date} – ${p.status}</span>
+  <span>
+  <button class="btn-complete" onclick="updateStatus(${i},'Completed')">✔</button>
+  <button class="btn-pending" onclick="updateStatus(${i},'Pending')">⏳</button>
+  <button class="btn-edit" onclick="editPuja(${i})">✏️</button>
+  <button class="btn-delete" onclick="deletePuja(${i})">🗑</button>
+  </span>
+  </li>`).join('');
+        }
+
+        // Update/Delete/Edit
+        function updateStatus(i, s) { const pujas = JSON.parse(localStorage.getItem("pujas")) || []; pujas[i].status = s; localStorage.setItem("pujas", JSON.stringify(pujas)); localStorage.setItem("notification", `✅ ${pujas[i].plan} marked ${s}`); refreshAll(); }
+        function deletePuja(i) { const pujas = JSON.parse(localStorage.getItem("pujas")) || []; const rem = pujas.splice(i, 1); localStorage.setItem("pujas", JSON.stringify(pujas)); localStorage.setItem("notification", `❌ ${rem[0].plan} Deleted`); refreshAll(); }
+        function editPuja(i) { const pujas = JSON.parse(localStorage.getItem("pujas")) || []; const newName = prompt("Enter new Puja Name:", pujas[i].plan); const newDate = prompt("Enter new Puja Date:", pujas[i].date); if (newName) pujas[i].plan = newName; if (newDate) pujas[i].date = newDate; localStorage.setItem("pujas", JSON.stringify(pujas)); localStorage.setItem("notification", `✏️ ${pujas[i].plan} Edited`); refreshAll(); }
+
+        // Load Tables
+        function loadTables() {
+            const pujas = JSON.parse(localStorage.getItem("pujas")) || [];
+            const bookedTable = document.getElementById("bookedTable");
+            const completedTable = document.getElementById("completedTable");
+            bookedTable.innerHTML = '<tr><th>Plan</th><th>Date</th><th>Status</th><th>Actions</th></tr>';
+            completedTable.innerHTML = '<tr><th>Plan</th><th>Date</th><th>Status</th><th>Actions</th></tr>';
+            let bookedCount = 0, completedCount = 0;
+            pujas.forEach((p, i) => {
+                const row = `<tr><td>${p.plan}</td><td>${p.date}</td><td>${p.status}</td>
+<td>
+<button class="btn-complete" onclick="updateStatus(${i},'Completed')">✔</button>
+<button class="btn-pending" onclick="updateStatus(${i},'Pending')">⏳</button>
+<button class="btn-edit" onclick="editPuja(${i})">✏️</button>
+<button class="btn-delete" onclick="deletePuja(${i})">🗑</button>
+</td></tr>`;
+                if (p.status === 'Booked') { bookedTable.innerHTML += row; bookedCount++; }
+                if (p.status === 'Completed') { completedTable.innerHTML += row; completedCount++; }
+            });
+            document.getElementById("bookedEmpty").style.display = bookedCount === 0 ? "block" : "none";
+            document.getElementById("completedEmpty").style.display = completedCount === 0 ? "block" : "none";
+        }
+
+        // Chart
+        function loadChart() {
+            const pujas = JSON.parse(localStorage.getItem("pujas")) || [];
+            const booked = pujas.filter(p => p.status === "Booked").length;
+            const completed = pujas.filter(p => p.status === "Completed").length;
+            const pending = pujas.filter(p => p.status === "Pending").length;
+            const ctx = document.getElementById("pujaChart");
+            new Chart(ctx, { type: 'bar', data: { labels: ["Booked", "Completed", "Pending"], datasets: [{ label: "Puja Stats", data: [booked, completed, pending], backgroundColor: ["#ff6a00", "#4CAF50", "#FFC107"] }] }, options: { responsive: true, maintainAspectRatio: false } });
+        }
+
+        // Refresh All
+        function refreshAll() { loadStats(); loadActivity(); loadTables(); loadChart(); }
+
+        // Filters & Sort
+        function filterBooked() { let val = document.getElementById("searchBooked").value.toLowerCase(); let status = document.getElementById("statusFilter").value; const table = document.getElementById("bookedTable"); table.querySelectorAll("tr:not(:first-child)").forEach(r => { let name = r.cells[0].innerText.toLowerCase(); let s = r.cells[2].innerText; r.style.display = (name.includes(val) && (status === "" || status === s)) ? "" : "none"; }); }
+        function sortBooked() { let opt = document.getElementById("sortBooked").value; const table = document.getElementById("bookedTable"); let rows = Array.from(table.querySelectorAll("tr:not(:first-child)")); if (opt === "asc") { rows.sort((a, b) => new Date(a.cells[1].innerText) - new Date(b.cells[1].innerText)); } else if (opt === "desc") { rows.sort((a, b) => new Date(b.cells[1].innerText) - new Date(a.cells[1].innerText)); } rows.forEach(r => table.appendChild(r)); }
+        function filterCompleted() { let val = document.getElementById("searchCompleted").value.toLowerCase(); const table = document.getElementById("completedTable"); table.querySelectorAll("tr:not(:first-child)").forEach(r => { let name = r.cells[0].innerText.toLowerCase(); r.style.display = name.includes(val) ? "" : "none"; }); }
+        function sortCompleted() { let opt = document.getElementById("sortCompleted").value; const table = document.getElementById("completedTable"); let rows = Array.from(table.querySelectorAll("tr:not(:first-child)")); if (opt === "asc") { rows.sort((a, b) => new Date(a.cells[1].innerText) - new Date(b.cells[1].innerText)); } else if (opt === "desc") { rows.sort((a, b) => new Date(b.cells[1].innerText) - new Date(a.cells[1].innerText)); } rows.forEach(r => table.appendChild(r)); }
+
+        // Login notification
+        if (!localStorage.getItem("loginNotif")) { localStorage.setItem("notification", "🎉 Account Created Successfully!"); localStorage.setItem("loginNotif", "true"); }
+        if (localStorage.getItem("notification")) { document.getElementById("notifBox").innerText = localStorage.getItem("notification"); }
+
+        refreshAll();
+        // Dark Mode Toggle
+const themeBtn = document.getElementById("themeToggle");
+themeBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+});
+
+// Add some dark mode CSS dynamically
+const style = document.createElement('style');
+style.innerHTML = `
+    body.dark-mode { background:#1c1c1c; color:#eee; }
+    body.dark-mode .sidebar { background:#333; }
+    body.dark-mode .stat-box, body.dark-mode .profile-card, body.dark-mode .table-wrapper, body.dark-mode .notif-box { background:#2c2c2c; color:#eee; }
+    body.dark-mode table th { background:#555; }
+    body.dark-mode table td { border-bottom:1px solid #555; }
+`;
+document.head.appendChild(style);
+async function createMeeting() {
+    const title = document.getElementById("title").value;
+    const userId = document.getElementById("userId").value;
+
+    const res = await fetch("http://localhost:3000/api/meeting/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, userId })
+    });
+
+    const data = await res.json();
+    alert("Meeting Created: " + data.meeting.meetingURL);
+    loadMeetings(userId);
+}
+
+async function loadMeetings(userId) {
+    const res = await fetch("http://localhost:3000/api/meetings/user/" + userId);
+    const data = await res.json();
+
+    document.getElementById("list").innerHTML =
+        data.map(m => `
+            <p>
+                ${m.title}<br>
+                Link: <a href="${m.meetingURL}" target="_blank">Join</a><br>
+                <button onclick="requestPandit('${m.meetingId}')">Request Pandit</button>
+            </p>
+        `).join("");
+}
+
+async function requestPandit(meetingId) {
+    const panditId = prompt("Enter Pandit ID:");
+
+    const res = await fetch("http://localhost:3000/api/meeting/request-pandit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ meetingId, panditId })
+    });
+
+    const data = await res.json();
+    alert(data.message);
+}
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forgot Password - Book My Yagna</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: url('https://images.pexels.com/photos/3822622/pexels-photo-3822622.jpeg') center/cover no-repeat fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.container {
+    background: rgba(255,255,255,0.97);
+    padding: 35px 28px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+.container h2 {
+    color: #cc6200;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+.container p {
+    color: #444;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+.container input {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 15px;
+}
+.container button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(45deg,#ff7a00,#ffb100);
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: 600;
+}
+.container a {
+    display: block;
+    margin-top: 15px;
+    color: #cc6200;
+    font-weight: 600;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🔑 Reset Password</h2>
+    <p>Enter your email and set a new password.</p>
+
+    <input type="email" id="email" placeholder="Enter your registered email" required>
+    <input type="password" id="newPass" placeholder="Enter new password" required>
+    <input type="password" id="confirmPass" placeholder="Confirm new password" required>
+
+    <button onclick="resetPassword()">Update Password</button>
+
+    <a href="booknowlogin.html">Back to Login</a>
+</div>
+
+<script>
+function resetPassword() {
+    const email = document.getElementById('email').value.trim();
+    const newPass = document.getElementById('newPass').value;
+    const confirmPass = document.getElementById('confirmPass').value;
+
+    if (!email || !newPass || !confirmPass) {
+        alert("❌ Please fill all fields!");
+        return;
+    }
+
+    if (newPass !== confirmPass) {
+        alert("❌ Passwords do not match!");
+        return;
+    }
+
+    // Save new password in localStorage (mock database)
+    localStorage.setItem("userEmail", email);
+    localStorage.setItem("userPassword", newPass);
+
+    alert("✅ Password successfully updated! Please login with your new password.");
+    window.location.href = "booknowlogin.html";
+}
+</script>
+
+</body>
+</html>

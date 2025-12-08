@@ -1,0 +1,155 @@
+/* =======================
+      Global Body Styling
+========================*/
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+
+    background: url('https://images.pexels.com/photos/3822622/pexels-photo-3822622.jpeg')
+                center/cover no-repeat fixed;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 100vh;
+}
+
+/* =======================
+     Login Card Styling
+========================*/
+.login-container {
+    background: rgba(255, 255, 255, 0.96);
+    padding: 40px 30px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 400px;
+
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* =======================
+        Title
+========================*/
+.login-container h2 {
+    color: #b57400;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* =======================
+      Input Boxes
+========================*/
+.login-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+
+    box-sizing: border-box;
+    outline: none;
+    transition: 0.25s;
+}
+
+.login-container input:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 8px rgba(255,152,0,0.4);
+}
+
+/* =======================
+       Buttons
+========================*/
+.login-container button {
+    width: 100%;
+    padding: 12px;
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+
+    color: white;
+    background: linear-gradient(45deg, #ff7a00, #ffb100);
+    transition: 0.3s ease;
+}
+
+/* Register button color */
+.login-container .register-btn {
+    background: #4CAF50;
+}
+
+/* Hover effect */
+.login-container button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255, 136, 0, 0.45);
+}
+
+/* =======================
+     Forgot Password Link
+========================*/
+.login-container a {
+    display: block;
+    margin-top: 15px;
+    font-weight: 600;
+    text-decoration: none;
+
+    color: #b57400;
+}
+
+.login-container a:hover {
+    color: #ff9800;
+}
+
+/* =======================
+      OR Separator
+========================*/
+.or-separator {
+    margin: 25px 0;
+    font-weight: 500;
+    color: #666;
+    position: relative;
+    text-align: center;
+}
+
+.or-separator::before,
+.or-separator::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: #ccc;
+}
+
+.or-separator::before {
+    left: 0;
+}
+.or-separator::after {
+    right: 0;
+}
+
+.g_id_signin {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 30px 20px;
+    }
+}

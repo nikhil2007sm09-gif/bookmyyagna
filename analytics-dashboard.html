@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytics Dashboard</title>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+    body {
+        font-family: Poppins, sans-serif;
+        background: #f2f2f2;
+        margin: 0;
+        color: #333;
+        transition: all 0.3s;
+    }
+
+    body.dark {
+        background: #1f1f1f;
+        color: #eee;
+    }
+
+    body.dark .card { background: #2b2b2b; box-shadow: 0 6px 18px rgba(0,0,0,0.6); }
+    body.dark table tr:hover { background: #3a3a3a; }
+
+    .navbar {
+        width: 100%;
+        padding: 15px 20px;
+        background: #ff7a00;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 20px;
+        font-weight: 600;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .nav-links a { color: #fff; margin-left: 20px; text-decoration: none; font-weight: 600; font-size: 17px; }
+    .menu-btn { display: none; font-size: 28px; cursor: pointer; }
+    @media (max-width: 768px){
+        .nav-links { display: none; flex-direction: column; background:#ff7a00; padding:15px; width: 100%; }
+        .nav-links.show { display: flex; }
+        .menu-btn { display: block; }
+    }
+
+    .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; padding: 25px; }
+   .card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    animation: fadeUp 0.5s ease;
+    transition: all 0.3s;
+    overflow-x: auto; /* allows horizontal scroll if table is wider */
+}
+    .card:hover { transform: translateY(-5px); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .card h2 { margin-bottom: 12px; font-size: 22px; font-weight: 700; }
+    .live-counter { font-size: 40px; font-weight: 800; color: #ff7a00; transition: all 0.5s ease; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    table th, table td { padding: 15px; text-align: left; border-bottom: 1px solid #ddd; }
+    table th { background: #ff7a00; color: #fff; border-radius: 5px; }
+    table tr:hover { background: #f1f1f1; }
+
+    footer { text-align: center; padding: 15px 0; background: #ff7a00; color: #fff; font-weight: 600; margin-top: 20px; }
+
+    canvas { width: 100% !important; height: auto !important; }
+
+    .dark-toggle {
+        cursor: pointer;
+        background: #fff;
+        color: #ff7a00;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-weight: 600;
+        border: none;
+        transition: all 0.3s;
+    }
+    .dark .dark-toggle { background: #ff7a00; color: #fff; }
+</style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">📊 Dashboard</div>
+    <div>
+        <button class="dark-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+        <span class="menu-btn" onclick="toggleMenu()">☰</span>
+    </div>
+    <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Analytics</a>
+        <a href="#">Settings</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h2>👥 Live Website Users</h2>
+        <div class="live-counter" id="liveUsers">0</div>
+    </div>
+
+    <div class="card">
+        <h2>📅 Daily Visitors (Auto Updating)</h2>
+        <canvas id="dailyVisitors"></canvas>
+    </div>
+
+    <div class="card">
+        <h2>🕉 Monthly Puja Bookings (Auto Updating)</h2>
+        <canvas id="monthlyBookings"></canvas>
+    </div>
+
+    <div class="card">
+        <h2>💰 Monthly Revenue</h2>
+        <canvas id="revenueChart"></canvas>
+    </div>
+
+    <div class="card">
+        <h2>📱 Device Analytics (Live % Update)</h2>
+        <canvas id="deviceChart"></canvas>
+    </div>
+
+    <div class="card">
+        <h2>📝 Recent Bookings</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Puja</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="recentBookings">
+                <tr><td>Ramesh</td><td>Ganesh Puja</td><td>27-Nov</td><td>Confirmed</td></tr>
+                <tr><td>Sita</td><td>Lakshmi Puja</td><td>26-Nov</td><td>Pending</td></tr>
+                <tr><td>Rahul</td><td>Navagraha Puja</td><td>25-Nov</td><td>Confirmed</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer>© 2025 Book My Yagna. All Rights Reserved.</footer>
+
+<script>
+/* MOBILE MENU */
+function toggleMenu(){ document.getElementById("navLinks").classList.toggle("show"); }
+
+/* DARK MODE TOGGLE & CHART COLORS */
+function toggleDarkMode(){
+    document.body.classList.toggle("dark");
+    const isDark = document.body.classList.contains("dark");
+
+    // Daily Chart
+    dailyChart.options.plugins.legend.labels.color = isDark ? "#eee" : "#333";
+    dailyChart.data.datasets[0].borderColor = isDark ? "#ffa500" : "#ff7a00";
+    dailyChart.data.datasets[0].backgroundColor = isDark ? "rgba(255,165,0,0.2)" : "rgba(255,122,0,0.2)";
+    dailyChart.update();
+
+    // Monthly Chart
+    monthlyChart.options.plugins.legend.labels.color = isDark ? "#eee" : "#333";
+    monthlyChart.data.datasets[0].borderColor = isDark ? "#00ffff" : "#00aaff";
+    monthlyChart.data.datasets[0].backgroundColor = isDark ? "rgba(0,255,255,0.2)" : "rgba(0,170,255,0.2)";
+    monthlyChart.update();
+
+    // Revenue Chart
+    revenueChart.data.datasets[0].backgroundColor = isDark ? "#00ff7f" : "#28a745";
+    revenueChart.update();
+
+    // Device Chart
+    deviceChart.data.datasets[0].backgroundColor = isDark ? ["#ffa500","#00ffff","#00ff7f"] : ["#ff7a00","#00aaff","#28a745"];
+    deviceChart.update();
+}
+
+/* LIVE USERS COUNTER WITH SMOOTH ANIMATION */
+function updateLiveUsers() {
+    const target = Math.floor(Math.random() * 40) + 10;
+    const element = document.getElementById("liveUsers");
+    const current = parseInt(element.innerText);
+    const step = (target - current) / 20; // 20 steps animation
+    let i = 0;
+
+    const interval = setInterval(() => {
+        element.innerText = Math.round(current + step * i);
+        i++;
+        if(i > 20) clearInterval(interval);
+    }, 50);
+}
+setInterval(updateLiveUsers, 3000);
+updateLiveUsers();
+
+/* CHARTS WITH SMOOTH ANIMATIONS */
+const chartOptions = { responsive:true, animation:{ duration: 1000 }, plugins:{ legend:{ labels:{ color:'#333' } } } };
+
+// Daily Visitors
+const dailyCtx = document.getElementById("dailyVisitors");
+const dailyChart = new Chart(dailyCtx, {
+    type: "line",
+    data: { labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], datasets:[{ label:"Visitors", data:[120,150,180,90,200,170,220], borderWidth:3, borderColor:"#ff7a00", backgroundColor:"rgba(255,122,0,0.2)" }] },
+    options: chartOptions
+});
+setInterval(() => {
+    dailyChart.data.datasets[0].data = dailyChart.data.datasets[0].data.map(n => n + Math.floor(Math.random() * 20));
+    dailyChart.update();
+}, 4000);
+
+// Monthly Bookings
+const monthlyCtx = document.getElementById("monthlyBookings");
+const monthlyChart = new Chart(monthlyCtx, {
+    type: "line",
+    data: { labels:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], datasets:[{ label:"Bookings", data:[20,40,55,70,90,110,95,130,150,180,200,220], borderWidth:3, borderColor:"#00aaff", backgroundColor:"rgba(0,170,255,0.2)" }] },
+    options: chartOptions
+});
+setInterval(() => {
+    monthlyChart.data.datasets[0].data = monthlyChart.data.datasets[0].data.map(n => n + Math.floor(Math.random() * 10));
+    monthlyChart.update();
+}, 4500);
+
+// Revenue Chart
+const revenueCtx = document.getElementById("revenueChart");
+const revenueChart = new Chart(revenueCtx, {
+    type: "bar",
+    data: { labels:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], datasets:[{ label:"Revenue (₹)", data:[5000,7000,8000,6500,9000,10000,9500,12000,15000,18000,20000,22000], backgroundColor:"#28a745" }] },
+    options: chartOptions
+});
+
+// Device Chart
+const deviceCtx = document.getElementById("deviceChart");
+const deviceChart = new Chart(deviceCtx, {
+    type: "pie",
+    data: { labels:["Mobile","Desktop","Tablet"], datasets:[{ data:[65,25,10], backgroundColor:["#ff7a00","#00aaff","#28a745"] }] },
+    options: { responsive:true, animation:{ duration:1000 } }
+});
+setInterval(() => {
+    const mobile = Math.floor(Math.random() * 50) + 50;
+    const desktop = 100 - mobile - 10;
+    const tablet = 10;
+    deviceChart.data.datasets[0].data = [mobile, desktop, tablet];
+    deviceChart.update();
+}, 5000);
+
+</script>
+</body>
+</html>

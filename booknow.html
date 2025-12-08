@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pooja Analytics Dashboard & Booking</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* --- Global Variables and Base Styles --- */
+:root {
+    /* Light Mode Colors */
+    --background-color: #f4f7f6;
+    --card-background: #ffffff;
+    --text-color: #333333;
+    --primary-color: #ff7a00; /* Orange - for bookings/action */
+    --secondary-color: #00aaff; /* Blue - for analytics */
+    --success-color: #28a745; /* Green */
+    --danger-color: #dc3545; /* Red */
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark Mode Overrides */
+.dark {
+    --background-color: #121212;
+    --card-background: #1e1e1e;
+    --text-color: #e0e0e0;
+    --primary-color: #ffa500; /* Lighter Orange */
+    --secondary-color: #00ffff; /* Cyan */
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Base Body and Typography */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: var(--secondary-color);
+}
+
+h2 {
+    font-weight: 700;
+    margin-top: 0;
+    color: var(--primary-color);
+    border-bottom: 2px solid rgba(255, 122, 0, 0.1);
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+}
+
+/* --- Navbar --- */
+.navbar {
+    background-color: var(--card-background);
+    color: var(--text-color);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: 800;
+    color: var(--primary-color);
+}
+
+.profile-link {
+    margin-left: 20px;
+    font-weight: 600;
+    padding: 8px 15px;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.profile-link:hover {
+    background-color: var(--primary-color);
+    color: var(--card-background);
+}
+
+/* --- Buttons --- */
+button {
+    cursor: pointer;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s, color 0.3s, transform 0.1s;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.dark-toggle {
+    background-color: var(--secondary-color);
+    color: var(--card-background);
+    margin-right: 10px;
+}
+
+.dark-toggle:hover {
+    background-color: #0088cc; /* Slightly darker secondary for hover */
+}
+
+.booking-button {
+    grid-column: 1 / -1;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1.1em;
+    padding: 12px 0;
+}
+
+.booking-button:hover {
+    background-color: #cc6200; /* Darker primary for hover */
+}
+
+/* --- Container and Cards --- */
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    padding: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: var(--card-background);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.booking-form-card {
+    grid-column: 1 / span 2;
+}
+
+.live-counter {
+    grid-column: 3 / span 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4em;
+    font-weight: 800;
+    color: var(--success-color);
+    padding: 30px 0;
+    border: 3px dashed var(--success-color);
+    border-radius: 8px;
+    animation: pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        opacity: 0.8;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.card:nth-child(4), .card:nth-child(5) {
+    grid-column: span 2;
+}
+
+.card:nth-child(6), .card:nth-child(7) {
+    grid-column: span 2;
+}
+
+.card:last-child {
+    grid-column: 1 / -1;
+}
+
+/* --- Form Styles --- */
+.booking-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"],
+select,
+textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: inherit;
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 122, 0, 0.2);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* --- Table and Actions --- */
+.table-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.search-box {
+    padding: 8px 15px;
+    flex-grow: 1;
+    max-width: 300px;
+}
+
+.filter-buttons button {
+    background-color: var(--card-background);
+    color: var(--text-color);
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+}
+
+.filter-buttons button:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 0.9em;
+}
+
+thead th {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.3s;
+}
+
+.dark tbody tr {
+    border-bottom: 1px solid #333;
+}
+
+tbody tr:hover {
+    background-color: var(--background-color);
+}
+
+td {
+    padding: 10px 15px;
+}
+
+tbody button {
+    padding: 5px 10px;
+    margin-right: 5px;
+    font-size: 0.8em;
+}
+
+tbody button:first-of-type {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+tbody button:last-of-type {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+/* Status Badges */
+.badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.pending {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.confirmed {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.canceled {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+/* --- Pandit Popup --- */
+.pandit-popup {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    max-width: 400px;
+    width: 90%;
+    border-top: 5px solid var(--primary-color);
+}
+
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5em;
+    font-weight: 300;
+    cursor: pointer;
+    color: var(--danger-color);
+}
+
+.pandit-popup h3 {
+    color: var(--primary-color);
+    margin-top: 0;
+}
+
+.pandit-popup p {
+    line-height: 1.6;
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    font-size: 0.85em;
+    color: #888;
+    border-top: 1px solid #ccc;
+}
+
+.dark footer {
+    border-top: 1px solid #333;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 1200px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .booking-form-card {
+        grid-column: 1 / -1; /* Full width */
+    }
+    .live-counter {
+        grid-column: 1 / -1; /* Full width */
+    }
+    .card:nth-child(4), .card:nth-child(5) {
+        grid-column: 1 / -1;
+    }
+    .card:nth-child(6), .card:nth-child(7) {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+        padding: 15px;
+    }
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+    }
+    .logo {
+        margin-bottom: 10px;
+    }
+    .booking-form-grid {
+        grid-template-columns: 1fr;
+    }
+    .table-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .filter-buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+    }
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    thead {
+        display: none; /* Hide table headers (but keep them in the JS for accessibility) */
+    }
+    tr {
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+    }
+    td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 45%;
+        padding-left: 15px;
+        font-weight: bold;
+        text-align: left;
+        color: var(--primary-color);
+    }
+  
+    #recentBookingsTable tr td:nth-child(1):before { content: "Puja:"; }
+    #recentBookingsTable tr td:nth-child(2):before { content: "Date:"; }
+    #recentBookingsTable tr td:nth-child(3):before { content: "Time:"; }
+    #recentBookingsTable tr td:nth-child(4):before { content: "Status:"; }
+    #recentBookingsTable tr td:nth-child(5):before { content: "Pandit:"; }
+    #recentBookingsTable tr td:nth-child(6):before { content: "Actions:"; }
+}
+/* === Popup Background Overlay === */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55); /* Dark blur overlay */
+    display: none; /* By default hidden */
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px); /* background blur */
+    z-index: 9999;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+/* === Popup Box === */
+.popup-content {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 30px 35px;
+    width: 380px;
+    border-radius: 20px;
+    text-align: center;
+    backdrop-filter: blur(15px); /* Glass effect */
+    box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+    animation: popupZoom 0.35s ease forwards;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* Heading */
+.popup-content h2 {
+    margin-bottom: 10px;
+    color: #fff;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+/* Paragraph */
+.popup-content p {
+    color: #f1f1f1;
+    margin-bottom: 25px;
+    font-size: 16px;
+}
+
+/* === Buttons === */
+.join-btn, .close-btn {
+    padding: 12px 22px;
+    margin: 8px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.25s ease;
+}
+
+/* Join Button */
+.join-btn {
+    background: #ff7300;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(255,115,0,0.4);
+}
+.join-btn:hover {
+    background: #e36400;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(255,115,0,0.5);
+}
+
+/* Close Button */
+.close-btn {
+    background: #eee;
+    color: #333;
+}
+.close-btn:hover {
+    background: #ddd;
+    transform: translateY(-3px);
+}
+
+/* === Animations === */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes popupZoom {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+.live-pooja {
+    padding: 50px 20px;
+    text-align: center;
+    background: #fff8f0;
+}
+.live-pooja h2 {
+    color: #cc6200;
+    margin-bottom: 30px;
+}
+.pooja-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+.pooja-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.pooja-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+.pooja-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+.pooja-card h3 {
+    margin: 15px 0;
+    color: #cc6200;
+}
+.join-btn {
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 10px 20px;
+    background: #ff9800;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+.join-btn:hover {
+    background: #e07c00;
+}
+
+</style>
+</head>
+
+<body>
+<div class="navbar">
+    <div class="logo">📊 Pooja Analytics & Booking</div>
+    <div>
+        <button class="dark-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+        <a href="booknowlogin.html" class="profile-link">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    
+    <div class="card booking-form-card">
+        <h2>🕉 New Pooja Booking</h2>
+        <div class="booking-form-grid">
+            <div class="input-group">
+                <label>Select Pooja</label>
+                <select id="pooja-select" onchange="document.getElementById('pooja-name-input').value = this.value;">
+                    <option value="">-- Select --</option>
+                     <!-- 🕉 Daily Pooja -->
+    <optgroup label="🕉 Daily Puja">
+        <option value="Satyanarayan Puja">Satyanarayan Puja</option>
+        <option value="Ganesh Puja">Ganesh Puja</option>
+        <option value="Shiv Puja">Shiv Puja</option>
+        <option value="Durga Puja">Durga Puja</option>
+        <option value="Hanuman Puja">Hanuman Puja</option>
+    </optgroup>
+
+    <!-- 🏠 Home / Griha Puja -->
+    <optgroup label="🏠 Griha & Family Pooja">
+        <option value="Griha Pravesh Puja">Griha Pravesh Puja</option>
+        <option value="Navgrah Shanti Puja">Navgrah Shanti Puja</option>
+        <option value="Vastu Shanti Puja">Vastu Shanti Puja</option>
+        <option value="Grah Shanti">Grah Shanti</option>
+        <option value="Home Blessings Puja">Home Blessings Puja</option>
+    </optgroup>
+
+    <!-- 🔱 Maha Puja -->
+    <optgroup label="🔱 Maha Puja">
+        <option value="Rudrabhishek Puja">Rudrabhishek Puja</option>
+        <option value="Maha Mrityunjay Jaap">Maha Mrityunjay Jaap</option>
+        <option value="Laghu Rudra Puja">Laghu Rudra Puja</option>
+        <option value="Rudri Path">Rudri Path</option>
+    </optgroup>
+
+    <!-- 🌙 Astrology / Grah -->
+    <optgroup label="🌙 Grah / Dosha Puja">
+        <option value="Mangal Dosh Puja">Mangal Dosh Puja</option>
+        <option value="Shani Shanti Puja">Shani Shanti Puja</option>
+        <option value="Kaal Sarp Dosh Puja">Kaal Sarp Dosh Puja</option>
+        <option value="Pitru Dosh Puja">Pitru Dosh Puja</option>
+        <option value="Pitra Paksha Puja">Pitra Paksha Puja</option>
+    </optgroup>
+
+    <!-- 🎉 Festival / Utsav -->
+    <optgroup label="🎉 Festival Puja">
+        <option value="Diwali Puja (Lakshmi Puja)">Diwali Puja (Lakshmi)</option>
+        <option value="Holi Puja">Holi Puja</option>
+        <option value="Dhanteras Puja">Dhanteras Puja</option>
+        <option value="Raksha Bandhan Puja">Raksha Bandhan Puja</option>
+        <option value="Navratri Durga Puja">Navratri Durga Puja</option>
+    </optgroup>
+
+    <!-- 👶 Sanskar -->
+    <optgroup label="👶 Sanskar Puja">
+        <option value="Naamkaran Puja">Naamkaran Puja</option>
+        <option value="Annaprashan Puja">Annaprashan Puja</option>
+        <option value="Mundan (Tonsure) Puja">Mundan (Tonsure) Puja</option>
+        <option value="Janamdin Puja">Janamdin Puja (Birthday)</option>
+    </optgroup>
+
+    <!-- 💼 Business Puja -->
+    <optgroup label="💼 Business / Office Puja">
+        <option value="Office Opening Puja">Office Opening Puja</option>
+        <option value="Shop Opening Puja">Shop Opening Puja</option>
+        <option value="Factory Puja">Factory Puja</option>
+        <option value="Business Lakshmi Puja">Business Lakshmi Puja</option>
+    </optgroup>
+
+    <!-- Other -->
+    <optgroup label="➕ Other">
+        <option value="Other">Other (Manual Entry)</option>
+    </optgroup>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Manual Name</label>
+                <input type="text" id="pooja-name-input" placeholder="If Other, type name">
+            </div>
+            <div class="input-group">
+                <label>Date</label>
+                <input type="date" id="pooja-date" required>
+            </div>
+            <div class="input-group">
+                <label>Time</label>
+                <input type="time" id="pooja-timing" required>
+            </div>
+            <div class="input-group" style="grid-column:1/-1;">
+                <label>Details / Pandit</label>
+                <textarea id="pooja-details" placeholder="Pandit Name, Location or Notes"></textarea>
+            </div>
+            <!-- <button onclick="openMeetingPopup()">Start Meeting</button> -->
+
+            <button class="booking-button" onclick="bookPooja()">Book Pooja</button>
+        </div>
+    </div>
+   
+
+<div id="meetingPopup" class="popup">
+    <div class="popup-content">
+        <h2>Join Meeting</h2>
+        <p>Your meeting is ready. Click below to join.</p>
+
+        <button class="join-btn" onclick="goToMeeting()">Join Now</button>
+        <button class="close-btn" onclick="closePopup()">Close</button>
+    </div>
+</div>
+
+
+    <div class="card">
+        <h2>👥 Live Users</h2>
+        <div class="live-counter" id="liveUsers">0</div>
+    </div>
+
+
+    <div class="card">
+        <h2>📅 Daily Visitors</h2>
+        <canvas id="dailyVisitors"></canvas>
+    </div>
+    <div class="card">
+        <h2>🕉 Monthly Bookings</h2>
+        <canvas id="monthlyBookings"></canvas>
+    </div>
+    <div class="card">
+        <h2>💰 Monthly Revenue</h2>
+        <canvas id="revenueChart"></canvas>
+    </div>
+    <div class="card">
+        <h2>📱 Device Analytics</h2>
+        <canvas id="deviceChart"></canvas>
+    </div>
+
+  
+    <div class="card">
+        <h2>📝 Recent Bookings</h2>
+        <div class="table-controls">
+            <input type="text" id="searchBox" class="search-box" placeholder="Search bookings...">
+            <div class="filter-buttons">
+                <button onclick="filterBookings('today')">Today</button>
+                <button onclick="filterBookings('week')">This Week</button>
+                <button onclick="filterBookings('month')">This Month</button>
+                <button onclick="filterBookings('all')">All</button>
+            </div>
+        </div>
+        <table>
+            <thead>
+            <tr>
+            <th>Puja</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Pandit</th>
+            <th>Actions</th> 
+            
+  
+            
+        </tr>
+            </thead>
+            <tbody id="recentBookingsTable">
+                <tr><td colspan="5" style="text-align:center;">Loading...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div id="panditPopup" class="pandit-popup">
+    <span class="popup-close" onclick="closePopup()">×</span>
+    <h3 id="popupPanditName"></h3>
+    <p><strong>Experience:</strong> <span id="popupExp"></span> Years</p>
+    <p><strong>Phone:</strong> <span id="popupPhone"></span></p>
+    <p><strong>Speciality:</strong> <span id="popupSpec"></span></p>
+</div>
+<!-- LIVE POOJA / GALLERY SECTION -->
+<section class="live-pooja">
+  <h2>🌺 Live & Past Pooja Gallery</h2>
+  <div class="pooja-grid">
+    <div class="pooja-card">
+      <img src="https://images.pexels.com/photos/3822622/pexels-photo-3822622.jpeg" alt="Ganesh Pooja">
+      <h3>Ganesh Pooja</h3>
+      <a href="meeting.html" target="_blank" class="join-btn">Join Live Pooja</a>
+    </div>
+    <div class="pooja-card">
+      <img src="https://images.pexels.com/photos/3822622/pexels-photo-3822622.jpeg" alt="Lakshmi Pooja">
+      <h3>Lakshmi Pooja</h3>
+      <a href="meeting.html" target="_blank" class="join-btn">Join Live Pooja</a>
+    </div>
+    <div class="pooja-card">
+      <img src="https://images.pexels.com/photos/3822622/pexels-photo-3822622.jpeg" alt="Navgrah Shanti">
+      <h3>Navgrah Shanti</h3>
+      <a href="meeting.html" target="_blank" class="join-btn">Join Live Pooja</a>
+    </div>
+  </div>
+</section>
+<footer>© 2025 Book My Yagna. All Rights Reserved.</footer>
+
+<script>
+    const BACKEND_URL = 'http://localhost:3000/api/poojas';
+
+   
+    async function fetchRecentBookings() {
+        try {
+            const response = await fetch(BACKEND_URL);
+            if (!response.ok) throw new Error('Failed to fetch bookings');
+            const poojas = await response.json();
+            
+            const tableBody = document.getElementById('recentBookingsTable');
+            tableBody.innerHTML = ''; 
+
+            if (poojas.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No recent bookings.</td></tr>';
+                return;
+            }
+            
+
+     
+            poojas.slice(-5).reverse().forEach(pooja => {
+                const row = tableBody.insertRow();
+                row.insertCell(0).textContent = pooja.name || 'Unknown';
+                row.insertCell(1).textContent = pooja.date ? pooja.date.split('T')[0] : 'N/A'; 
+                row.insertCell(2).textContent = pooja.timing || 'N/A'; 
+                row.insertCell(3).textContent = 'Confirmed'; 
+            });
+
+        } catch (error) {
+            console.error('Error fetching bookings:', error.message);
+            const tableBody = document.getElementById('recentBookingsTable');
+            tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:red;">Connection Error! Server Down.</td></tr>`;
+        }
+    }
+let poojas = []; 
+let editId = null;
+
+async function fetchRecentBookings() {
+    try {
+        const response = await fetch(BACKEND_URL);
+        if (!response.ok) throw new Error('Failed to fetch bookings');
+        poojas = await response.json();
+
+        const tableBody = document.getElementById('recentBookingsTable');
+        tableBody.innerHTML = '';
+
+        if (poojas.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">No bookings found</td></tr>';
+            return;
+        }
+
+        poojas.slice(-10).reverse().forEach(pooja => {
+            const status = pooja.status || 'pending';
+            const pandit = pooja.details || 'Unknown Pandit';
+
+            const row = tableBody.insertRow();
+            row.insertCell(0).textContent = pooja.name;
+            row.insertCell(1).textContent = pooja.date ? pooja.date.split('T')[0] : 'N/A';
+            row.insertCell(2).textContent = pooja.timing || 'N/A';
+            row.insertCell(3).innerHTML = `<span class="badge ${status}" style="cursor:pointer;" onclick="cycleStatus('${pooja._id}')">${status}</span>`;
+            row.insertCell(4).innerHTML = `<span style="color:var(--primary); cursor:pointer;" onclick="openPandit('${pandit}')">${pandit}</span>`;
+            row.insertCell(5).innerHTML = `
+                <button onclick="editPooja('${pooja._id}')">Edit</button>
+                <button onclick="deletePooja('${pooja._id}')">Delete</button>
+            `;
+        });
+
+    } catch (error) {
+        console.error(error);
+        document.getElementById('recentBookingsTable').innerHTML =
+            '<tr><td colspan="6" style="text-align:center; color:red;">Server Down / Connection Error</td></tr>';
+    }
+}
+
+// Book or update pooja
+async function bookPooja() {
+    const selectValue = document.getElementById('pooja-select').value;
+    const manualName = document.getElementById('pooja-name-input').value.trim();
+    const date = document.getElementById('pooja-date').value;
+    const timing = document.getElementById('pooja-timing').value;
+    const details = document.getElementById('pooja-details').value.trim();
+    const name = selectValue && selectValue !== "Other" ? selectValue : manualName;
+
+    if (!name || !date || !timing) {
+        alert('Please enter Pooja name, date, and time.');
+        return;
+    }
+
+    const poojaData = { name, date, timing, details };
+
+    try {
+        let response;
+        if (editId) {
+            response = await fetch(`${BACKEND_URL}/${editId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(poojaData)
+            });
+        } else {
+            response = await fetch(BACKEND_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(poojaData)
+            });
+        }
+
+        const result = await response.json();
+        if (!response.ok) {
+            alert(result.error || 'Operation failed');
+            return;
+        }
+
+        alert(editId ? 'Booking updated successfully!' : `"${result.name}" booked successfully!`);
+        editId = null;
+
+        document.getElementById('pooja-select').value = '';
+        document.getElementById('pooja-name-input').value = '';
+        document.getElementById('pooja-date').value = '';
+        document.getElementById('pooja-timing').value = '';
+        document.getElementById('pooja-details').value = '';
+
+        fetchRecentBookings();
+
+    } catch (error) {
+        console.error(error);
+        alert('Network error, please try again.');
+    }
+}
+
+function editPooja(id) {
+    const pooja = poojas.find(p => p._id === id);
+    if (!pooja) return;
+
+    document.getElementById('pooja-select').value = pooja.name !== 'Other' ? pooja.name : 'Other';
+    document.getElementById('pooja-name-input').value = pooja.name;
+    document.getElementById('pooja-date').value = pooja.date.split('T')[0];
+    document.getElementById('pooja-timing').value = pooja.timing;
+    document.getElementById('pooja-details').value = pooja.details;
+    editId = id;
+}
+
+
+
+async function deletePooja(id) {
+    if (!confirm('Are you sure you want to delete this booking?')) return;
+    try {
+        await fetch(`${BACKEND_URL}/${id}`, { method: 'DELETE' });
+        alert('Booking deleted!');
+        fetchRecentBookings();
+    } catch (error) {
+        console.error(error);
+        alert('Delete failed.');
+    }
+}
+
+
+async function cycleStatus(id) {
+    const pooja = poojas.find(p => p._id === id);
+    if (!pooja) return;
+
+    const statusOrder = ['pending', 'confirmed', 'canceled'];
+    const currentIndex = statusOrder.indexOf(pooja.status || 'pending');
+    const newStatus = statusOrder[(currentIndex + 1) % 3];
+
+    try {
+        await fetch(`${BACKEND_URL}/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: newStatus })
+        });
+        fetchRecentBookings();
+    } catch (error) {
+        console.error(error);
+        alert('Status update failed.');
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetchRecentBookings();
+    setInterval(fetchRecentBookings, 10000);
+});
+
+    async function bookPooja() {
+        const selectValue = document.getElementById('pooja-select').value;
+        const manualName = document.getElementById('pooja-name-input').value.trim();
+        const date = document.getElementById('pooja-date').value;
+        const timing = document.getElementById('pooja-timing').value; // Get timing
+        const details = document.getElementById('pooja-details').value.trim();
+
+        let name = selectValue === "Other" ? manualName : selectValue;
+        
+        if (!name || !date || !timing) {
+            alert('कृपया पूजा का नाम (Puja Name), तारीख (Date) और समय (Timing) दर्ज करें।');
+            return;
+        }
+
+        const poojaData = { name, date, timing, details };
+
+        try {
+            const response = await fetch(BACKEND_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(poojaData)
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                alert(`Error: ${result.error || 'Booking failed.'}`);
+                return;
+            }
+
+            
+            alert(`"${result.name}" successfully booked for ${result.date} at ${result.timing}!`);
+
+         
+            document.getElementById('pooja-select').value = '';
+            document.getElementById('pooja-name-input').value = '';
+            document.getElementById('pooja-date').value = '';
+            document.getElementById('pooja-timing').value = ''; 
+            document.getElementById('pooja-details').value = '';
+            
+            fetchRecentBookings();
+
+        } catch (error) {
+            console.error('Network Error:', error.message);
+            alert('नेटवर्क त्रुटि: बैकएंड से कनेक्ट नहीं हो सका। सुनिश्चित करें कि Node.js सर्वर चल रहा है।');
+        }
+    }
+
+    function toggleDarkMode(){
+        document.body.classList.toggle("dark");
+      
+      
+        const isDark = document.body.classList.contains("dark");
+        const chartColor = isDark ? "#eee" : "#333";
+        dailyChart.options.plugins.legend.labels.color = chartColor;
+        monthlyChart.options.plugins.legend.labels.color = chartColor;
+        dailyChart.data.datasets[0].borderColor = isDark ? "#ffa500" : "#ff7a00";
+        monthlyChart.data.datasets[0].borderColor = isDark ? "#00ffff" : "#00aaff";
+    
+        dailyChart.update();
+        monthlyChart.update();
+        revenueChart.update();
+        deviceChart.update();
+    }
+    
+    function updateLiveUsers() {
+        const target = Math.floor(Math.random() * 40) + 10;
+        const element = document.getElementById("liveUsers");
+        const current = parseInt(element.innerText);
+        const step = (target - current) / 20; 
+        let i = 0;
+        const interval = setInterval(() => {
+            element.innerText = Math.round(current + step * i);
+            i++;
+            if(i > 20) clearInterval(interval);
+        }, 50);
+    }
+    
+    const chartOptions = { responsive:true, animation:{ duration: 1000 }, plugins:{ legend:{ labels:{ color:'#333' } } }, scales: { x: { ticks: { color: '#888' } }, y: { ticks: { color: '#888' } } } };
+
+    const dailyCtx = document.getElementById("dailyVisitors");
+    const dailyChart = new Chart(dailyCtx, {
+        type: "line",
+        data: { labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], datasets:[{ label:"Visitors", data:[120,150,180,90,200,170,220], borderWidth:3, borderColor:"#ff7a00", backgroundColor:"rgba(255,122,0,0.2)" }] },
+        options: chartOptions
+    });
+    setInterval(() => {
+        dailyChart.data.datasets[0].data = dailyChart.data.datasets[0].data.map(n => n + Math.floor(Math.random() * 20));
+        dailyChart.update();
+    }, 4000);
+
+    const monthlyCtx = document.getElementById("monthlyBookings");
+    const monthlyChart = new Chart(monthlyCtx, {
+        type: "line",
+        data: { labels:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], datasets:[{ label:"Bookings", data:[20,40,55,70,90,110,95,130,150,180,200,220], borderWidth:3, borderColor:"#00aaff", backgroundColor:"rgba(0,170,255,0.2)" }] },
+        options: chartOptions
+    });
+    setInterval(() => {
+        monthlyChart.data.datasets[0].data = monthlyChart.data.datasets[0].data.map(n => n + Math.floor(Math.random() * 10));
+        monthlyChart.update();
+    }, 4500);
+
+    const revenueCtx = document.getElementById("revenueChart");
+    const revenueChart = new Chart(revenueCtx, {
+        type: "bar",
+        data: { labels:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], datasets:[{ label:"Revenue (₹)", data:[5000,7000,8000,6500,9000,10000,9500,12000,15000,18000,20000,22000], backgroundColor:"#28a745" }] },
+        options: chartOptions
+    });
+
+    const deviceCtx = document.getElementById("deviceChart");
+    const deviceChart = new Chart(deviceCtx, {
+        type: "pie",
+        data: { labels:["Mobile","Desktop","Tablet"], datasets:[{ data:[65,25,10], backgroundColor:["#ff7a00","#00aaff","#28a745"] }] },
+        options: { responsive:true, animation:{ duration:1000 }, plugins:{ legend:{ labels:{ color:'#333' } } } }
+    });
+    setInterval(() => {
+        const mobile = Math.floor(Math.random() * 50) + 50;
+        const desktop = 100 - mobile - 10;
+        const tablet = 10;
+        deviceChart.data.datasets[0].data = [mobile, desktop, tablet];
+        deviceChart.update();
+    }, 5000);
+
+    document.addEventListener('DOMContentLoaded', () => {
+        updateLiveUsers();
+        fetchRecentBookings();
+        setInterval(fetchRecentBookings, 10000); 
+        setInterval(updateLiveUsers, 3000);
+    });
+
+async function logoutUser() {
+    try {
+   
+        const response = await fetch('http://localhost:3000/api/logout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+       
+        });
+
+      
+        if (!response.ok) {
+             console.warn("Backend logout failed, but proceeding with client side logout.");
+           
+        }
+
+     
+        localStorage.removeItem('userToken'); 
+        console.log('Client-side session cleared.');
+
+
+    
+        alert('You have been successfully logged out!');
+        window.location.href = 'booknowlogin.html'; 
+        
+        window.location.reload(); 
+
+    } catch (error) {
+        console.error('Logout error:', error.message);
+        alert('Logout failed. Please check the server connection.');
+    }
+}
+
+document.getElementById("searchBox").addEventListener("keyup", function () {
+    const search = this.value.toLowerCase();
+    const rows = document.querySelectorAll("#recentBookingsTable tr");
+
+    rows.forEach(row => {
+        row.style.display = row.innerText.toLowerCase().includes(search) ? "" : "none";
+    });
+});
+function filterBookings(type) {
+    const rows = document.querySelectorAll("#recentBookingsTable tr");
+    const now = new Date();
+
+    rows.forEach(row => {
+        const dateText = row.children[1]?.innerText;
+        if (!dateText) return;
+
+        const rowDate = new Date(dateText);
+
+        let show = true;
+        if (type === "today") show = rowDate.toDateString() === now.toDateString();
+
+        if (type === "week") {
+            const diff = (now - rowDate) / (1000 * 60 * 60 * 24);
+            show = diff <= 7;
+        }
+
+        if (type === "month") {
+            show = rowDate.getMonth() === now.getMonth();
+        }
+
+        row.style.display = show ? "" : "none";
+    });
+}
+poojas.slice(-10).reverse().forEach(pooja => {
+
+    
+    const statusList = ["confirmed", "pending", "canceled"];
+    const status = statusList[Math.floor(Math.random() * 3)];
+
+    const pandit = pooja.details || "Unknown Pandit";
+
+    tableBody.innerHTML += `
+        <tr>
+            <td>${pooja.name}</td>
+            <td>${pooja.date.split("T")[0]}</td>
+            <td>${pooja.timing}</td>
+            <td><span class="badge ${status}">${status}</span></td>
+
+            <td>
+                <span style="color:var(--primary-color); cursor:pointer; font-weight:600;"
+                    onclick="openPandit('${pandit}')">
+                    ${pandit}
+                </span>
+            </td>
+        </tr>
+    `;
+});
+
+async function submitBooking(event) {
+    event.preventDefault(); 
+
+    
+    const poojaName = document.getElementById('poojaName').value; 
+    const userEmail = document.getElementById('userEmail').value; 
+    
+    const date = document.getElementById('poojaDate').value;
+    const timing = document.getElementById('poojaTiming').value;
+    const details = document.getElementById('poojaDetails').value;
+
+
+    const bookingData = {
+        name: poojaName,     
+        userEmail: userEmail, 
+        date: date,
+        timing: timing,
+        details: details
+    
+    };
+
+    try {
+        const response = await fetch('http://localhost:3000/api/poojas', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(bookingData)
+        });
+
+        if (response.ok) {
+            alert('✅ Booking Successful! Confirmation email sent.');
+           
+        } else {
+            const errorData = await response.json();
+            alert(`❌ Booking Failed: ${errorData.error}`);
+        }
+
+    } catch (error) {
+        alert('❌ Network Error: Could not connect to the server (port 3000).');
+        console.error('Fetch Error:', error);
+    }
+}
+
+async function approvePooja(id){
+  try{
+    const res = await fetch(`http://localhost:3000/api/poojas/${id}/approve`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ approved: true })
+    });
+    const data = await res.json();
+    if(res.ok){
+      showToast("Booking approved successfully");
+      loadBookings();
+    } else {
+      showToast("Error: "+data.error);
+    }
+  } catch(err){
+    showToast("Server error: "+err.message);
+  }
+}
+async function editPooja(id){
+  const row = document.getElementById(`pooja-${id}`);
+  const cells = row.querySelectorAll("td");
+
+  const newName = prompt("Edit Pooja Name", cells[0].innerText);
+  const newDate = prompt("Edit Date", cells[1].innerText);
+  const newTiming = prompt("Edit Timing", cells[2].innerText);
+  const newDetails = prompt("Edit Details", cells[3].innerText);
+
+  if(!newName || !newDate || !newTiming) return showToast("Name, Date and Timing are required");
+
+  try{
+    const res = await fetch(`http://localhost:3000/api/poojas/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name:newName, date:newDate, timing:newTiming, details:newDetails })
+    });
+    const data = await res.json();
+    if(res.ok){
+      showToast("Booking updated successfully");
+      loadBookings();
+    } else {
+      showToast("Error: "+data.error);
+    }
+  } catch(err){
+    showToast("Server error: "+err.message);
+  }
+}
+
+loadBookings();
+
+</script>
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script>
+    const API_BASE_URL = "http://localhost:3000";
+
+    const socket = io(API_BASE_URL);
+
+    
+    async function loadApprovedBookings() {
+        console.log("Fetching approved bookings...");
+        try {
+          
+            const res = await fetch(`${API_BASE_URL}/api/poojas/approved`);
+            const data = await res.json();
+            
+            if (res.ok) {
+                
+                console.log("Approved Bookings:", data);
+               
+            } else {
+                console.error("Failed to fetch approved bookings:", data.error);
+            }
+        } catch (err) {
+            console.error("Error connecting to fetch approved data:", err);
+        }
+    }
+
+  
+
+    socket.on('poojaApproved', (data) => {
+        console.log('Received poojaApproved event:', data);
+        
+       
+        showToast("🔔 New booking approved by Admin! Refreshing list.");
+        loadApprovedBookings(); 
+    });
+
+ 
+    loadApprovedBookings();
+
+</script>
+<script>
+function openMeetingPopup() {
+    document.getElementById('meetingPopup').style.display = 'flex';
+}
+
+function closePopup() {
+    document.getElementById('meetingPopup').style.display = 'none';
+}
+
+function goToMeeting() {
+    window.location.href = "meeting.html";
+}
+</script>
+
+</body>
+</html>

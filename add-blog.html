@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Blog</title>
+
+    <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins, sans-serif;
+}
+
+/* Full background image */
+body {
+    background: url("https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1920&q=80") no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    min-height: 100vh;
+}
+
+/* Glassmorphism card */
+.blog-box {
+    width: 100%;
+    max-width: 600px;
+    
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    padding: 35px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.35);
+
+    box-shadow: 0px 10px 35px rgba(0,0,0,0.25);
+    animation: fadeIn 0.7s ease;
+    transition: transform 0.3s;
+}
+
+.blog-box:hover {
+    transform: translateY(-5px);
+}
+
+/* Title */
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 700;
+    text-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+/* Inputs */
+input, textarea {
+    width: 100%;
+    padding: 14px;
+    margin: 14px 0;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(6px);
+}
+
+input:focus, textarea:focus {
+    box-shadow: 0px 0px 12px rgba(255,255,255,0.8);
+    border: 1px solid #ff9800;
+    outline: none;
+    background: rgba(255,255,255,0.9);
+}
+
+textarea {
+    height: 160px;
+    resize: none;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background: #ff9800;
+    color: white;
+    font-size: 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 14px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: #de8400;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    transform: translateY(-2px);
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .blog-box {
+        padding: 25px;
+        border-radius: 15px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    button {
+        font-size: 16px;
+    }
+}
+
+    </style>
+</head>
+
+<body>
+
+    <div class="blog-box">
+        <h2>Add New Blog</h2>
+
+      <form id="blogForm" enctype="multipart/form-data">
+    <input type="text" name="title" placeholder="Blog title" required><br>
+    <textarea name="content" placeholder="Blog content" required></textarea><br>
+    <input type="file" name="image"><br>
+    <button type="submit">Add Blog</button>
+</form>
+
+    </div>
+
+
+    <script>
+        document.getElementById("blogForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+
+            try {
+                let res = await fetch("http://localhost:3000/api/blogs", {
+                    method: "POST",
+                    body: formData
+                });
+
+                let data = await res.json();
+                alert(data.message);
+
+                if (data.success) {
+                    e.target.reset();
+                }
+
+            } catch (err) {
+                alert("Server error: " + err);
+            }
+        });
+    </script>
+
+</body>
+</html>

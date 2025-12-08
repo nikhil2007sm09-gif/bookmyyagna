@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Meeting Portal</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body{
+      font-family:Poppins,Arial;
+      background:#f0f4fa;
+      margin:0;
+      padding:20px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .wrap{
+      max-width:480px;
+      width:100%;
+      background:#fff;
+      padding:24px;
+      border-radius:14px;
+      box-shadow:0 8px 30px rgba(0,0,0,0.08);
+      animation:fadeIn .4s ease;
+    }
+
+    h2{
+      margin:0 0 18px 0;
+      font-size:26px;
+      text-align:center;
+      color:#2b4cff;
+    }
+
+    label{
+      font-weight:600;
+      margin-top:10px;
+      display:block;
+    }
+
+    input,button{
+      width:100%;
+      margin:8px 0;
+      padding:12px;
+      border-radius:10px;
+      border:1px solid #ddd;
+      font-size:16px;
+    }
+
+    .inline{
+      display:flex;
+      gap:10px;
+    }
+
+    .inline input{
+      flex:1;
+    }
+
+    button{
+      background:#2b4cff;
+      border:none;
+      color:white;
+      font-weight:600;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    button:hover{
+      background:#1233ff;
+      transform:translateY(-2px);
+      box-shadow:0 6px 15px rgba(0,0,0,0.1);
+    }
+
+    button:active{
+      transform:scale(0.96);
+    }
+
+    @keyframes fadeIn {
+      from {opacity:0; transform:translateY(10px);}
+      to   {opacity:1; transform:translateY(0);}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <h2>🎥 Start or Join Meeting</h2>
+
+  
+    <label>Your Name</label>
+    <input id="hostName" placeholder="Enter your name"/>
+
+    <button id="startBtn">Start New Meeting</button>
+
+    <hr style="margin:25px 0; border:0; border-top:1px solid #eee"/>
+
+   
+    <h3 style="margin-top:0;">Join Existing Meeting</h3>
+
+    <div class="inline">
+      <input id="joinName" placeholder="Your name" />
+      <input id="joinId" placeholder="Meeting ID" />
+    </div>
+
+    
+
+
+    <button id="joinBtn">Join Meeting</button>
+  </div>
+
+<script>
+document.getElementById("startBtn").onclick = () => {
+  const name = document.getElementById("hostName").value.trim();
+  if (!name) return alert("Enter your name");
+
+  const meetingId = "MT" + Math.floor(Math.random() * 9000 + 1000);
+
+  window.location.href =
+    `/meeting.html?name=${encodeURIComponent(name)}&mid=${meetingId}`;
+};
+
+document.getElementById("joinBtn").onclick = () => {
+  const name = document.getElementById("joinName").value.trim();
+  const mid = document.getElementById("joinId").value.trim();
+
+  if (!name || !mid) return alert("Enter name & meeting ID");
+
+  window.location.href =
+    `/meeting.html?name=${encodeURIComponent(name)}&mid=${encodeURIComponent(mid)}`;
+};
+const API_URL = "http://localhost:3000"; // backend URL
+const socket = io(API_URL);
+
+// --- Book Meeting ---
+document.getElementById('bookBtn').addEventListener('click', async () => {
+    const userName = document.getElementById('userName').value;
+    const panditName = document.getElementById('panditName').value;
+    const meetingId = document.getElementById('meetingId').value;
+    const purpose = document.getElementById('purpose').value;
+
+    const res = await fetch(`${API_URL}/api/book`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userName, panditName, meetingId, purpose })
+    });
+    const data = await res.json();
+    alert(data.success ? "Meeting booked!" : data.message);
+});
+
+// --- Load Meetings ---
+async function loadMeetings() {
+    const res = await fetch(`${API_URL}/api/meetings`);
+    const meetings = await res.json();
+    const list = document.getElementById('meetingsList');
+    list.innerHTML = '';
+    meetings.forEach(m => {
+        const li = document.createElement('li');
+        li.innerText = `${m.roomId} - ${m.title}`;
+        li.addEventListener('click', () => joinRoom(m.roomId, userName.value));
+        list.appendChild(li);
+    });
+}
+loadMeetings();
+
+// --- Join Room & Chat ---
+function joinRoom(roomId, userName) {
+    socket.emit("join-room", { roomId, userName });
+    alert(`Joined room ${roomId}`);
+
+    socket.on("chat-message", ({ sender, message }) => {
+        const chatBox = document.getElementById('chatBox');
+        chatBox.innerHTML += `<p><strong>${sender}:</strong> ${message}</p>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    });
+}
+
+// --- Send Chat Message ---
+document.getElementById('sendBtn').addEventListener('click', () => {
+    const message = document.getElementById('chatInput').value;
+    const roomId = document.getElementById('meetingId').value;
+    const sender = document.getElementById('userName').value;
+    socket.emit("chat-message", { roomId, sender, message });
+    document.getElementById('chatInput').value = '';
+});
+
+</script>
+
+</body>
+</html>

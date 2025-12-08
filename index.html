@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookMyYagna Website</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Kalam:wght@700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css" </head>
+
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+
+      <a href="" class="logo-link">
+        <img src="favicon-BUZVQplk.png" alt="Book My Yagna" class="site-logo">
+      </a>
+
+
+
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+
+        <li class="dropdown">
+          <a href="#">Service <i class="fas fa-caret-down"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="listofpooja.html">List of Puja</a></li>
+            <li><a href="panchang.html">Panchang</a></li>
+            <li><a href="blog.html">Blogs</a></li>
+          </ul>
+        </li>
+
+        <li><a href="about.html">About Us</a></li>
+
+        <li class="dropdown">
+          <a href="#">Login <i class="fas fa-caret-down"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="Userlogin.html">User Login</a></li>
+            <li><a href="panditlogin.html">Pandit Login</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#">Language <i class="fas fa-caret-down"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">English</a></li>
+            <li><a href="#">हिन्दी (Hindi)</a></li>
+            <li><a href="#">मराठी (Marathi)</a></li>
+          </ul>
+        </li>
+
+        <li><a href="booknowlogin.html" class="btn-book-now">Book Now</a></li>
+
+
+      </ul>
+
+
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- <section class="hero-section">
+
+        <!-- Slide 1 -->
+  <!-- <div class="slide active">
+            <div class="bg-image" style="background-image: url('https://t.eucdn.in/tourism/lg/ganga-aarti-haridwar-3478567.webp')"></div>
+            <div class="hero-content">
+                <span class="tag">Home Ceremonies</span>
+                <h1 class="hero-title">Bring <span class="highlight">Blessings</span> to Your Home</h1>
+                <p class="hero-subtitle">Schedule Griha Pravesh, Vastu Shanti, or other home ceremonies with verified pandits and complete samagri.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">Book Puja Now</a>
+                    <a href="#" class="btn btn-secondary">Explore Services</a>
+                </div>
+                <div class="hero-features">
+                    <div class="feature-item"><div class="feature-icon">Pandit</div><span>Verified Pandits</span></div>
+                    <div class="feature-item"><div class="feature-icon">Samagri</div><span>Complete Samagri</span></div>
+                    <div class="feature-item"><div class="feature-icon">Ritual</div><span>Authentic Rituals</span></div>
+                </div>
+            </div>
+        </div> -->
+
+  <!-- Slide 2 -->
+  <!-- <div class="slide">
+            <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920')"></div>
+            <div class="hero-content">
+                <span class="tag">Festival Celebrations</span>
+                <h1 class="hero-title">Celebrate Festivals with <span class="highlight">Divine Joy</span></h1>
+                <p class="hero-subtitle">From Diwali to Ganesh Chaturthi — make every festival spiritually uplifting with authentic pujas.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">Book Festival Puja</a>
+                    <a href="#" class="btn btn-secondary">View Festivals</a>
+                </div>
+                <div class="hero-features">
+                    <div class="feature-item"><div class="feature-icon">Calendar</div><span>Auspicious Dates</span></div>
+                    <div class="feature-item"><div class="feature-icon">Diya</div><span>Special Decorations</span></div>
+                    <div class="feature-item"><div class="feature-icon">Temple</div><span>Temple Live Darshan</span></div>
+                </div>
+            </div>
+        </div> -->
+
+  <!-- Slide 3 -->
+  <!-- <div class="slide">
+            <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1542810634-7124cf73e0d1?w=1920')"></div>
+            <div class="hero-content">
+                <span class="tag">Healing & Positivity</span>
+                <h1 class="hero-title">Find Inner <span class="highlight">Peace & Harmony</span></h1>
+                <p class="hero-subtitle">Remove obstacles, restore balance, and invite positivity with powerful healing yagnas and pujas.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">Seek Healing</a>
+                    <a href="#" class="btn btn-secondary">Know More</a>
+                </div>
+                <div class="hero-features">
+                    <div class="feature-item"><div class="feature-icon">Lotus</div><span>Spiritual Healing</span></div>
+                    <div class="feature-item"><div class="feature-icon">Om</div><span>Energy Cleansing</span></div>
+                    <div class="feature-item"><div class="feature-icon">Heart</div><span>Emotional Balance</span></div>
+                </div>
+            </div>
+        </div> -->
+
+  <!-- Navigation Arrows -->
+  <!-- <div class="arrow arrow-left" onclick="prevSlide()">Left Arrow</div>
+        <div class="arrow arrow-right" onclick="nextSlide()">Right Arrow</div> -->
+
+  <!-- Dots -->
+  <!-- <div class="slider-dots">
+            <span class="dot active" onclick="currentSlide(0)"></span>
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+        </div> -->
+
+  <div class="city-popup" id="cityPopup">
+    <div class="city-popup-content">
+      <button class="city-close-btn" onclick="closeCityPopup()">✕</button>
+
+      <div class="city-left">
+        <img
+          src="data:image/jpeg;base64,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"
+          alt="City Illustration">
+        <img
+          src="data:image/jpeg;base64,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"
+          alt="City Illustration">
+        <img
+          src="data:image/jpeg;base64,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"
+          alt="City Illustration">
+           <img
+          src="data:image/jpeg;base64,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"
+          alt="City Illustration">
+          
+      </div>
+
+      <div class="city-right">
+        <h2>Select Your City</h2>
+        <p>Select your city to book poojas and services more accurately, tailored to your location.</p>
+
+        <div class="search-bar">
+          <input type="text" id="citySearch" placeholder="Search city..." onkeyup="filterCities()">
+        </div>
+
+        <div class="city-list" id="cityList">
+          <button class="city-btn" onclick="selectCity('Indore')">Indore</button>
+          <button class="city-btn" onclick="selectCity('Bhopal')">Bhopal</button>
+          <button class="city-btn" onclick="selectCity('Ujjain')">Ujjain</button>
+          <button class="city-btn" onclick="selectCity('Dewas')">Dewas</button>
+          <button class="city-btn" onclick="selectCity('Mumbai')">Mumbai</button>
+          <button class="city-btn" onclick="selectCity('Delhi')">Delhi-NCR</button>
+          <button class="city-btn" onclick="selectCity('Chennai')">Chennai</button>
+          <button class="city-btn" onclick="selectCity('Rohtak')">Pune</button>
+          <button class="city-btn" onclick="selectCity('chadigar')">Hyderabad</button>
+          <button class="city-btn" onclick="selectCity('lucknow')">lucknow</button>
+          <button class="city-btn" onclick="selectCity('patna')">patna</button>
+          <button class="city-btn" onclick="selectCity('Haridwar')">Haridwar</button>
+          <button class="city-btn" onclick="selectCity('surat')">surat</button>
+          <button class="city-btn" onclick="selectCity('E-PUJA')">E-PUJA</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="hero-slider">
+
+    <div class="slide active">
+      <video class="bg-video" autoplay muted loop playsinline>
+        <source src="WhatsApp Video 2025-11-26 at 17.08.54_d6d9bfab.mp4" type="video/mp4">
+      </video>
+
+      <div class="content glass-box">
+        <span class="tag glass-pill">⭐ Auspicious Ceremonies</span>
+
+        <h1>Welcome to <span>Book My Yagna</span></h1>
+        <h3 class="subline">Your Sacred Link to Authentic Vedic Rituals</h3>
+
+        <p class="desc">
+          Reconnect with spirituality through online yagna, puja, and trusted pandits — all in one place.
+        </p>
+
+        <div class="btn-group">
+          <a href="booknowlogin.html" class="btn primary">📅 Book Puja Now</a>
+          <a href="index.html" class="btn outline">🔔 Explore Services</a>
+        </div>
+
+        <div class="features">
+          <div class="feature glass-small">🧘 Verified Pandits</div>
+          <div class="feature glass-small">🛕 Complete Samagri</div>
+          <div class="feature glass-small">🙏 Authentic Rituals</div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="slide">
+      <video class="bg-video" autoplay muted loop playsinline>
+        <source src="WhatsApp Video 2025-11-26 at 17.09.21_291b20c9.mp4" type="video/mp4">
+      </video>
+
+      <div class="content glass-box">
+        <span class="tag glass-pill">✨ Divine Services</span>
+
+        <h1>Your Spiritual <span>Companion</span></h1>
+        <h3 class="subline">Perform Every Ritual With Ease</h3>
+
+        <p class="desc">
+          Connect with certified pandits and perform pujas with complete rituals & proper guidance.
+        </p>
+
+        <div class="btn-group">
+          <a href="booknowlogin.html" class="btn primary">📅 Book Puja Now</a>
+          <a href="index.html" class="btn outline">🔔 Explore Services</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide active">
+
+      <video class="bg-video" autoplay muted loop playsinline>
+        <source src="WhatsApp Video 2025-11-26 at 17.08.54_d6d9bfab.mp4" type="video/mp4">
+      </video>
+
+
+      <div class="left-visual">
+        <img src="https://bookmyyagna.com/assets/om-123-BsF4TNG7.png" alt="Om Symbol">
+      </div>
+
+
+      <div class="content glass-box right-content">
+
+        <span class="tag glass-pill">⭐ Festival Celebrations</span>
+
+        <h1>Embrace <span>Festivals</span> with Sacred Rituals</h1>
+
+        <p class="desc">
+          At Book My Yagna, Yagna and Puja are divine experiences, not just traditions…
+        </p>
+
+        <div class="btn-group">
+          <a href="booknowlogin.html" class="btn primary">📅 Book Puja Now</a>
+          <a href="index.html" class="btn outline">🔔 Explore Services</a>
+        </div>
+
+        <div class="features">
+          <div class="feature glass-small">🧘 Verified Pandits</div>
+          <div class="feature glass-small">🔥 Complete Samagri</div>
+          <div class="feature glass-small">🙏 Authentic Rituals</div>
+        </div>
+      </div>
+    </div>
+    <!-- Arrows -->
+    <div class="arrow prev">❮</div>
+    <div class="arrow next">❯</div>
+
+    <!-- Dots -->
+    <div class="dots"></div>
+  </div>
+
+ 
+
+  <!-- Popup Banner
+<div id="yagnaPopup" class="yagna-popup">
+    <div class="popup-content">
+        <span class="close-popup" onclick="closeYagnaPopup()">✖</span>
+
+        <h2>🔥 Ignite Your Spiritual Journey with Sacred Fire Rituals 🔥</h2>
+        <p>
+            The sacred fire of Yagna carries your prayers to the divine. 
+            Participate in these powerful Vedic ceremonies to manifest your desires 
+            and cleanse your karma.
+        </p>
+
+        <a href="#" class="popup-btn">Book Now</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="logo-section">
+        <img src="https://makemypuja.in/wp-content/uploads/2025/06/MakeMyPuja-Logo-1-e1748757062817-removebg-preview.png" alt="Puja Logo">
+        
+        <div class="title">
+            <span>Make</span>
+            <span>M</span>
+            <span>Y</span>
+            <span>Puja</span>
+        </div>
+    </div> -->
+
+  <!-- <a href="booknowlogin.html" class="btn">Book Now</a>
+
+</div> -->
+
+
+  <section class="panchang-section">
+    <div class="panchang-header">
+      <div class="om-symbol-small">ॐ</div>
+      <h1>Panchang: Your Daily Cosmic Guide 🌞🌙</h1>
+      <div class="underline-orange"></div>
+      <p class="section-description">Dive into the ancient wisdom of Vedic timekeeping. Panchang aligns your actions
+        with celestial rhythms for maximum positivity.</p>
+    </div>
+
+    <div class="panchang-cards">
+      <div class="card">
+        <div class="icon-circle"><i class="fas fa-calendar-alt"></i></div>
+        <h3>Tithi <span>(तिथि)</span></h3>
+        <p class="description-small">The lunar date that signifies spiritual and ritual timing. Tithi influences
+          emotions, energies, and auspiciousness.</p>
+      </div>
+      <div class="card">
+        <div class="icon-circle"><i class="fas fa-star"></i></div>
+        <h3>Nakshatra <span>(नक्षत्र)</span></h3>
+        <p class="description-small">The star constellation the Moon resides in today. It shapes the day's mood and
+          rituals, guiding favorable actions.</p>
+      </div>
+      <div class="card">
+        <div class="icon-circle"><i class="fas fa-leaf"></i></div>
+        <h3>Yoga <span>(योग)</span></h3>
+        <p class="description-small">A combination of the Sun and Moon's positions, determining auspicious timings for
+          spiritual endeavors.</p>
+      </div>
+      <div class="card">
+        <div class="icon-circle om-karana"><i class="fas fa-globe-asia"></i></div>
+        <h3>Karana <span>(करण)</span></h3>
+        <p class="description-small">Half of a Tithi that sets the ground for daily karma. Important for choosing right
+          Muhurat (auspicious moment).</p>
+      </div>
+      <div class="card">
+        <div class="icon-circle om-vaar">ॐ</div>
+        <h3>Vaar <span>(वार)</span></h3>
+        <p class="description-small">The weekday, ruled by a planet. Every Vaar carries its own spiritual and
+          astrological essence.</p>
+      </div>
+      <div class="card">
+        <div class="icon-circle om-sun"><i class="fas fa-sun"></i></div>
+        <h3>Sunrise & Sunset</h3>
+        <p class="description-small">Timings of sunrise and sunset mark transitions of the day and are critical for
+          Sandhya Vandana and Pujas.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="significance-section">
+    <div class="om-block">
+      <div class="om-symbol-blue">ॐ</div>
+    </div>
+    <h2>Why <strong>Yagna & Puja Ceremonies</strong> Matter</h2>
+    <div class="underline-orange-small"></div>
+    <p class="section-description-small">Every thought, action, and moment generates energy. Aligning with this
+      universal energy through Puja and Yagna ceremonies brings peace, positivity, and spiritual harmony into our lives.
+    </p>
+  </section>
+
+  <section class="yagna-choice-section">
+    <div class="side-border"></div>
+    <div class="content-box">
+      <h3>Why Choose a Yagna or Puja Ceremony with Book My Yagna ?</h3>
+
+      <div class="bullet-point">
+        <p class="title">⚫ For Celebrations:</p>
+        <p class="detail">From <span class="highlight">weddings, birthdays, housewarmings</span>, to new ventures—every
+          special occasion calls for divine blessings. <span class="highlight-bmy">Book My Yagna</span> offers <a
+            href="#" class="online-puja-link">online puja booking</a> with trusted pandits and sacred rituals like Hawan
+          and puja, available at your comfort.</p>
+      </div>
+
+      <div class="bullet-point">
+        <p class="title">⚫ For Healing:</p>
+        <p class="detail">Difficult times like <span class="highlight">loss, stress, or emotional imbalance</span> can
+          leave us feeling disconnected. A well-performed <span class="highlight">Yagna or Puja</span> helps restore
+          inner peace, removes negative energy, and recharges your spiritual strength. With <span
+            class="highlight-bmy">Book My Yagna</span>, reconnect with divine energy and invite healing into your life.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <section class="gallery-section">
+    <div class="gallery-header">
+      <div class="om-symbol-small-gallery">ॐ</div>
+      <h2>Sacred Moments <span class="highlight-gallery">Gallery</span></h2>
+      <div class="underline-orange"></div>
+      <p>Explore our collection of divine moments captured during various pujas and ceremonies</p>
+    </div>
+
+    <div class="gallery-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="pujas">Pujas</button>
+      <button class="filter-btn" data-filter="ceremonies">Ceremonies</button>
+      <button class="filter-btn" data-filter="festivals">Festivals</button>
+      <button class="filter-btn" data-filter="decorations">Decorations</button>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item" data-category="pujas ceremonies">
+        <img src="Traditional-Hindu-Wedding-BlYwHkYy (1).webp" alt="Sacred Hands Ceremony">
+      </div>
+
+      <div class="gallery-item" data-category="ceremonies">
+        <img src="Ganesh-Chaturthi-Celebration-CDeFSRhK.webp" alt="Pandit Performing Hawan">
+      </div>
+
+      <div class="gallery-item" data-category="festivals decorations">
+        <img src="Sacred-Wedding-Rituals-D55lOavF.webp" alt="Diya Lighting Setup">
+      </div>
+
+      <div class="gallery-item" data-category="pujas decorations">
+        <img src="Diwali- Lamp-Ceremony-C7nP-_wY.webp" alt="Prasad and Offerings">
+      </div>
+
+      <div class="gallery-item" data-category="ceremonies">
+        <img src="Morning-Prayer-Ritual-D3Zk3xrR.webp" alt="Wedding Ritual">
+      </div>
+
+      <div class="gallery-item" data-category="pujas festivals">
+        <img src="Divine-Aarti-Ceremony-C0k6M0Lv.webp" alt="Lord Ganesha Idol">
+      </div>
+
+      <div class="gallery-item" data-category="pujas festivals">
+        <img src="gallery-puja-BvKfHNgT.webp" alt="Lord Ganesha Idol">
+      </div>
+    </div>
+    <div id="imageModal" class="modal">
+      <span class="close-btn">&times;</span>
+      <img class="modal-content" id="modalImage">
+      <div id="caption"></div>
+    </div>
+    <BR>
+    <section class="wave-section">
+
+      <div class="om-icon">ॐ</div>
+
+      <h2 class="section-title">Why Choose Our Divine Services?</h2>
+
+      <div class="underline"></div>
+
+      <p class="paragraph">
+        Experience authentic Vedic traditions with our dedicated team of accomplished pandits.
+        At <b>Book My Yagna</b>, we are committed to delivering spiritual ceremonies with precision,
+        authenticity, and devotion. Here’s why thousands of families trust us with their sacred rituals:
+      </p>
+
+    </section>
+
+    <div class="row g-4">
+
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon"><img src="download (2)-Photoroom.png"></div>
+          <h4 class="feature-title">Experienced Pandits</h4>
+          <p>Our Vedic pujas are led by highly experienced and certified pandits with years of expertise in Hindu
+            rituals.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon"><img src="https://img.icons8.com/color/80/book.png"></div>
+          <h4 class="feature-title">Authentic Scriptures</h4>
+          <p>All rituals follow traditional Vedic scriptures and mantras for maximum spiritual benefit.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon"><img src="https://img.icons8.com/color/80/calendar.png"></div>
+          <h4 class="feature-title">Adaptive Scheduling</h4>
+          <p>Flexible puja slots to fit your family’s preferred timing and comfort.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon"><img src="https://img.icons8.com/color/80/temple.png"></div>
+          <h4 class="feature-title">Complete Ceremonies</h4>
+          <p>We bring all samagri and handle each ritual step for a seamless spiritual experience.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon"><img src="https://img.icons8.com/color/80/helping-hand.png"></div>
+          <h4 class="feature-title">Personal Guidance</h4>
+          <p>Pandits explain every step, making the puja meaningful and engaging for all family members.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon"><img src="https://img.icons8.com/color/80/diamond.png"></div>
+          <h4 class="feature-title">Quality Assurance</h4>
+          <p>Pure Vedic-certified items ensure powerful spiritual outcomes.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Testimonial Box -->
+    <div class="testimonial-box">
+      <p>
+        “We booked a Griha Pravesh Puja through Book My Yagna, and the entire experience was divine.”
+      </p>
+      <strong>— Priya Mehta</strong><br>
+      <small>Bangalore, India</small>
+    </div>
+
+    </div>
+  </section>
+
+  <a href="contact.html" class="call-link" title="Contact Us">
+    <div class="call-button-container">
+      <div class="outer-ring-orange"></div>
+      <div class="middle-ring-green"></div>
+      <div class="call-button">
+        <i class="fas fa-phone-alt"></i>
+      </div>
+    </div>
+  </a>
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-container">
+
+      <div class="stat-item">
+        <div class="stat-icon">🌼</div>
+        <h2 class="counter has-plus" data-target="5000">0</h2>
+        <p class="stat-label">Happy Families</p>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-icon">🔥</div>
+        <h2 class="counter has-plus" data-target="10000">0</h2>
+        <p class="stat-label">Ceremonies Performed</p>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-icon">🙏</div>
+        <h2 class="counter" data-target="21">0</h2>
+        <p class="stat-label">Expert Pandits</p>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-icon">ॐ</div>
+        <h2 class="counter has-plus" data-target="15">0</h2>
+        <p class="stat-label">Years of Service</p>
+      </div>
+    </div>
+  </section>
+  </section>
+   <div class="hero">
+    <div class="hero-content">
+        <h1>Online Pooja Seva</h1>
+        <p>Ghar baithe Pooja karwaiye pandit ji ke saath.</p>
+        <a href="booknowlogin.html" class="hero-btn">Book Pooja</a>
+    </div>
+</div>
+  <section class="pandits-section">
+    <div class="pandits-header">
+      <div class="om-symbol-small-gallery">ॐ</div>
+      <h1>Our Experts</h1>
+      <div class="underline-orange"></div>
+      <h2>Experienced Pandits</h2>
+      <div class="underline-orange-small"></div>
+      <p>Meet our knowledgeable and experienced priests who perform rituals with devotion and precision</p>
+    </div>
+
+    <div class="pandits-grid">
+      <div class="pandit-card">
+        <img src="https://res.cloudinary.com/dnvtb0kal/image/upload/v1760674228/bookMyYagna/nbxvzvcck8vdcsgbgdwv.webp"
+          alt="Pandit Atul Gautam">
+        <div class="pandit-info">
+          <h3>Pandit Atul gautam</h3>
+          <p class="specialization">Griha Pravesh, Satyanarayan Puja...</p>
+          <div class="rating">
+            <span class="stars">★★★★★</span>
+            <span>4.3 Stars</span>
+          </div>
+          <div class="details">
+            <div class="detail-item"><i class="fas fa-certificate"></i> Exp: 14+ years</div>
+            <div class="detail-item"><i class="fas fa-language"></i> Speaks: Sanskrit, Hindi...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pandit-card">
+        <img src="https://res.cloudinary.com/dnvtb0kal/image/upload/v1760673760/bookMyYagna/hioa6rfbwg06lz3j8mv8.webp"
+          alt="Pandit Sarvesh Sharma">
+        <div class="pandit-info">
+          <h3>Pandit Sarvesh sharma</h3>
+          <p class="specialization">Griha Pravesh, Satyanarayan Puja...</p>
+          <div class="rating">
+            <span class="stars">★★★★★</span>
+            <span>4.3 Stars</span>
+          </div>
+          <div class="details">
+            <div class="detail-item"><i class="fas fa-certificate"></i> Exp: 13+ years</div>
+            <div class="detail-item"><i class="fas fa-language"></i> Speaks: Sanskrit, Hindi...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pandit-card">
+        <img src="https://res.cloudinary.com/dnvtb0kal/image/upload/v1760673521/bookMyYagna/kfwd8brekdz2zpwt1cbc.webp"
+          alt="Pandit Mayank Sharma">
+        <div class="pandit-info">
+          <h3>Pandit Mayank sharma</h3>
+          <p class="specialization">Griha Pravesh, Satyanarayan Puja...</p>
+          <div class="rating">
+            <span class="stars">★★★★★</span>
+            <span>4.6 Stars</span>
+          </div>
+          <div class="details">
+            <div class="detail-item"><i class="fas fa-certificate"></i> Exp: 20+ years</div>
+            <div class="detail-item"><i class="fas fa-language"></i> Speaks: Sanskrit, Hindi...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pandit-card">
+        <img src="https://res.cloudinary.com/dnvtb0kal/image/upload/v1760672861/bookMyYagna/osevfmuvp3gx7bchkcmu.webp"
+          alt="Pandit Madhav Sharma">
+        <div class="pandit-info">
+          <h3>Pandit Madhav Sharma</h3>
+          <p class="specialization">Griha Pravesh, Satyanarayan Puja...</p>
+          <div class="rating">
+            <span class="stars">★★★★★</span>
+            <span>4 Stars</span>
+          </div>
+          <div class="details">
+            <div class="detail-item"><i class="fas fa-certificate"></i> Exp: 5+ years</div>
+            <div class="detail-item"><i class="fas fa-language"></i> Speaks: Sanskrit, Hindi...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="imageModal" class="modal">
+      <span class="close-btn">&times;</span>
+      <img class="modal-content" id="modalImage">
+      <div id="caption"></div>
+    </div>
+    <a href="allpandit.html" class="btn-view-all">View All Pandits <i class="fas fa-chevron-right"></i></a>
+  </section>
+
+
+  <!-- <div class="container">
+    <div class="header">
+        <span class="om-symbol">ॐ</span>
+        <h1>Your Questions, Answered with <span class="devotion-text">Devotion</span></h1>
+        <div class="line-separator"></div>
+        <p class="sub-text">We understand that booking spiritual rituals online may bring up a few questions. We're here to guide you through every step of the process. Find quick answers below, or reach out to us for a personal response.</p>
+    </div>
+
+    <ul class="faq-list">
+        <li class="faq-item active">
+            <div class="faq-question" onclick="toggleAnswer(this)">
+                <div style="display: flex; align-items: center;">
+                    <span class="faq-icon">?</span>
+                    <span>Can I book multiple pujas together for different occasions?</span>
+                </div>
+                <span class="faq-arrow">^</span>
+            </div>
+            <div class="faq-answer">
+                <p>Yes, you can easily book multiple pujas for different occasions such as Satyanarayan Puja, Griha Pravesh, or Rudrabhishek. Our system allows back-to-back scheduling or custom bundles based on your family needs.</p>
+            </div>
+        </li>
+
+        <li class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">
+                <div style="display: flex; align-items: center;">
+                    <span class="faq-icon">?</span>
+                    <span>Are your pandits familiar with regional customs and languages?</span>
+                </div>
+                <span class="faq-arrow">^</span>
+            </div>
+            <div class="faq-answer">
+                <p>Yes, we have a diverse network of experienced pandits who are proficient in various regional customs, languages (like Hindi, Marathi, Telugu, Tamil, etc.), and distinct traditions to ensure an authentic experience for your family.</p>
+            </div>
+        </li>
+        
+        <li class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">
+                <div style="display: flex; align-items: center;">
+                    <span class="faq-icon">?</span>
+                    <span>What if I need a puja urgently or within 24 hours?</span>
+                </div>
+                <span class="faq-arrow">^</span>
+            </div>
+            <div class="faq-answer">
+                <p>We offer a special 'Urgent Booking' option. While availability may depend on your location and the type of puja, we strive to accommodate urgent requests. Please contact our support team immediately after booking for the fastest assistance.</p>
+            </div>
+        </li>
+        
+        <li class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">
+                <div style="display: flex; align-items: center;">
+                    <span class="faq-icon">?</span>
+                    <span>Will I receive a list of samagri items in advance (if self-arranged)?</span>
+                </div>
+                <span class="faq-arrow">^</span>
+            </div>
+            <div class="faq-answer">
+                <p>Absolutely. If you opt for self-arrangement of the puja samagri (materials), a detailed and simple list will be provided to you via email or WhatsApp immediately upon confirmation of your booking.</p>
+            </div>
+        </li>
+
+        <li class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">
+                <div style="display: flex; align-items: center;">
+                    <span class="faq-icon">?</span>
+                    <span>Is there any consultation before the puja?</span>
+                </div>
+                <span class="faq-arrow">^</span>
+            </div>
+            <div class="faq-answer">
+                <p>Yes, a brief consultation with our team or the assigned pandit is standard for all bookings. This ensures all your specific needs, family traditions, and astrological details are considered before the ritual begins.</p>
+            </div>
+        </li>
+
+        <li class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">
+                <div style="display: flex; align-items: center;">
+                    <span class="faq-icon">?</span>
+                    <span>How do I ensure my puja is astrologically aligned (muhurat-based)?</span>
+                </div>
+                <span class="faq-arrow">^</span>
+            </div>
+            <div class="faq-answer">
+                <p>During the booking process, you can provide your birth details (date, time, place). Our team will consult an experienced astrologer to suggest the most auspicious and correct *muhurat* (timing) for your specific puja.</p>
+            </div>
+        </li>
+    </ul>
+    <ul class="faq-list">
+        <li class="faq-item active">
+            <div class="faq-question" onclick="toggleAnswer(this)">
+                <div style="display: flex; align-items: center;">
+                    <span class="faq-icon">?</span>
+                    <span>Can I book multiple pujas together for different occasions?</span>
+                </div>
+                <span class="faq-arrow">^</span>
+            </div>
+            <div class="faq-answer">
+                <p>Yes, you can easily book multiple pujas for different occasions such as Satyanarayan Puja, Griha Pravesh, or Rudrabhishek. Our system allows back-to-back scheduling or custom bundles based on your family needs.</p>
+            </div>
+        </li>
+        <li class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">
+                <div style="display: flex; align-items: center;">
+                    <span class="faq-icon">?</span>
+                    <span>Are your pandits familiar with regional customs and languages?</span>
+                </div>
+                <span class="faq-arrow">^</span>
+            </div>
+            <div class="faq-answer">
+                <p>Yes, we have a diverse network of experienced pandits who are proficient in various regional customs, languages (like Hindi, Marathi, Telugu, Tamil, etc.), and distinct traditions to ensure an authentic experience for your family.</p>
+            </div>
+        </li>
+        <li class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">
+                <div style="display: flex; align-items: center;">
+                    <span class="faq-icon">?</span>
+                    <span>What if I need a puja urgently or within 24 hours?</span>
+                </div>
+                <span class="faq-arrow">^</span>
+            </div>
+            <div class="faq-answer">
+                <p>We offer a special 'Urgent Booking' option. While availability may depend on your location and the type of puja, we strive to accommodate urgent requests. Please contact our support team immediately after booking for the fastest assistance.</p>
+            </div>
+        </li>
+        <li class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">
+                <div style="display: flex; align-items: center;">
+                    <span class="faq-icon">?</span>
+                    <span>Will I receive a list of samagri items in advance (if self-arranged)?</span>
+                </div>
+                <span class="faq-arrow">^</span>
+            </div>
+            <div class="faq-answer">
+                <p>Absolutely. If you opt for self-arrangement of the puja samagri (materials), a detailed and simple list will be provided to you via email or WhatsApp immediately upon confirmation of your booking.</p>
+            </div>
+        </li>
+    </ul>
+</section> -->
+
+  <hr>
+
+  <div id="chatIcon" class="chat-icon" onclick="openChat()">
+    💬
+  </div>
+
+
+  <div id="chatWindow" class="chat-window">
+    <div class="chat-header">
+      <span>Chat with us</span>
+      <span class="close-btn" onclick="closeChat()">✖</span>
+    </div>
+
+    <div class="chat-body" id="chatBody">
+      <div class="msg bot">Namaste 🙏<br>How can I help you today?</div>
+    </div>
+
+    <div class="chat-footer">
+      <input type="text" id="chatInput" placeholder="Type a message..." onkeydown="sendOnEnter(event)">
+      <button onclick="sendMsg()">Send</button>
+    </div>
+  </div>
+
+
+  <section class="background-pattern">
+    <div class="section-container">
+     <div class="section-header">
+    <h1 class="om-symbol">ॐ</h1>
+    <h2>What Devotees Say About Book My Yagna</h2>
+    <div class="line-separator"></div>
+    <p>Hear from our community of devotees about their experiences with our puja services</p>
+</div>
+
+      <div class="testimonials-grid">
+
+        <div class="testimonial-card">
+          <p class="testimonial-quote">"We booked a Navgraha Shanti Yagna through Book My Yagna and were amazed by the
+            attention to detail. The online consultation with their Vedic astrologer helped us choose the right date.
+            Their service was not only spiritual but also smooth and timely."</p>
+          <div>
+            <div class="star-rating">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="puja-name">Navgraha Shanti Yagna</p>
+            <p class="devotee-name">Isha Sharma</p>
+            <p class="devotee-location">Noida</p>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="testimonial-quote">"From arranging the Satyanarayan Katha to delivering prasad and samagri on time,
+            Book My Yagna handled everything beautifully. The pandit ji explained every step and made the experience
+            peaceful and fulfilling. Great platform for home havan services."</p>
+          <div>
+            <div class="star-rating">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="puja-name">Satyanarayan Katha</p>
+            <p class="devotee-name">Nikhil Jain</p>
+            <p class="devotee-location">Hyderabad</p>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="testimonial-quote">"Being abroad, I was unsure how to do a Kundli Dosha Nivaran Puja. Book My Yagna
+            arranged a live-streamed puja with all rituals done in a temple on our behalf. The process was seamless, and
+            we even received the digital prasad. Truly divine!"</p>
+          <div>
+            <div class="star-rating">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="puja-name">Kundli Dosha Nivaran Puja</p>
+            <p class="devotee-name">Shruti Desai</p>
+            <p class="devotee-location">Goa</p>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="testimonial-quote">"We were looking for a trusted Vastu Puja service for our new office. Book My
+            Yagna not only provided an experienced pandit but also shared a custom puja guide with step-by-step
+            significance. Their team is professional and spiritually grounded."</p>
+          <div>
+            <div class="star-rating">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="puja-name">Vastu Puja</p>
+            <p class="devotee-name">Raghav Bansal</p>
+            <p class="devotee-location">Mumbai</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+<BR>
+  <section class="section-container">
+    <div class="cta-box">
+      <h2>Experience Divine Rituals Yourself</h2>
+      <p>Book a puja today and connect with your spiritual roots through authentic Vedic ceremonies</p>
+      <a href="booking-page.html" class="cta-button">Book Your Puja Now</a>
+    </div>
+  </section>
+  <br>
+  <div class="container">
+    <div class="header">
+      <span class="om-symbol">ॐ</span>
+      <h1>Your Questions, Answered with <span class="devotion-text">Devotion</span></h1>
+      <div class="line-separator"></div>
+      <p class="sub-text">We understand that booking spiritual rituals online may bring up a few questions. We're here
+        to guide you through every step of the process. Find quick answers below, or reach out to us for a personal
+        response.</p>
+    </div>
+
+    <ul class="faq-list">
+      <li class="faq-item active">
+        <div class="faq-question" onclick="toggleAnswer(this)">
+          <div style="display: flex; align-items: center;">
+            <span class="faq-icon">?</span>
+            <span>Can I book multiple pujas together for different occasions?</span>
+          </div>
+          <span class="faq-arrow">^</span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes, you can easily book multiple pujas for different occasions such as Satyanarayan Puja, Griha Pravesh,
+            or Rudrabhishek. Our system allows back-to-back scheduling or custom bundles based on your family needs.</p>
+        </div>
+      </li>
+
+      <li class="faq-item">
+        <div class="faq-question" onclick="toggleAnswer(this)">
+          <div style="display: flex; align-items: center;">
+            <span class="faq-icon">?</span>
+            <span>Are your pandits familiar with regional customs and languages?</span>
+          </div>
+          <span class="faq-arrow">^</span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes, we have a diverse network of experienced pandits who are proficient in various regional customs,
+            languages (like Hindi, Marathi, Telugu, Tamil, etc.), and distinct traditions to ensure an authentic
+            experience for your family.</p>
+        </div>
+      </li>
+
+      <li class="faq-item">
+        <div class="faq-question" onclick="toggleAnswer(this)">
+          <div style="display: flex; align-items: center;">
+            <span class="faq-icon">?</span>
+            <span>What if I need a puja urgently or within 24 hours?</span>
+          </div>
+          <span class="faq-arrow">^</span>
+        </div>
+        <div class="faq-answer">
+          <p>We offer a special 'Urgent Booking' option. While availability may depend on your location and the type of
+            puja, we strive to accommodate urgent requests. Please contact our support team immediately after booking
+            for the fastest assistance.</p>
+        </div>
+      </li>
+
+      <li class="faq-item">
+        <div class="faq-question" onclick="toggleAnswer(this)">
+          <div style="display: flex; align-items: center;">
+            <span class="faq-icon">?</span>
+            <span>Will I receive a list of samagri items in advance (if self-arranged)?</span>
+          </div>
+          <span class="faq-arrow">^</span>
+        </div>
+        <div class="faq-answer">
+          <p>Absolutely. If you opt for self-arrangement of the puja samagri (materials), a detailed and simple list
+            will be provided to you via email or WhatsApp immediately upon confirmation of your booking.</p>
+        </div>
+      </li>
+
+      <li class="faq-item">
+        <div class="faq-question" onclick="toggleAnswer(this)">
+          <div style="display: flex; align-items: center;">
+            <span class="faq-icon">?</span>
+            <span>Is there any consultation before the puja?</span>
+          </div>
+          <span class="faq-arrow">^</span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes, a brief consultation with our team or the assigned pandit is standard for all bookings. This ensures
+            all your specific needs, family traditions, and astrological details are considered before the ritual
+            begins.</p>
+        </div>
+      </li>
+
+      <li class="faq-item">
+        <div class="faq-question" onclick="toggleAnswer(this)">
+          <div style="display: flex; align-items: center;">
+            <span class="faq-icon">?</span>
+            <span>How do I ensure my puja is astrologically aligned (muhurat-based)?</span>
+          </div>
+          <span class="faq-arrow">^</span>
+        </div>
+        <div class="faq-answer">
+          <p>During the booking process, you can provide your birth details (date, time, place). Our team will consult
+            an experienced astrologer to suggest the most auspicious and correct *muhurat* (timing) for your specific
+            puja.</p>
+        </div>
+      </li>
+    </ul>
+    <ul class="faq-list">
+      <li class="faq-item active">
+        <div class="faq-question" onclick="toggleAnswer(this)">
+          <div style="display: flex; align-items: center;">
+            <span class="faq-icon">?</span>
+            <span>Can I book multiple pujas together for different occasions?</span>
+          </div>
+          <span class="faq-arrow">^</span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes, you can easily book multiple pujas for different occasions such as Satyanarayan Puja, Griha Pravesh,
+            or Rudrabhishek. Our system allows back-to-back scheduling or custom bundles based on your family needs.</p>
+        </div>
+      </li>
+      <li class="faq-item">
+        <div class="faq-question" onclick="toggleAnswer(this)">
+          <div style="display: flex; align-items: center;">
+            <span class="faq-icon">?</span>
+            <span>Are your pandits familiar with regional customs and languages?</span>
+          </div>
+          <span class="faq-arrow">^</span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes, we have a diverse network of experienced pandits who are proficient in various regional customs,
+            languages (like Hindi, Marathi, Telugu, Tamil, etc.), and distinct traditions to ensure an authentic
+            experience for your family.</p>
+        </div>
+      </li>
+      <li class="faq-item">
+        <div class="faq-question" onclick="toggleAnswer(this)">
+          <div style="display: flex; align-items: center;">
+            <span class="faq-icon">?</span>
+            <span>What if I need a puja urgently or within 24 hours?</span>
+          </div>
+          <span class="faq-arrow">^</span>
+        </div>
+        <div class="faq-answer">
+          <p>We offer a special 'Urgent Booking' option. While availability may depend on your location and the type of
+            puja, we strive to accommodate urgent requests. Please contact our support team immediately after booking
+            for the fastest assistance.</p>
+        </div>
+      </li>
+      <li class="faq-item">
+        <div class="faq-question" onclick="toggleAnswer(this)">
+          <div style="display: flex; align-items: center;">
+            <span class="faq-icon">?</span>
+            <span>Will I receive a list of samagri items in advance (if self-arranged)?</span>
+          </div>
+          <span class="faq-arrow">^</span>
+        </div>
+        <div class="faq-answer">
+          <p>Absolutely. If you opt for self-arrangement of the puja samagri (materials), a detailed and simple list
+            will be provided to you via email or WhatsApp immediately upon confirmation of your booking.</p>
+        </div>
+      </li>
+    </ul>
+    </section>
+
+    <!-- <div class="content-placeholder">
+    <h1>Page Content</h1>
+    <p>Scroll down to view the responsive footer.</p>
+</div> -->
+
+    <footer class="footer">
+      <div class="footer-container">
+
+        <div class="footer-column footer-col-1">
+          <div class="logo-section">
+            <i class="fas fa-om"></i>
+            <span>Book my Yagna</span>
+          </div>
+          <p class="intro-text">
+            <span class="highlight">Book My Yagna</span> connects devotees with verified
+            Vedic pandits for authentic Hindu rituals, pujas,
+            and spiritual ceremonies. Book online and
+            experience peace, prosperity, and divine blessings
+            at your doorstep.
+          </p>
+          <div class="social-links">
+            <a href="" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul class="footer-link-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="index.html">Services</a></li>
+            <li><a href="booknowlogin.html">Pandit Registration</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="index.html">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Our Services</h3>
+          <ul class="footer-link-list">
+            <li>
+              <div class="service-item"><i class="fas fa-hand-holding-heart"></i><a href="booknowlogin.html">Ganesh Puja</a></div>
+            </li>
+            <li>
+              <div class="service-item"><i class="fas fa-hand-holding-heart"></i><a href="booknowlogin.html">Navagraha Pooja</a></div>
+            </li>
+            <li>
+              <div class="service-item"><i class="fas fa-hand-holding-heart"></i><a href="booknowlogin.html">Lakshmi Pooja</a></div>
+            </li>
+            <li>
+              <div class="service-item"><i class="fas fa-hand-holding-heart"></i><a href="booknowlogin.html">RudraAbhishek Pooja</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Contact Us</h3>
+          <div class="contact-item">
+            <i class="fas fa-phone-alt"></i>
+            <a href="tel:+918569977705">+91 8569977705</a>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:bookmyyagna@gmail.com">bookmyyagna@gmail.com</a>
+          </div>
+
+          <div class="newsletter">
+            <h4 style="color: #333; font-weight: 600; margin-top: 20px;">Subscribe to our Newsletter</h4>
+            <p>Stay updated on auspicious muhurats, Vedic tips & festival discounts.</p>
+            <div class="input-group">
+              <input type="email" placeholder="Enter your email" aria-label="Email for Newsletter">
+              <button type="submit">Subscribe</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2025 Book My Yagna– A Product of Innovize Tech Solutions Pvt. Ltd.</p>
+        <div class="bottom-links">
+          <a href="PrivacyPolicy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+          <a href="shipping.html">Shipping and delivery</a>
+          <a href="refund.html">Cancellation and refund</a>
+        </div>
+      </div>
+    </footer>
+    <script>
+
+
+      const slides = document.querySelectorAll(".slide");
+      const prev = document.querySelector(".prev");
+      const next = document.querySelector(".next");
+      const dotsContainer = document.querySelector(".dots");
+
+      let index = 0;
+
+
+      slides.forEach((_, i) => {
+        const dot = document.createElement("div");
+        dot.className = "dot" + (i === 0 ? " active" : "");
+        dot.dataset.id = i;
+        dotsContainer.appendChild(dot);
+      });
+
+      const dots = document.querySelectorAll(".dot");
+
+
+      function showSlide(i) {
+        slides.forEach(s => s.classList.remove("active"));
+        dots.forEach(d => d.classList.remove("active"));
+
+        slides[i].classList.add("active");
+        dots[i].classList.add("active");
+      }
+
+
+      function nextSlide() {
+        index = (index + 1) % slides.length;
+        showSlide(index);
+      }
+
+      function prevSlide() {
+        index = (index - 1 + slides.length) % slides.length;
+        showSlide(index);
+      }
+
+      next.onclick = () => nextSlide();
+      prev.onclick = () => prevSlide();
+
+      dots.forEach(dot => {
+        dot.onclick = () => {
+          index = Number(dot.dataset.id);
+          showSlide(index);
+        };
+      });
+
+
+      setInterval(nextSlide, 10000);
+
+      //  let currentSlideIndex = 0;
+      //       const slides = document.querySelectorAll('.slide');
+      //       const dots = document.querySelectorAll('.dot');
+
+      //       function showSlide(n) {
+      //           slides.forEach(s => s.classList.remove('active'));
+      //           dots.forEach(d => d.classList.remove('active'));
+
+      //           currentSlideIndex = (n + slides.length) % slides.length;
+      //           slides[currentSlideIndex].classList.add('active');
+      //           dots[currentSlideIndex].classList.add('active');
+      //       }
+
+      //       function nextSlide() { showSlide(currentSlideIndex + 1); }
+      //       function prevSlide() { showSlide(currentSlideIndex - 1); }
+      //       function currentSlide(n) { showSlide(n); }
+
+      //       // Auto Slide (optional)
+      //       setInterval(nextSlide, 6000);
+
+      //       // Keyboard support
+      //       document.addEventListener('keydown', e => {
+      //           if (e.key === 'ArrowLeft') prevSlide();
+      //           if (e.key === 'ArrowRight') nextSlide();
+      //       });
+
+      // (वैकल्पिक) ऑटो-स्लाइडिंग
+      // setInterval(() => {
+      //     updateSlider(currentSlide + 1);
+      // }, 5000); // हर 5 सेकंड में स्लाइड बदलें
+
+
+      const dropdowns = document.querySelectorAll('.dropdown > a');
+
+      dropdowns.forEach(link => {
+        link.addEventListener('click', function (e) {
+
+          if (window.innerWidth <= 768) {
+            e.preventDefault();
+
+            const menu = this.nextElementSibling;
+            if (menu && menu.classList.contains('dropdown-menu')) {
+              if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+              } else {
+
+                document.querySelectorAll('.dropdown-menu').forEach(m => {
+                  if (m !== menu) m.style.display = 'none';
+                });
+                menu.style.display = 'block';
+              }
+            }
+          }
+        });
+      });
+
+
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const galleryItems = document.querySelectorAll('.gallery-item');
+
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+
+          const filterValue = button.getAttribute('data-filter');
+
+          galleryItems.forEach(item => {
+            const categories = item.getAttribute('data-category').split(' ');
+
+
+            item.style.opacity = '0';
+            item.style.display = 'none';
+            item.style.transform = 'scale(0.9)';
+
+
+            setTimeout(() => {
+              if (filterValue === 'all' || categories.includes(filterValue)) {
+
+                item.style.display = 'block';
+                setTimeout(() => {
+                  item.style.opacity = '1';
+                  item.style.transform = 'scale(1)';
+                }, 50);
+              }
+            }, 300);
+          });
+        });
+      });
+
+      const modal = document.getElementById("imageModal");
+      const modalImg = document.getElementById("modalImage");
+      const captionText = document.getElementById("caption");
+      const closeBtn = document.getElementsByClassName("close-btn")[0];
+      const panditImages = document.querySelectorAll('.pandit-card img');
+
+      panditImages.forEach(img => {
+        img.addEventListener('click', function () {
+          modal.style.display = "block";
+          modalImg.src = this.src;
+
+          const panditName = this.parentNode.querySelector('h3').textContent;
+          captionText.innerHTML = panditName;
+        });
+      });
+
+      closeBtn.onclick = function () {
+        modal.style.display = "none";
+      }
+
+
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+
+      const counters = document.querySelectorAll('.counter');
+      const speed = 180;
+
+      const animateCounter = (entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const counter = entry.target;
+            const target = +counter.getAttribute('data-target');
+            let count = 0;
+            const increment = target / speed;
+
+            const update = () => {
+              if (count < target) {
+                count += increment;
+                counter.textContent = Math.ceil(count);
+                requestAnimationFrame(update);
+              } else {
+                counter.textContent = target + (counter.classList.contains('has-plus') ? '+' : '');
+              }
+            };
+            update();
+            observer.unobserve(counter);
+          }
+        });
+      };
+
+      const observer = new IntersectionObserver(animateCounter, { threshold: 0.5 });
+      counters.forEach(c => observer.observe(c));
+
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+      });
+
+
+      document.querySelectorAll('.dropdown > a').forEach(item => {
+        item.addEventListener('click', function (e) {
+          if (window.innerWidth <= 992) {
+            e.preventDefault();
+            this.parentElement.classList.toggle('active');
+          }
+        });
+      });
+
+
+      document.addEventListener('click', (e) => {
+        if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+          navLinks.classList.remove('active');
+          hamburger.classList.remove('active');
+        }
+      });
+
+
+      window.addEventListener('scroll', () => {
+        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+      });
+      function toggleAnswer(element) {
+        const item = element.closest('.faq-item');
+        const answer = item.querySelector('.faq-answer');
+
+
+        document.querySelectorAll('.faq-item.active').forEach(openItem => {
+          if (openItem !== item) {
+            openItem.classList.remove('active');
+            openItem.querySelector('.faq-answer').style.maxHeight = null;
+          }
+        });
+
+
+        if (item.classList.contains('active')) {
+
+          item.classList.remove('active');
+          answer.style.maxHeight = null;
+        } else {
+
+          item.classList.add('active');
+
+          answer.style.maxHeight = answer.scrollHeight + "px";
+        }
+      }
+
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const firstItem = document.querySelector('.faq-list li:first-child');
+        if (firstItem) {
+          firstItem.classList.add('active');
+          const answer = firstItem.querySelector('.faq-answer');
+          answer.style.maxHeight = answer.scrollHeight + "px";
+        }
+      });
+
+      const translations = {
+        en: {
+          title: "Welcome to Book My Yagna",
+          desc: "Book Yagna, Pooja and more with expert pandits.",
+          book: "Book Now"
+        },
+        hi: {
+          title: "बुक माय यज्ञ में आपका स्वागत है",
+          desc: "विशेषज्ञ पंडितों के साथ यज्ञ, पूजा और अधिक बुक करें।",
+          book: "अभी बुक करें"
+        },
+        mr: {
+          title: "बुक माय यज्ञ मध्ये आपले स्वागत आहे",
+          desc: "तज्ञ पुजाऱ्यांसोबत यज्ञ, पूजा आणि बरेच काही बुक करा.",
+          book: "बुक करा"
+        }
+      };
+
+      function changeLanguage(lang) {
+        localStorage.setItem("language", lang);
+        const items = document.querySelectorAll("[data-key]");
+        items.forEach(el => {
+          let key = el.getAttribute("data-key");
+          el.innerText = translations[lang][key];
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const lang = localStorage.getItem("language") || "en";
+        changeLanguage(lang);
+      });
+      function openChat() {
+        document.getElementById("chatWindow").style.display = "flex";
+        document.getElementById("chatIcon").style.display = "none";
+      }
+
+      function closeChat() {
+        document.getElementById("chatWindow").style.display = "none";
+        document.getElementById("chatIcon").style.display = "flex";
+      }
+
+      function sendMsg() {
+        let input = document.getElementById("chatInput");
+        let message = input.value.trim();
+
+        if (!message) return;
+
+        let chatBody = document.getElementById("chatBody");
+
+        // Show User Message
+        chatBody.innerHTML += `<div class="msg user">${message}</div>`;
+        chatBody.scrollTop = chatBody.scrollHeight;
+        input.value = "";
+
+        // BOT REPLY LOGIC
+        setTimeout(() => {
+          let reply = getBotReply(message.toLowerCase());
+          chatBody.innerHTML += `<div class="msg bot">${reply}</div>`;
+          chatBody.scrollTop = chatBody.scrollHeight;
+        }, 600);
+      }
+
+
+      // SMART REPLY FUNCTION
+      function getBotReply(msg) {
+
+        // ABOUT WEBSITE / SERVICES
+
+        if (msg.includes("website") || msg.includes("kya kaam karti") || msg.includes("about") || msg.includes("service") || msg.includes("services")) {
+          return `📌 <b>Book My Yagna</b> भारत का पहला trusted platform है जहाँ आप:
+        <br>✔ Online / Offline Puja Book कर सकते हैं  
+        <br>✔ Certified Pandits से Yagna करवाया जाता है  
+        <br>✔ Samagri & Puja Vidhi पूरी तरह से हमारी टीम manage करती है  
+        <br><br>🙏 हमारा उद्देश्य है <b>“हर घर में Shanti & Positivity लाना!”</b><br>क्या आप किसी खास puja की booking करना चाहेंगे?`;
+        }
+
+        // PUJA INFO
+        if (msg.includes("puja") || msg.includes("pooja")) {
+          return `🙏 हमारी सभी Pujas certified pandits द्वारा करवाई जाती हैं.<br>
+        ✔ Online & Offline Puja उपलब्ध है।<br>
+        ✔ कृपया बताएं कौनसी Puja booking करनी है?`;
+        }
+
+        // PRICE INFO
+        if (msg.includes("price") || msg.includes("fees") || msg.includes("cost")) {
+          return `💰 Puja charges ₹799 से शुरू होते हैं।<br>
+        ✔ Proper price list के लिए अपना नाम और शहर बताएं।`;
+        }
+
+        // BOOKING PROCESS
+        if (msg.includes("book") || msg.includes("yagna") || msg.includes("booking")) {
+          return `🧾 <b>Booking Process:</b><br>
+        1️⃣ अपना Name & City भेजें<br>
+        2️⃣ किस प्रकार की Puja चाहिए बताएं<br>
+        3️⃣ हमारी टीम आपसे contact करेगी`;
+        }
+
+        // CONTACT INFO
+        if (msg.includes("contact") || msg.includes("help") || msg.includes("support")) {
+          return `📞 Support Team जल्द ही आपसे contact करेगी.<br>
+        Direct email करें:<br>✉ <b>support@bookmyyagna.com</b>`;
+        }
+
+        // DEFAULT REPLY
+        return `🙏 धन्यवाद! आपकी जानकारी हमें मिल गई है।<br>
+    हमारी टीम जल्द ही आपसे संपर्क करेगी।`;
+      }
+
+
+      //       // Send on Enter Key
+      //       function sendOnEnter(event) {
+      //         if (event.key === "Enter") {
+      //           sendMsg();
+      //         }
+      //       }
+
+      //       // Auto show popup when website opens
+      // window.onload = function() {
+      //     document.getElementById("yagnaPopup").style.display = "block";
+      // };
+
+      // // Close popup
+      // function closeYagnaPopup() {
+      //     document.getElementById("yagnaPopup").style.display = "none";
+      // }
+
+      function closeCityPopup() {
+        document.getElementById("cityPopup").style.display = "none";
+      }
+
+      function selectCity(city) {
+        alert("City Selected: " + city);
+        closeCityPopup();
+      }
+
+      function filterCities() {
+        let input = document.getElementById("citySearch").value.toLowerCase();
+        let cities = document.querySelectorAll(".city-btn");
+
+        cities.forEach(btn => {
+          let text = btn.innerText.toLowerCase();
+          btn.style.display = text.includes(input) ? "block" : "none";
+        });
+      }
+
+
+function autoDetectCity() {
+    navigator.geolocation.getCurrentPosition(async (pos) => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+
+        const url = `http://localhost:3000/api/cities`;
+        const res = await fetch(url);
+        const data = await res.json();
+
+        const city = data.city || data.locality;
+
+        if (city) {
+            localStorage.setItem("selectedCity", city);
+            alert("Auto Detected City: " + city);
+            closeCityPopup();
+        }
+    });
+}
+
+async function loadCities() {
+    const res = await fetch("/api/cities");
+    const cities = await res.json();
+
+    let list = document.getElementById("cityList");
+    list.innerHTML = "";
+
+    cities.forEach(c => {
+        list.innerHTML += `
+            <button class="city-btn" onclick="selectCity('${c.name}')">${c.name}</button>
+        `;
+    });
+}
+
+
+    </script>
+
+</body>
+
+</html>

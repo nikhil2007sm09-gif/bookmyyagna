@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile - BookmyYagna</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #f5f0e6;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .profile-header img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        cursor: pointer;
+        border: 3px solid #ff6a00;
+    }
+
+    .profile-header h2 {
+        margin: 0;
+        font-size: 24px;
+    }
+
+    .role-badge {
+        background: #ff6a00;
+        color: white;
+        font-size: 12px;
+        padding: 4px 8px;
+        border-radius: 5px;
+        margin-left: 10px;
+    }
+
+    .profile-details {
+        margin-top: 30px;
+    }
+
+    .profile-details div {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        font-size: 16px;
+    }
+
+    .profile-details div span {
+        font-weight: 600;
+    }
+
+    .edit-btn {
+        padding: 10px 20px;
+        background: #ff6a00;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: 0.3s;
+    }
+
+    .edit-btn:hover {
+        background: #ff8c42;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="profile-header">
+        <img src="https://img.icons8.com/fluency/96/user-male-circle.png" id="profileAvatar" alt="Avatar">
+        <div>
+            <h2 id="profileName">User Name <span class="role-badge" id="userRole">Member</span></h2>
+            <p id="profileEmail">user@gmail.com</p>
+        </div>
+    </div>
+
+    <div class="profile-details">
+        <div><span>Username:</span> <span id="usernameDetail">User</span></div>
+        <div><span>Email:</span> <span id="emailDetail">user@gmail.com</span></div>
+        <div><span>Role:</span> <span id="roleDetail">Member</span></div>
+        <div><span>Member Since:</span> <span id="memberSince">2025-01-01</span></div>
+    </div>
+
+    <button class="edit-btn" onclick="editProfile()">✏️ Edit Profile</button>
+</div>
+
+<script>
+   
+    const profileName = localStorage.getItem("userName") || "User Name";
+    const profileEmail = localStorage.getItem("userEmail") || "user@gmail.com";
+    const userRole = localStorage.getItem("userRole") || "Member";
+    const avatar = localStorage.getItem("userAvatar") || "https://img.icons8.com/fluency/96/user-male-circle.png";
+    const memberSince = localStorage.getItem("memberSince") || "2025-01-01";
+
+    document.getElementById("profileName").childNodes[0].nodeValue = profileName + " ";
+    document.getElementById("profileEmail").innerText = profileEmail;
+    document.getElementById("userRole").innerText = userRole;
+    document.getElementById("profileAvatar").src = avatar;
+
+    document.getElementById("usernameDetail").innerText = profileName;
+    document.getElementById("emailDetail").innerText = profileEmail;
+    document.getElementById("roleDetail").innerText = userRole;
+    document.getElementById("memberSince").innerText = memberSince;
+
+    // Edit Profile Function
+    function editProfile() {
+        const newName = prompt("Enter your name:", profileName);
+        if(newName) {
+            localStorage.setItem("userName", newName);
+            document.getElementById("profileName").childNodes[0].nodeValue = newName + " ";
+            document.getElementById("usernameDetail").innerText = newName;
+        }
+
+        const newEmail = prompt("Enter your email:", profileEmail);
+        if(newEmail) {
+            localStorage.setItem("userEmail", newEmail);
+            document.getElementById("profileEmail").innerText = newEmail;
+            document.getElementById("emailDetail").innerText = newEmail;
+        }
+
+        const fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.accept = "image/*";
+        fileInput.onchange = () => {
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.onload = () => {
+                localStorage.setItem("userAvatar", reader.result);
+                document.getElementById("profileAvatar").src = reader.result;
+            }
+            reader.readAsDataURL(file);
+        }
+        fileInput.click();
+    }
+</script>
+
+</body>
+</html>
